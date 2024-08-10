@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.gerenciadorcontratos.AddNewFinanceScreenController">
+   <top>
+      <HBox alignment="CENTER_LEFT" maxHeight="60.0" minHeight="60.0" prefHeight="60.0" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets bottom="15.0" />
+         </padding>
+         <children>
+            <Button fx:id="btnBackAddNewFinanceWindow" maxHeight="28.0" maxWidth="28.0" minHeight="28.0" minWidth="28.0" mnemonicParsing="false" onAction="#goToBackFinanceScreen" prefHeight="28.0" prefWidth="28.0" styleClass="btn-grey" stylesheets="@style.css">
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@btn-back.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+            <HBox fx:id="hbPushMsgAddNewFinanceWindow" alignment="CENTER" maxHeight="45.0" maxWidth="400.0" minHeight="45.0" minWidth="400.0" prefHeight="45.0" prefWidth="400.0" stylesheets="@style.css">
+               <styleClass>
+                  <String fx:value="push-msg-error" />
+                  <String fx:value="shadow" />
+               </styleClass>
+               <padding>
+                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+               </padding>
+               <children>
+                  <Label fx:id="lbPushMsgAddNewFinanceWindow" prefHeight="18.0" prefWidth="546.0" text="Mensagem de erro ou sucesso..." textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Pane prefHeight="200.0" prefWidth="200.0" />
+                  <HBox fx:id="btnClosePushMsgAddNewFinanceWindow" alignment="CENTER" maxHeight="28.0" maxWidth="28.0" minHeight="28.0" minWidth="28.0" onMouseClicked="#closePushMsg" prefHeight="28.0" prefWidth="28.0" styleClass="btn-grey" stylesheets="@style.css">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <children>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@btn-close.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+   </top>
+   <padding>
+      <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+   </padding>
+   <bottom>
+      <HBox alignment="BOTTOM_RIGHT" maxHeight="32.0" minHeight="32.0" prefHeight="32.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="imgDataBaseConnectionWindow" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icon-database.png" />
+               </image>
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </ImageView>
+            <HBox fx:id="btnHelpAddNewFinanceWindow" alignment="BOTTOM_LEFT" maxHeight="18.0" maxWidth="52.0" minHeight="18.0" minWidth="52.0" prefHeight="18.0" prefWidth="52.0">
+               <children>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@btn-help.png" />
+                     </image>
+                  </ImageView>
+                  <Pane prefHeight="18.0" prefWidth="3.0" />
+                  <Label text="Ajuda">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </HBox>
+            <Label text="Powered by ">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+            </Label>
+            <Label text="demelobr" textFill="#008dd8">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+   </bottom>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_LEFT" maxHeight="32.0" minHeight="32.0" prefHeight="32.0">
+               <children>
+                  <Pane maxHeight="24.0" maxWidth="4.0" minHeight="24.0" minWidth="4.0" prefHeight="24.0" prefWidth="4.0" styleClass="selector-blue" stylesheets="@style.css">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <HBox.margin>
+                        <Insets right="4.0" />
+                     </HBox.margin>
+                  </Pane>
+                  <Label text="Cadastrar Finança">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="TOP_CENTER" maxHeight="316.0" minHeight="316.0" prefHeight="316.0">
+               <children>
+                  <VBox alignment="TOP_CENTER" maxHeight="285.0" maxWidth="532.0" minHeight="285.0" minWidth="532.0" prefHeight="285.0" prefWidth="532.0">
+                     <children>
+                        <VBox prefHeight="60.0" prefWidth="500.0">
+                           <children>
+                              <Label prefHeight="20.0" prefWidth="44.0" text="Título">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="3.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="tfTitileAddNewFinanceWindow" maxHeight="88.0" maxWidth="532.0" minHeight="40.0" minWidth="532.0" prefHeight="40.0" prefWidth="532.0" styleClass="input-box" stylesheets="@style.css" />
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" />
+                           </padding>
+                        </VBox>
+                        <HBox maxHeight="75.0" prefHeight="75.0" prefWidth="200.0">
+                           <children>
+                              <VBox maxHeight="60.0" maxWidth="250.0" prefHeight="60.0" prefWidth="250.0">
+                                 <children>
+                                    <Label prefHeight="20.0" prefWidth="151.0" text="Tipo">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets bottom="3.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <ChoiceBox fx:id="cbTypeAddNewFinanceWindow" maxHeight="40.0" maxWidth="250.0" minHeight="40.0" minWidth="250.0" prefHeight="40.0" prefWidth="250.0" styleClass="input-box" stylesheets="@style.css" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" />
+                                 </padding>
+                                 <HBox.margin>
+                                    <Insets right="32.0" />
+                                 </HBox.margin>
+                              </VBox>
+                              <VBox maxHeight="60.0" maxWidth="250.0" prefHeight="60.0" prefWidth="250.0">
+                                 <children>
+                                    <Label prefHeight="20.0" prefWidth="151.0" text="Contrato">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets bottom="3.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <ChoiceBox fx:id="cbContractAddNewFinanceWindow" maxHeight="40.0" maxWidth="250.0" minHeight="40.0" minWidth="250.0" prefHeight="40.0" prefWidth="250.0" styleClass="input-box" stylesheets="@style.css" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox maxHeight="75.0" prefHeight="75.0" prefWidth="200.0">
+                           <children>
+                              <VBox maxWidth="250.0" prefHeight="60.0" prefWidth="250.0">
+                                 <children>
+                                    <Label prefHeight="20.0" prefWidth="128.0" text="Data da Finança">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets bottom="3.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <DatePicker fx:id="dpFinanceDateAddNewFinanceWindow" maxHeight="40.0" maxWidth="250.0" minHeight="40.0" minWidth="250.0" prefHeight="40.0" prefWidth="250.0" styleClass="input-box" stylesheets="@style.css">
+                                       <effect>
+                                          <Glow />
+                                       </effect>
+                                    </DatePicker>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" />
+                                 </padding>
+                                 <HBox.margin>
+                                    <Insets right="32.0" />
+                                 </HBox.margin>
+                              </VBox>
+                              <VBox maxWidth="250.0" prefHeight="60.0" prefWidth="250.0">
+                                 <children>
+                                    <Label prefHeight="20.0" prefWidth="66.0" text="Valor(R$)">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets bottom="3.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <TextField fx:id="tfValueAddNewFinanceWindow" maxHeight="88.0" maxWidth="250.0" minHeight="40.0" minWidth="250.0" prefHeight="40.0" prefWidth="250.0" styleClass="input-box" stylesheets="@style.css" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox maxHeight="75.0" prefHeight="75.0" prefWidth="200.0">
+                           <children>
+                              <VBox maxWidth="250.0" prefHeight="60.0" prefWidth="250.0">
+                                 <children>
+                                    <Label maxWidth="250.0" prefHeight="20.0" prefWidth="250.0" text="Envolve um Colaborador?">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets bottom="3.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <HBox alignment="CENTER_LEFT" maxWidth="250.0" prefHeight="100.0" prefWidth="250.0">
+                                       <children>
+                                          <RadioButton fx:id="rbYesAddNewFinanceWindow" mnemonicParsing="false" onAction="#selectYesRb" text="Sim">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets right="32.0" />
+                                             </HBox.margin>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </RadioButton>
+                                          <RadioButton fx:id="rbNoAddNewFinanceWindow" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#selectNoRb" text="Não">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </RadioButton>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets right="32.0" />
+                                 </HBox.margin>
+                              </VBox>
+                              <VBox fx:id="vbCollaboratorAddNewFinanceWindow" maxWidth="250.0" prefHeight="60.0" prefWidth="250.0">
+                                 <children>
+                                    <Label prefHeight="20.0" prefWidth="151.0" text="Colaborador envolvido">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets bottom="3.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <ChoiceBox fx:id="cbCollaboratorAddNewFinanceWindow" maxHeight="40.0" maxWidth="250.0" minHeight="40.0" minWidth="250.0" prefHeight="40.0" prefWidth="250.0" styleClass="input-box" stylesheets="@style.css" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                     <HBox.margin>
+                        <Insets right="32.0" />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets top="32.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="btnRegisterAddNewFinanceWindow" maxHeight="35.0" maxWidth="100.0" minHeight="35.0" minWidth="100.0" mnemonicParsing="false" onAction="#createFinance" prefHeight="35.0" prefWidth="100.0" styleClass="btn-nav-bar" stylesheets="@style.css" text="Cadastrar" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="10.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets top="32.0" />
+               </padding>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="16.0" left="32.0" right="32.0" top="16.0" />
+         </padding>
+      </VBox>
+   </center>
+</BorderPane>

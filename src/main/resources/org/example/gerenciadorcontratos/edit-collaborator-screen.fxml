@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0" styleClass="background-white-secondary" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.gerenciadorcontratos.EditCollaboratorScreenController">
+   <padding>
+      <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+   </padding>
+   <top>
+      <HBox alignment="CENTER_LEFT" maxHeight="60.0" minHeight="60.0" prefHeight="60.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnBackEditCollaboratorWindow" maxHeight="28.0" maxWidth="28.0" minHeight="28.0" minWidth="28.0" mnemonicParsing="false" onAction="#goBackCollaboratorDetailsScreen" prefHeight="28.0" prefWidth="28.0" styleClass="btn-grey" stylesheets="@style.css">
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@btn-back.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+            <HBox fx:id="hbPushMsgEditCollaboratorWindow" alignment="CENTER" maxHeight="45.0" maxWidth="400.0" minHeight="45.0" minWidth="400.0" prefHeight="45.0" prefWidth="400.0" stylesheets="@style.css">
+               <styleClass>
+                  <String fx:value="push-msg-error" />
+                  <String fx:value="shadow" />
+               </styleClass>
+               <padding>
+                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+               </padding>
+               <children>
+                  <Label fx:id="lbPushMsgEditCollaboratorWindow" prefHeight="18.0" prefWidth="546.0" text="Mensagem de erro ou sucesso..." textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Pane prefHeight="200.0" prefWidth="200.0" />
+                  <HBox fx:id="btnClosePushMsgEditCollaboratorWindow" alignment="CENTER" maxHeight="28.0" maxWidth="28.0" minHeight="28.0" minWidth="28.0" onMouseClicked="#closePushMsg" prefHeight="28.0" prefWidth="28.0" styleClass="btn-grey" stylesheets="@style.css">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <children>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@btn-close.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="15.0" />
+         </padding>
+      </HBox>
+   </top>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets bottom="16.0" left="32.0" right="32.0" top="16.0" />
+         </padding>
+         <children>
+            <HBox alignment="CENTER_LEFT" maxHeight="32.0" minHeight="32.0" prefHeight="32.0">
+               <children>
+                  <Pane maxHeight="24.0" maxWidth="4.0" minHeight="24.0" minWidth="4.0" prefHeight="24.0" prefWidth="4.0" styleClass="selector-blue" stylesheets="@style.css">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <HBox.margin>
+                        <Insets right="4.0" />
+                     </HBox.margin>
+                  </Pane>
+                  <Label text="Editar Colaborador">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="TOP_CENTER" maxHeight="316.0" minHeight="316.0" prefHeight="316.0">
+               <children>
+                  <VBox maxHeight="285.0" maxWidth="250.0" minHeight="285.0" minWidth="250.0" prefHeight="285.0" prefWidth="250.0">
+                     <children>
+                        <VBox prefHeight="60.0" prefWidth="350.0">
+                           <children>
+                              <Label prefHeight="20.0" prefWidth="44.0" text="Nome">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="3.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="tfNameEditCollaboratorWindow" maxHeight="88.0" maxWidth="250.0" minHeight="40.0" minWidth="250.0" prefHeight="40.0" prefWidth="250.0" styleClass="input-box" stylesheets="@style.css" />
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox layoutX="10.0" layoutY="10.0" prefHeight="60.0" prefWidth="350.0">
+                           <children>
+                              <Label prefHeight="20.0" prefWidth="44.0" text="CPF">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="3.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="tfCpfEditCollaboratorWindow" maxHeight="88.0" maxWidth="250.0" minHeight="40.0" minWidth="250.0" prefHeight="40.0" prefWidth="250.0" styleClass="input-box" stylesheets="@style.css" />
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox layoutX="10.0" layoutY="87.0" prefHeight="60.0" prefWidth="350.0">
+                           <children>
+                              <Label prefHeight="20.0" prefWidth="44.0" text="RG">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="3.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="tfRgEditCollaboratorWindow" maxHeight="88.0" maxWidth="250.0" minHeight="40.0" minWidth="250.0" prefHeight="40.0" prefWidth="250.0" styleClass="input-box" stylesheets="@style.css" />
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox layoutX="10.0" layoutY="163.0" prefHeight="60.0" prefWidth="350.0">
+                           <children>
+                              <Label prefHeight="20.0" prefWidth="69.0" text="Endereço">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="3.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="tfAddressEditCollaboratorWindow" maxHeight="88.0" maxWidth="250.0" minHeight="40.0" minWidth="250.0" prefHeight="40.0" prefWidth="250.0" styleClass="input-box" stylesheets="@style.css" />
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                     <HBox.margin>
+                        <Insets right="32.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox layoutX="338.0" layoutY="26.0" maxHeight="285.0" maxWidth="250.0" minHeight="285.0" minWidth="250.0" prefHeight="285.0" prefWidth="250.0">
+                     <children>
+                        <VBox prefHeight="60.0" prefWidth="350.0">
+                           <children>
+                              <Label prefHeight="20.0" prefWidth="66.0" text="Telefone">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="3.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="tfTelephoneEditCollaboratorWindow" maxHeight="88.0" maxWidth="250.0" minHeight="40.0" minWidth="250.0" prefHeight="40.0" prefWidth="250.0" styleClass="input-box" stylesheets="@style.css" />
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox layoutX="10.0" layoutY="10.0" prefHeight="60.0" prefWidth="350.0">
+                           <children>
+                              <Label prefHeight="20.0" prefWidth="44.0" text="E-mail">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="3.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="tfEmailEditCollaboratorWindow" maxHeight="88.0" maxWidth="250.0" minHeight="40.0" minWidth="250.0" prefHeight="40.0" prefWidth="250.0" styleClass="input-box" stylesheets="@style.css" />
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox layoutX="10.0" layoutY="87.0" prefHeight="60.0" prefWidth="350.0">
+                           <children>
+                              <Label prefHeight="20.0" prefWidth="44.0" text="Cargo">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="3.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="tfOfficeEditCollaboratorWindow" maxHeight="88.0" maxWidth="250.0" minHeight="40.0" minWidth="250.0" prefHeight="40.0" prefWidth="250.0" styleClass="input-box" stylesheets="@style.css" />
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox layoutX="10.0" layoutY="157.0" prefHeight="60.0" prefWidth="350.0">
+                           <children>
+                              <Label prefHeight="20.0" prefWidth="63.0" text="Situação">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="3.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <RadioButton fx:id="rbActiveEditCollaboratorWindow" mnemonicParsing="false" onMouseClicked="#selectRbActive" text="Ativo">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets right="32.0" />
+                                       </HBox.margin>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </RadioButton>
+                                    <RadioButton fx:id="rbInativeEditCollaboratorWindow" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#selectRbInative" text="Inativo">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </RadioButton>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                     <HBox.margin>
+                        <Insets right="32.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox layoutX="463.0" layoutY="26.0" maxHeight="285.0" maxWidth="300.0" minHeight="285.0" minWidth="300.0" prefHeight="285.0" prefWidth="300.0">
+                     <children>
+                        <VBox prefHeight="60.0" prefWidth="350.0">
+                           <children>
+                              <Label prefHeight="20.0" prefWidth="128.0" text="Data de Admissão">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="3.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <DatePicker fx:id="dpAdmissionDateEditCollaboratorWindow" maxHeight="40.0" maxWidth="250.0" minHeight="40.0" minWidth="250.0" prefHeight="40.0" prefWidth="250.0" styleClass="input-box" stylesheets="@style.css">
+                                 <effect>
+                                    <Glow />
+                                 </effect>
+                              </DatePicker>
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox layoutX="10.0" layoutY="10.0" prefHeight="60.0" prefWidth="350.0">
+                           <children>
+                              <Label prefHeight="20.0" prefWidth="151.0" text="Data de Desligamento">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="3.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <DatePicker fx:id="dpTerminationDateEditCollaboratorWindow" maxHeight="40.0" maxWidth="250.0" minHeight="40.0" minWidth="250.0" prefHeight="40.0" prefWidth="250.0" styleClass="input-box" stylesheets="@style.css">
+                                 <effect>
+                                    <Glow />
+                                 </effect>
+                              </DatePicker>
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox prefHeight="60.0" prefWidth="350.0">
+                           <children>
+                              <Label prefHeight="20.0" prefWidth="95.0" text="Foto de Perfil">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="3.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <HBox alignment="CENTER_LEFT" maxHeight="64.0" minHeight="64.0" prefHeight="64.0" stylesheets="@style.css">
+                                 <styleClass>
+                                    <String fx:value="background-white-primary" />
+                                    <String fx:value="border-radius" />
+                                 </styleClass>
+                                 <children>
+                                    <Button fx:id="btnChoosePhotoEditCollaboratorWindow" maxHeight="35.0" maxWidth="100.0" minHeight="35.0" minWidth="100.0" mnemonicParsing="false" onAction="#chooseImage" prefHeight="35.0" prefWidth="100.0" styleClass="btn-nav-bar" stylesheets="@style.css" text="Escolher Foto" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="10.0" />
+                                       </font>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                       <HBox.margin>
+                                          <Insets right="12.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Label fx:id="lbPhotoUrlEditCollaboratorWindow" text="home/pictures/wpp23456.png" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
+                                 </padding>
+                              </HBox>
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets top="32.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="btnRegisterEditCollaboratorWindow" maxHeight="35.0" maxWidth="100.0" minHeight="35.0" minWidth="100.0" mnemonicParsing="false" onAction="#editCollaborator" prefHeight="35.0" prefWidth="100.0" styleClass="btn-nav-bar" stylesheets="@style.css" text="Salvar" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="10.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets top="32.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+   <bottom>
+      <HBox alignment="BOTTOM_RIGHT" maxHeight="32.0" minHeight="32.0" prefHeight="32.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="imgDataBaseConnectionWindow" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icon-database.png" />
+               </image>
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </ImageView>
+            <HBox fx:id="btnHelpEditCollaboratorWindow" alignment="BOTTOM_LEFT" maxHeight="18.0" maxWidth="52.0" minHeight="18.0" minWidth="52.0" prefHeight="18.0" prefWidth="52.0">
+               <children>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@btn-help.png" />
+                     </image>
+                  </ImageView>
+                  <Pane prefHeight="18.0" prefWidth="3.0" />
+                  <Label text="Ajuda">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </HBox>
+            <Label text="Powered by ">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </Label>
+            <Label text="demelobr" textFill="#008dd8">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>
