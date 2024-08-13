@@ -141,7 +141,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="btnFinancesDetailsCollaboratorWindow" alignment="TOP_LEFT" layoutX="20.0" layoutY="40.0" maxHeight="32.0" maxWidth="95.0" minHeight="32.0" minWidth="95.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="95.0" styleClass="btn-nav-bar" stylesheets="@style.css" text="Financeiro" textFill="WHITE">
+                        <Button fx:id="btnFinancesDetailsCollaboratorWindow" alignment="TOP_LEFT" layoutX="20.0" layoutY="40.0" maxHeight="32.0" maxWidth="95.0" minHeight="32.0" minWidth="95.0" mnemonicParsing="false" onAction="#generateFinanceReport" prefHeight="32.0" prefWidth="95.0" styleClass="btn-nav-bar" stylesheets="@style.css" text="Financeiro" textFill="WHITE">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -553,8 +553,8 @@
                                                 <TableColumn fx:id="tcTitleFinancesDetailsCollaboratorWindow" minWidth="150.0" prefWidth="150.0" text="Título" />
                                                 <TableColumn fx:id="tcContractFinancesDetailsCollaboratorWindow" minWidth="150.0" prefWidth="150.0" text="Contrato" />
                                                 <TableColumn fx:id="tcTypeFinancesDetailsCollaboratorWindow" minWidth="75.0" prefWidth="75.0" text="Tipo" />
-                                                <TableColumn fx:id="tcValueFinancesDetailsCollaboratorWindow" minWidth="75.0" prefWidth="75.0" text="Valor " />
-                                                <TableColumn fx:id="tcPaymentDateFinancesDetailsCollaboratorWindow" minWidth="125.0" prefWidth="125.0" text="Dt/Hr do Pagamento" />
+                                                <TableColumn fx:id="tcValueFinancesDetailsCollaboratorWindow" minWidth="75.0" prefWidth="75.0" text="Valor(R$)" />
+                                                <TableColumn fx:id="tcPaymentDateFinancesDetailsCollaboratorWindow" minWidth="120.0" prefWidth="120.0" text="Data" />
                                              </columns>
                                              <HBox.margin>
                                                 <Insets />
@@ -854,7 +854,7 @@
                                                 <TableColumn fx:id="tcContractPresencesDetailsCollaboratorWindow" minWidth="150.0" prefWidth="150.0" text="Contrato" />
                                                 <TableColumn fx:id="tcRegisterPresencesDetailsCollaboratorWindow" minWidth="75.0" prefWidth="75.0" text="Registro" />
                                                 <TableColumn fx:id="tcStatusPresencesDetailsCollaboratorWindow" minWidth="75.0" prefWidth="75.0" text="Situação" />
-                                                <TableColumn fx:id="tcPresenceDateTimePresencesDetailsCollaboratorWindow" minWidth="125.0" prefWidth="125.0" text="Dt/Hr da Presença" />
+                                                <TableColumn fx:id="tcPresenceDateTimePresencesDetailsCollaboratorWindow" minWidth="120.0" prefWidth="120.0" text="Dt/Hr da Presença" />
                                                 <TableColumn fx:id="tcRegisterDateTimePresencesDetailsCollaboratorWindow" minWidth="150.0" prefWidth="150.0" text="Dt/Hr do Registro" />
                                              </columns>
                                              <HBox.margin>

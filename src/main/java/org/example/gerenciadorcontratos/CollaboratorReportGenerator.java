@@ -27,70 +27,138 @@ public class CollaboratorReportGenerator {
         this.app = new Application();
     }
 
-    public void reportGenerator(Collaborator collaborator, String record, String status, String nameContract, LocalDate startDateTime, LocalDate endDateTime, String typeOfReport){
+    public void reportGenerator(Collaborator collaborator, String record, String status, String nameContract, LocalDate startDateTime, LocalDate endDateTime, String minValue, String maxValue, String typeOfReport){
         Connection conn = null;
         String logo = "src/main/resources/org/example/gerenciadorcontratos/logo.png";
+        String reportPath;
+        String name;
+        String sql;
+
+        JasperDesign jasperDesign = null;
+        JasperReport jasperReport = null;
+        JasperPrint jasperPrint = null;
+        InputStream fileIn = null;
+
+        Map<String, Object> parameters = new HashMap<>();
+
         DateTimeFormatter dateTimeFormatterWithSeconds = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm:ss");
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-        switch (typeOfReport){
-            case "complete":
-            case "finances":
-            case "presences":
-                try {
-                    conn = DriverManager.getConnection(app.getServer().getSettings().getUrlDB(), app.getServer().getSettings().getUserDB(), app.getServer().getSettings().getPasswordDB());
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-                String reportPath = "src/main/resources/org/example/gerenciadorcontratos/collaborator-presences.jrxml";
-                String name = collaborator.getName();
-                String sql = getQueryOfSearch(record, status, nameContract, startDateTime, endDateTime, "", "", "presences");
-                sql = sql + " ORDER BY STR_TO_DATE(presences.`presenceDateTime`, '%d/%m/%Y - %H:%i')";
+        if(typeOfReport.equals("complete")){
+//            try {
+//                conn = DriverManager.getConnection(app.getServer().getSettings().getUrlDB(), app.getServer().getSettings().getUserDB(), app.getServer().getSettings().getPasswordDB());
+//            } catch (SQLException e) {
+//                throw new RuntimeException(e);
+//            }
+//            reportPath = "src/main/resources/org/example/gerenciadorcontratos/collaborator-complete.jrxml";
+//            name = collaborator.getName();
+//            sql = getQueryOfSearch("", "", nameContract, startDateTime, endDateTime,minValue, maxValue, "finances");
+//            sql = sql + " ORDER BY STR_TO_DATE(finances.`date`, '%d/%m/%Y');";
+//            sql = sql + getQueryOfSearch(record, status, nameContract, startDateTime, endDateTime, "", "", "presences");
+//            sql = sql + " ORDER BY STR_TO_DATE(presences.`presenceDateTime`, '%d/%m/%Y - %H:%i');";
 
-                JasperDesign jasperDesign = null;
-                JasperReport jasperReport = null;
-                JasperPrint jasperPrint = null;
-                InputStream fileIn = null;
+        }else if(typeOfReport.equals("finances")){
+            try {
+                conn = DriverManager.getConnection(app.getServer().getSettings().getUrlDB(), app.getServer().getSettings().getUserDB(), app.getServer().getSettings().getPasswordDB());
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            reportPath = "src/main/resources/org/example/gerenciadorcontratos/collaborator-finances.jrxml";
+            name = collaborator.getName();
+            sql = getQueryOfSearch("", "", nameContract, startDateTime, endDateTime,minValue, maxValue, "finances");
+            sql = sql + " ORDER BY STR_TO_DATE(finances.`date`, '%d/%m/%Y');";
 
-                Map<String, Object> parameters = new HashMap<>();
-                parameters.put("logo", logo);
-                parameters.put("name", capitalizeWords(name));
-                parameters.put("queryCpfCollaborator", collaborator.getCpf());
-                if(!record.equals("----------")) parameters.put("queryRecord", record);
-                if(!status.equals("----------")) parameters.put("queryStatus", status);
-                if(!nameContract.equals("----------")) parameters.put("queryNameContract", nameContract);
-                if(startDateTime != null) parameters.put("queryStartDateTime", startDateTime.atTime(0,0,0).format(dateTimeFormatterWithSeconds));
-                if(endDateTime != null) parameters.put("queryEndDateTime", endDateTime.atTime(23,59,59).format(dateTimeFormatterWithSeconds));
+            parameters.put("logo", logo);
+            parameters.put("name", capitalizeWords(name));
+            parameters.put("queryCpfCollaborator", collaborator.getCpf());
+            if(!nameContract.equals("----------")) parameters.put("queryNameContract", nameContract);
+            if(startDateTime != null) parameters.put("queryStartDateTime", startDateTime.format(dateFormatter));
+            if(endDateTime != null) parameters.put("queryEndDateTime", endDateTime.format(dateFormatter));
+            if(!minValue.equals("")) parameters.put("queryMinValue", minValue);
+            if(!maxValue.equals("")) parameters.put("queryMaxValue", maxValue);
 
-                try{
-                    fileIn = new FileInputStream(reportPath);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
+            try{
+                fileIn = new FileInputStream(reportPath);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
 
-                try{
-                    jasperDesign = JRXmlLoader.load(fileIn);
-                    JRDesignQuery query = new JRDesignQuery();
-                    query.setText(sql);
-                    jasperDesign.setQuery(query);
-                } catch (JRException e) {
-                    e.printStackTrace();
-                }
+            try{
+                jasperDesign = JRXmlLoader.load(fileIn);
+                JRDesignQuery query = new JRDesignQuery();
+                query.setText(sql);
+                jasperDesign.setQuery(query);
+            } catch (JRException e) {
+                e.printStackTrace();
+            }
 
-                try{
-                    jasperReport = JasperCompileManager.compileReport(jasperDesign);
-                } catch (JRException e) {
-                    System.out.println("jasperReport" + e.getMessage());
-                    e.printStackTrace();
-                }
+            try{
+                jasperReport = JasperCompileManager.compileReport(jasperDesign);
+            } catch (JRException e) {
+                System.out.println("jasperReport" + e.getMessage());
+                e.printStackTrace();
+            }
 
-                try{
-                    jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conn);
-                } catch (JRException e) {
-                    e.printStackTrace();
-                }
+            try{
+                jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conn);
+            } catch (JRException e) {
+                System.out.println(e.getMessage());
+                e.printStackTrace();
+            }
 
-                JasperViewer.viewReport(jasperPrint, false);
+            JasperViewer.viewReport(jasperPrint, false);
+
+        }else if(typeOfReport.equals("presences")){
+            try {
+                conn = DriverManager.getConnection(app.getServer().getSettings().getUrlDB(), app.getServer().getSettings().getUserDB(), app.getServer().getSettings().getPasswordDB());
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            reportPath = "src/main/resources/org/example/gerenciadorcontratos/collaborator-presences.jrxml";
+            name = collaborator.getName();
+            sql = getQueryOfSearch(record, status, nameContract, startDateTime, endDateTime, "", "", "presences");
+            sql = sql + " ORDER BY STR_TO_DATE(presences.`presenceDateTime`, '%d/%m/%Y - %H:%i');";
+
+            parameters.put("logo", logo);
+            parameters.put("name", capitalizeWords(name));
+            parameters.put("queryCpfCollaborator", collaborator.getCpf());
+            if(!record.equals("----------")) parameters.put("queryRecord", record);
+            if(!status.equals("----------")) parameters.put("queryStatus", status);
+            if(!nameContract.equals("----------")) parameters.put("queryNameContract", nameContract);
+            if(startDateTime != null) parameters.put("queryStartDateTime", startDateTime.atTime(0,0,0).format(dateTimeFormatterWithSeconds));
+            if(endDateTime != null) parameters.put("queryEndDateTime", endDateTime.atTime(23,59,59).format(dateTimeFormatterWithSeconds));
+
+            try{
+                fileIn = new FileInputStream(reportPath);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            try{
+                jasperDesign = JRXmlLoader.load(fileIn);
+                JRDesignQuery query = new JRDesignQuery();
+                query.setText(sql);
+                jasperDesign.setQuery(query);
+            } catch (JRException e) {
+                e.printStackTrace();
+            }
+
+            try{
+                jasperReport = JasperCompileManager.compileReport(jasperDesign);
+            } catch (JRException e) {
+                System.out.println("jasperReport" + e.getMessage());
+                e.printStackTrace();
+            }
+
+            try{
+                jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conn);
+            } catch (JRException e) {
+                e.printStackTrace();
+            }
+
+            JasperViewer.viewReport(jasperPrint, false);
         }
+
     }
 
 }

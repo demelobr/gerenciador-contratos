@@ -6,17 +6,21 @@ import java.time.format.DateTimeFormatter;
 
 public class Finance {
     private String title;
+    private String notes;
     private String contractName;
     private String type;
+    private String paymentMethod;
     private LocalDate date;
     private LocalDateTime recordDateTime;
     private double value;
     private String collaboratorCpf;
 
-    public Finance(String title, String contractName, String type, LocalDate date, LocalDateTime recordDateTime, double value, String collaboratorCpf){
+    public Finance(String title, String notes, String contractName, String type, String paymentMethod, LocalDate date, LocalDateTime recordDateTime, double value, String collaboratorCpf){
         this.title = title;
+        this.notes = notes;
         this.contractName = contractName;
         this.type = type;
+        this.paymentMethod = paymentMethod;
         this.date = date;
         this.recordDateTime = recordDateTime;
         this.value = value;
@@ -29,6 +33,14 @@ public class Finance {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
     public String getContractName() {
@@ -45,6 +57,14 @@ public class Finance {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
     }
 
     public LocalDate getDate() {
@@ -83,8 +103,8 @@ public class Finance {
     public String toString() {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         DateTimeFormatter dateTimeFormatterWithSeconds = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm:ss");
-        return String.format("<Finance>\nTítulo: %s\nNome do Contrato: %s\nTipo: %s\nData da Finança: %s\nData/Hora do registro: %s\nValor(R$): %s\nCpf do colaborador: %s",
-                             title, contractName, type, date.format(dateTimeFormatter), recordDateTime.format(dateTimeFormatterWithSeconds), value, collaboratorCpf);
+        return String.format("<Finance>\nTítulo: %s\nNotas: %s\nNome do Contrato: %s\nTipo: %s\nData da Finança: %s\nData/Hora do registro: %s\nValor(R$): %s\nCpf do colaborador: %s",
+                             title, notes, contractName, type, paymentMethod, date.format(dateTimeFormatter), recordDateTime.format(dateTimeFormatterWithSeconds), value, collaboratorCpf);
     }
 
 }

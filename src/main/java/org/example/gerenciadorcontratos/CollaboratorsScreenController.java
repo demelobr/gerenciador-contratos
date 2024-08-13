@@ -172,8 +172,8 @@ public class CollaboratorsScreenController implements Initializable {
         this.resetWindow();
         ScreenManager sm = ScreenManager.getInstance();
         sm.getFinancesScreenController().setUser(user);
-        sm.getFinancesScreenController().setDataWindow();
         sm.changeScreen("finance-menu-screen.fxml", "Gerenciador de Contratos - Finanças");
+        sm.getFinancesScreenController().setDataWindow();
     }
 
     @FXML
@@ -331,7 +331,8 @@ public class CollaboratorsScreenController implements Initializable {
         ObservableList<Collaborator> searchResult = FXCollections.observableArrayList();
         for(Collaborator collaborator : listOfCollaborators){
             if(collaborator.getCpf().toUpperCase().contains(tfSearchCollaboratorsWindow.getText().toUpperCase()) ||
-               collaborator.getEmail().toUpperCase().contains(tfSearchCollaboratorsWindow.getText().toUpperCase())){
+               collaborator.getEmail().toUpperCase().contains(tfSearchCollaboratorsWindow.getText().toUpperCase()) ||
+               collaborator.getName().toUpperCase().contains(tfSearchCollaboratorsWindow.getText().toUpperCase())){
                 searchResult.add(collaborator);
             }
         }

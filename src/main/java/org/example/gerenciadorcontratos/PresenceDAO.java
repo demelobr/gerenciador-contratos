@@ -201,12 +201,12 @@ public class PresenceDAO implements IPresenceDAO{
             }
 
             if(queryStartDateTimePeriod != null){
-                sql = sql + " AND presenceDateTime >= ?";
+                sql = sql + " AND STR_TO_DATE(presenceDateTime, '%d/%m/%Y - %H:%i') >= STR_TO_DATE(?, '%d/%m/%Y - %H:%i')";
                 filters.add(queryStartDateTimePeriod.atTime(0,0,0).format(dateTimeFormatterWithSeconds));
             }
 
             if(queryEndDateTimePeriod != null){
-                sql = sql + " AND presenceDateTime <= ?";
+                sql = sql + " AND STR_TO_DATE(presenceDateTime, '%d/%m/%Y - %H:%i') <= STR_TO_DATE(?, '%d/%m/%Y - %H:%i')";
                 filters.add(queryEndDateTimePeriod.atTime(23,59,59).format(dateTimeFormatterWithSeconds));
             }
 

@@ -358,7 +358,7 @@
             </HBox>
             <HBox alignment="CENTER" maxHeight="300.0" minHeight="300.0" minWidth="770.0" prefHeight="300.0" prefWidth="770.0">
                <children>
-                  <AreaChart fx:id="acGraphcFinancesWindow" maxWidth="1000.0" onMouseEntered="#displayLegendOnBalanceSheetChart" stylesheets="@style.css" HBox.hgrow="ALWAYS">
+                  <AreaChart fx:id="acGraphcFinancesWindow" maxWidth="1000.0" onMouseEntered="#displayLegendOnBalanceSheetChart" stylesheets="@style.css" title="Balanço geral das Finanças" HBox.hgrow="ALWAYS">
                     <xAxis>
                       <CategoryAxis side="BOTTOM" styleClass="chart-series-line" stylesheets="@style.css" />
                     </xAxis>

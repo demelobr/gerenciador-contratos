@@ -4,14 +4,11 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -106,14 +103,15 @@ public class EditCollaboratorScreenController implements Initializable {
 
     @FXML
     public void goBackCollaboratorDetailsScreen() {
-        this.resetWindow();
-        ScreenManager sm = ScreenManager.getInstance();
-        sm.getCollaboratorDetailsScreenController().setCollaborator(this.collaborator);
-        sm.getCollaboratorDetailsScreenController().setDataScreen();
-        sm.getCollaboratorDetailsScreenController().initializePresenceTable();
-        sm.getCollaboratorDetailsScreenController().initializeComboBoxsWindow();
-        sm.getCollaboratorDetailsScreenController().addOrRemoveListeners(true);
-        sm.changeScreen("collaborator-details-screen.fxml", "Gerenciador de Contratos - Informações do Colaborador");
+                    this.resetWindow();
+                    ScreenManager sm = ScreenManager.getInstance();
+                    sm.getCollaboratorDetailsScreenController().setCollaborator(this.collaborator);
+                    sm.getCollaboratorDetailsScreenController().setDataScreen();
+                    sm.getCollaboratorDetailsScreenController().initializeFinanceTable();
+                    sm.getCollaboratorDetailsScreenController().initializePresenceTable();
+                    sm.getCollaboratorDetailsScreenController().initializeComboBoxsWindow();
+                    sm.getCollaboratorDetailsScreenController().addOrRemoveListeners(true);
+                    sm.changeScreen("collaborator-details-screen.fxml", "Gerenciador de Contratos - Informações do Colaborador");
     }
 
     @FXML

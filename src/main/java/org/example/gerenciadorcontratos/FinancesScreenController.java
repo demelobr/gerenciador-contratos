@@ -29,9 +29,13 @@ import static org.example.gerenciadorcontratos.UtilitiesLibrary.formatValue;
 public class FinancesScreenController implements Initializable {
     private Application app;
     private User user;
+    private double entries;
+    private double expenses;
 
     public FinancesScreenController() {
         this.app = new Application();
+        this.entries = 0.0;
+        this.expenses = 0.0;
     }
 
     public User getUser() {
@@ -178,8 +182,8 @@ public class FinancesScreenController implements Initializable {
     }
 
     private void calculateFinances(){
-        double entries = 0.0;
-        double expenses = 0.0;
+        entries = 0.0;
+        expenses = 0.0;
         List<Finance> listOfFinances = new ArrayList<>();
         try {
             listOfFinances = app.getServer().listAllFinances();
@@ -213,11 +217,11 @@ public class FinancesScreenController implements Initializable {
             add("Jan"); add("Fev"); add("Mar"); add("Abr"); add("Mai"); add("Jun");
             add("Jul"); add("Ago"); add("Set"); add("Out"); add("Nov"); add("Dez");
         }};
-        List<Double> entries = new ArrayList<>();
-        List<Double> expenses = new ArrayList<>();
+        List<Double> listOfEntries = new ArrayList<>();
+        List<Double> listOfExpenses = new ArrayList<>();
         try {
-            entries = app.getServer().getListOfEntriesForTheYearByMonth(Year.of(LocalDate.now().getYear()));
-            expenses = app.getServer().getListOfExpensesForTheYearByMonth(Year.of(LocalDate.now().getYear()));
+            listOfEntries = app.getServer().getListOfEntriesForTheYearByMonth(Year.of(LocalDate.now().getYear()));
+            listOfExpenses = app.getServer().getListOfExpensesForTheYearByMonth(Year.of(LocalDate.now().getYear()));
         } catch (ConnectionFailureDbException e) {
             lbPushMsgFinancesWindow.setText(e.getMessage());
             hbPushMsgFinancesWindow.getStyleClass().setAll("push-msg-error");
@@ -232,7 +236,8 @@ public class FinancesScreenController implements Initializable {
         if (acGraphcFinancesWindow.getData().size() == 0) {
             entriesChart = new XYChart.Series<String, Double>();
             expensesChart = new XYChart.Series<String, Double>();
-            acGraphcFinancesWindow.getData().addAll(entriesChart, expensesChart);
+            if(entries >= expenses) acGraphcFinancesWindow.getData().addAll(entriesChart, expensesChart);
+            else acGraphcFinancesWindow.getData().addAll(expensesChart, entriesChart);
         } else {
             entriesChart = (XYChart.Series<String, Double>) acGraphcFinancesWindow.getData().get(0);
             expensesChart = (XYChart.Series<String, Double>) acGraphcFinancesWindow.getData().get(1);
@@ -245,8 +250,8 @@ public class FinancesScreenController implements Initializable {
         expensesChart.getData().clear();
 
         for (int i = 0; i < months.size(); i++) {
-            entriesChart.getData().add(new XYChart.Data<>(months.get(i), entries.get(i)));
-            expensesChart.getData().add(new XYChart.Data<>(months.get(i), expenses.get(i)));
+            entriesChart.getData().add(new XYChart.Data<>(months.get(i), listOfEntries.get(i)));
+            expensesChart.getData().add(new XYChart.Data<>(months.get(i), listOfExpenses.get(i)));
         }
 
         for (XYChart.Series<String, Double> serie : acGraphcFinancesWindow.getData()) {

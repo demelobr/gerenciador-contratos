@@ -24,6 +24,7 @@ public class ScreenManager {
     private Scene deleteFinanceScreenScene;
     private Scene financesScreenScene;
     private Scene addNewFinanceScreenScene;
+    private Scene editFinanceScreenScene;
 
     private LoginScreenController loginScreenController;
     private RegistrationScreenController registrationScreenController;
@@ -41,6 +42,7 @@ public class ScreenManager {
     private DeleteFinanceScreenController deleteFinanceScreenController;
     private FinancesScreenController financesScreenController;
     private AddNewFinanceScreenController addNewFinanceScreenController;
+    private EditFinanceScreenController editFinanceScreenController;
 
     public ScreenManager(){
         this.screenLoader();
@@ -127,6 +129,10 @@ public class ScreenManager {
         return addNewFinanceScreenScene;
     }
 
+    public Scene getEditFinanceScreenScene() {
+        return editFinanceScreenScene;
+    }
+
     // GETTERS dos Controllers
     public LoginScreenController getLoginScreenController() {
         return loginScreenController;
@@ -190,6 +196,10 @@ public class ScreenManager {
 
     public AddNewFinanceScreenController getAddNewFinanceScreenController() {
         return addNewFinanceScreenController;
+    }
+
+    public EditFinanceScreenController getEditFinanceScreenController() {
+        return editFinanceScreenController;
     }
 
     private void screenLoader(){
@@ -258,6 +268,10 @@ public class ScreenManager {
             this.addNewFinanceScreenScene = new Scene(addNewFinanceScreenPane.load());
             this.addNewFinanceScreenController = addNewFinanceScreenPane.getController();
 
+            FXMLLoader editFinanceScreenPane = new FXMLLoader(getClass().getResource("edit-finance-screen.fxml"));
+            this.editFinanceScreenScene = new Scene(editFinanceScreenPane.load());
+            this.editFinanceScreenController = editFinanceScreenPane.getController();
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -278,6 +292,7 @@ public class ScreenManager {
             case "edit-collaborator-screen.fxml" -> stg.setScene(editCollaboratorScreenScene);
             case "finance-menu-screen.fxml" -> stg.setScene(financesScreenScene);
             case "add-new-finance-screen.fxml" -> stg.setScene(addNewFinanceScreenScene);
+            case "edit-finance-screen.fxml" -> stg.setScene(editFinanceScreenScene);
         }
         stg.setTitle(titleScreen);
         if(max) stg.setMaximized(true);

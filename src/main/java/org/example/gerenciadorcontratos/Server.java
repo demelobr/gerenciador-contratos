@@ -192,8 +192,8 @@ public class Server {
         financeController.createFiance(finance);
     }
 
-    public void updateFiance(Finance finance, String title, String contractName, String type, LocalDate date, LocalDateTime recordDateTime, double value, String collaboratorCpf) throws FinanceNullException, ConnectionFailureDbException, FinanceDoesNotExistException, FinanceUpdatedSuccessfullyException {
-        financeController.updateFiance(finance, title, contractName, type, date, recordDateTime, value, collaboratorCpf);
+    public void updateFiance(Finance finance, String title, String notes, String contractName, String type, String paymentMethod, LocalDate date, LocalDateTime recordDateTime, double value, String collaboratorCpf) throws FinanceNullException, ConnectionFailureDbException, FinanceDoesNotExistException, FinanceUpdatedSuccessfullyException {
+        financeController.updateFiance(finance, title, notes, contractName, type, paymentMethod, date, recordDateTime, value, collaboratorCpf);
     }
 
     public void deleteFiance(Finance finance) throws FinanceDeletedSuccessfullyException, FinanceNullException, ConnectionFailureDbException, FinanceDoesNotExistException {

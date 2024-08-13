@@ -1,6 +1,8 @@
 package org.example.gerenciadorcontratos;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -24,6 +26,7 @@ import static org.example.gerenciadorcontratos.UtilitiesLibrary.formatValue;
 public class AddNewFinanceScreenController implements Initializable {
     private Application app;
     private List<String> types;
+    private List<String> paymentMethods;
     private List<String> collaboratorsName;
     private List<String> collaboratorsCpf;
     private List<String> contractsName;
@@ -31,6 +34,7 @@ public class AddNewFinanceScreenController implements Initializable {
     public AddNewFinanceScreenController(){
         this.app = new Application();
         this.types = new ArrayList<>();
+        this.paymentMethods = new ArrayList<>();
         this.collaboratorsName = new ArrayList<>();
         this.collaboratorsCpf = new ArrayList<>();
         this.contractsName = new ArrayList<>();
@@ -50,6 +54,9 @@ public class AddNewFinanceScreenController implements Initializable {
 
     @FXML
     private ChoiceBox<String> cbCollaboratorAddNewFinanceWindow;
+
+    @FXML
+    private ChoiceBox<String> cbPaymentMethodAddNewFinanceWindow;
 
     @FXML
     private ChoiceBox<String> cbContractAddNewFinanceWindow;
@@ -82,6 +89,9 @@ public class AddNewFinanceScreenController implements Initializable {
     private TextField tfValueAddNewFinanceWindow;
 
     @FXML
+    private TextArea taNotesAddNewFinanceWindow;
+
+    @FXML
     private VBox vbCollaboratorAddNewFinanceWindow;
 
     @FXML
@@ -93,8 +103,8 @@ public class AddNewFinanceScreenController implements Initializable {
     public void goToBackFinanceScreen(){
         this.resetWindow();
         ScreenManager sm = ScreenManager.getInstance();
-        sm.getFinancesScreenController().setDataWindow();
         sm.changeScreen("finance-menu-screen.fxml", "Gerenciador de Contratos - Finanças");
+        sm.getFinancesScreenController().setDataWindow();
     }
 
     @FXML
@@ -114,7 +124,9 @@ public class AddNewFinanceScreenController implements Initializable {
     @FXML
     public void createFinance(){
         String title = tfTitileAddNewFinanceWindow.getText();
+        String notes = taNotesAddNewFinanceWindow.getText();
         String type = cbTypeAddNewFinanceWindow.getValue();
+        String paymentMethod = cbPaymentMethodAddNewFinanceWindow.getValue();
         String contractName = cbContractAddNewFinanceWindow.getValue();
         String value = tfValueAddNewFinanceWindow.getText();
         LocalDate date = dpFinanceDateAddNewFinanceWindow.getValue();
@@ -146,8 +158,8 @@ public class AddNewFinanceScreenController implements Initializable {
                     try {
                         try {
                             int index = cbCollaboratorAddNewFinanceWindow.getSelectionModel().getSelectedIndex();
-                            if(collaboratorsName.get(index).equals("----------")) app.getServer().createFiance(new Finance(title, contractName, type, date, LocalDateTime.now(), formatValue(value), "NÃO INFORMADO"));
-                            else app.getServer().createFiance(new Finance(title, contractName, type, date, LocalDateTime.now(), formatValue(value), collaboratorsCpf.get(index)));
+                            if(collaboratorsName.get(index).equals("----------")) app.getServer().createFiance(new Finance(title, notes, contractName, type, paymentMethod, date, LocalDateTime.now(), formatValue(value), "NÃO INFORMADO"));
+                            else app.getServer().createFiance(new Finance(title, notes, contractName, type, paymentMethod, date, LocalDateTime.now(), formatValue(value), collaboratorsCpf.get(index)));
                         } catch (ParseException e) {
                             lbPushMsgAddNewFinanceWindow.setText(e.getMessage());
                             hbPushMsgAddNewFinanceWindow.getStyleClass().setAll("push-msg-error");
@@ -156,6 +168,7 @@ public class AddNewFinanceScreenController implements Initializable {
                         }
                     } catch (FinanceNullException | InvalidFinanceAmountException | EmptyfieldsException |
                              ConnectionFailureDbException e) {
+                        System.out.println(e.getMessage());
                         lbPushMsgAddNewFinanceWindow.setText(e.getMessage());
                         hbPushMsgAddNewFinanceWindow.getStyleClass().setAll("push-msg-error");
                         hbPushMsgAddNewFinanceWindow.setVisible(true);
@@ -174,8 +187,8 @@ public class AddNewFinanceScreenController implements Initializable {
                                 hbPushMsgAddNewFinanceWindow.setVisible(false);
                                 this.resetWindow();
                                 ScreenManager sm = ScreenManager.getInstance();
-                                sm.getFinancesScreenController().setDataWindow();
                                 sm.changeScreen("finance-menu-screen.fxml", "Gerenciador de Contratos - Finanças");
+                                sm.getFinancesScreenController().setDataWindow();
                             });
                         }).start();
                     }
@@ -191,23 +204,26 @@ public class AddNewFinanceScreenController implements Initializable {
         rbNoAddNewFinanceWindow.setSelected(true);
         vbCollaboratorAddNewFinanceWindow.setVisible(false);
         tfTitileAddNewFinanceWindow.setText("");
+        taNotesAddNewFinanceWindow.setText("");
         tfValueAddNewFinanceWindow.setText("");
         dpFinanceDateAddNewFinanceWindow.setValue(null);
         dpFinanceDateAddNewFinanceWindow.setPromptText(LocalDate.now().format(dateTimeFormatter));
         cbTypeAddNewFinanceWindow.getItems().clear();
+        cbPaymentMethodAddNewFinanceWindow.getItems().clear();
         cbContractAddNewFinanceWindow.getItems().clear();
         cbCollaboratorAddNewFinanceWindow.getItems().clear();
     }
 
-    @FXML
     public void initializeWindow(){
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         tfTitileAddNewFinanceWindow.setPromptText("Salário do Colaborador João");
+        taNotesAddNewFinanceWindow.setPromptText("8 câmeras Intelbras, cada uma no valor de R$135.");
         tfValueAddNewFinanceWindow.setPromptText("100,00");
         dpFinanceDateAddNewFinanceWindow.setPromptText(LocalDate.now().format(dateTimeFormatter));
         rbYesAddNewFinanceWindow.setSelected(false);
         rbNoAddNewFinanceWindow.setSelected(true);
         this.setCombosBoxOptions();
+        cbPaymentMethodAddNewFinanceWindow.setValue(paymentMethods.get(0));
         cbTypeAddNewFinanceWindow.setValue(types.get(0));
         cbContractAddNewFinanceWindow.setValue(contractsName.get(0));
         cbCollaboratorAddNewFinanceWindow.setValue(collaboratorsName.get(0));
@@ -217,6 +233,12 @@ public class AddNewFinanceScreenController implements Initializable {
         types.clear();
         types.add("RECEITA");
         types.add("DESPESA");
+
+        paymentMethods.clear();
+        paymentMethods.add("DINHEIRO");
+        paymentMethods.add("PIX");
+        paymentMethods.add("CARTÃO DÉBITO");
+        paymentMethods.add("CARTÃO CRÉDITO");
 
         try {
             List<Contract> listOfAllContracts = app.getServer().listAllContracts();
@@ -240,6 +262,7 @@ public class AddNewFinanceScreenController implements Initializable {
         } catch (ConnectionFailureDbException ignored) {}
 
         cbTypeAddNewFinanceWindow.getItems().addAll(types);
+        cbPaymentMethodAddNewFinanceWindow.getItems().addAll(paymentMethods);
         cbContractAddNewFinanceWindow.getItems().addAll(contractsName);
         cbCollaboratorAddNewFinanceWindow.getItems().addAll(collaboratorsName);
     }
@@ -263,5 +286,21 @@ public class AddNewFinanceScreenController implements Initializable {
         rbYesAddNewFinanceWindow.setSelected(false);
         rbNoAddNewFinanceWindow.setSelected(true);
         vbCollaboratorAddNewFinanceWindow.setVisible(false);
+
+        tfValueAddNewFinanceWindow.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("^[\\d,.]*$")) {
+                tfValueAddNewFinanceWindow.setText(oldValue);
+            }
+        });
+
+        taNotesAddNewFinanceWindow.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (newValue.length() > 255) {
+                    taNotesAddNewFinanceWindow.setText(oldValue);
+                }
+            }
+        });
+
     }
 }

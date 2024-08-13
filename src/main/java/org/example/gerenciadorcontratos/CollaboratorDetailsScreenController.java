@@ -300,6 +300,9 @@ public class CollaboratorDetailsScreenController implements Initializable {
         Finance selectFinance = tvFinancesDetailsCollaboratorWindow.getSelectionModel().getSelectedItem();
         if(selectFinance != null){
             ScreenManager sm = ScreenManager.getInstance();
+            sm.getEditFinanceScreenController().setFinance(selectFinance);
+            sm.getEditFinanceScreenController().initializeWindow();
+            sm.changeScreen("edit-finance-screen.fxml", "Gerenciador de Contratos - Editar Finança");
         }else{
             lbPushMsgDetailsCollaboratorWindow.setText("Selecione uma finança!");
             hbPushMsgAddDetailsCollaboratorWindow.getStyleClass().setAll("push-msg-error");
@@ -317,9 +320,15 @@ public class CollaboratorDetailsScreenController implements Initializable {
     }
 
     @FXML
+    public void generateFinanceReport(){
+        CollaboratorReportGenerator generator = new CollaboratorReportGenerator();
+        generator.reportGenerator(collaborator, "", "", cbContractFinanceDetailsCollaboratorWindow.getValue(), dpStartPeriodFinanceDetailsCollaboratorWindow.getValue(), dpEndPeriodFinanceDetailsCollaboratorWindow.getValue(), tfMinValueFinanceDetailsCollaboratorWindow.getText(), tfMaxValueFinanceDetailsCollaboratorWindow.getText(), "finances");
+    }
+
+    @FXML
     public void generatePresenceReport(){
         CollaboratorReportGenerator generator = new CollaboratorReportGenerator();
-        generator.reportGenerator(collaborator, cbRegisterPresencesDetailsCollaboratorWindow.getValue(), cbStatusPresencesDetailsCollaboratorWindow.getValue(), cbContractPresencesDetailsCollaboratorWindow.getValue(), dpStartPeriodPresencesDetailsCollaboratorWindow.getValue(), dpEndPeriodPresencesDetailsCollaboratorWindow.getValue(), "presences");
+        generator.reportGenerator(collaborator, cbRegisterPresencesDetailsCollaboratorWindow.getValue(), cbStatusPresencesDetailsCollaboratorWindow.getValue(), cbContractPresencesDetailsCollaboratorWindow.getValue(), dpStartPeriodPresencesDetailsCollaboratorWindow.getValue(), dpEndPeriodPresencesDetailsCollaboratorWindow.getValue(), "", "", "presences");
     }
 
     @FXML
@@ -429,6 +438,11 @@ public class CollaboratorDetailsScreenController implements Initializable {
         tcTypeFinancesDetailsCollaboratorWindow.setCellValueFactory(new PropertyValueFactory<Finance, String>("type"));
         tcValueFinancesDetailsCollaboratorWindow.setCellValueFactory(new PropertyValueFactory<Finance, String>("value"));
         tcPaymentDateFinancesDetailsCollaboratorWindow.setCellValueFactory(new PropertyValueFactory<Finance, String>("date"));
+
+        tcValueFinancesDetailsCollaboratorWindow.setCellValueFactory(cellData -> {
+            String value = String.format("%.2f", cellData.getValue().getValue());
+            return new SimpleStringProperty(value);
+        });
 
         tcPaymentDateFinancesDetailsCollaboratorWindow.setCellValueFactory(cellData -> {
             LocalDate date = cellData.getValue().getDate();
@@ -875,13 +889,13 @@ public class CollaboratorDetailsScreenController implements Initializable {
         this.initializePresenceTable();
 
         tfMinValueFinanceDetailsCollaboratorWindow.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("^\\d*$")) {
+            if (!newValue.matches("^[\\d,.]*$")) {
                 tfMinValueFinanceDetailsCollaboratorWindow.setText(oldValue);
             }
         });
 
         tfMaxValueFinanceDetailsCollaboratorWindow.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("^\\d*$")) {
+            if (!newValue.matches("^[\\d,.]*$")) {
                 tfMaxValueFinanceDetailsCollaboratorWindow.setText(oldValue);
             }
         });

@@ -30,50 +30,51 @@ public class UtilitiesLibrary {
     public static String getQueryOfSearch(String queryRecord, String queryStatus, String queryContract, LocalDate queryStartDateTimePeriod, LocalDate queryEndDateTimePeriod, String queryMinValue, String queryMaxValue, String type){
         String sql = "";
 
-        switch (type){
-            case "complete":
-            case "finances":
-                sql = "SELECT * FROM finances WHERE finances.`cpfCollaborator` = $P{queryCpfCollaborator}";
-                if(queryStartDateTimePeriod != null){
-                    sql = sql + " AND finances.`financeDateTime` >= $P{queryStartDateTime}";
+        if(type.equals("complete")){
+
+        }else if(type.equals("finances")){
+            sql = "SELECT * FROM finances WHERE finances.`collaboratorCpf` = $P{queryCpfCollaborator}";
+            if(queryStartDateTimePeriod != null){
+                sql = sql + " AND STR_TO_DATE(finances.`date`, '%d/%m/%Y') >= STR_TO_DATE($P{queryStartDateTime}, '%d/%m/%Y')";
+            }
+            if(queryEndDateTimePeriod != null){
+                sql = sql + " AND STR_TO_DATE(finances.`date`, '%d/%m/%Y')  <= STR_TO_DATE($P{queryEndDateTime}, '%d/%m/%Y')";
+            }
+            if(queryContract != null){
+                if(!queryContract.equals("----------")){
+                    sql = sql + " AND finances.`nameContract` = $P{queryNameContract}";
                 }
-                if(queryEndDateTimePeriod != null){
-                    sql = sql + " AND finances.`financeDateTime` <= $P{queryEndDateTime}";
+            }
+            if(!queryMinValue.isEmpty()){
+                sql = sql + " AND finances.`value` >= $P{queryMinValue}";
+            }
+            if(!queryMaxValue.isEmpty()){
+                sql = sql + " AND finances.`value` <= $P{queryMaxValue}";
+            }
+
+        }else if(type.equals("presences")){
+            sql = "SELECT * FROM presences WHERE presences.`cpfCollaborator` = $P{queryCpfCollaborator}";
+            if(queryRecord != null){
+                if(!queryRecord.equals("----------")){
+                    sql = sql + " AND presences.`record` = $P{queryRecord}";
                 }
-                if(queryContract != null){
-                    if(!queryContract.equals("----------")){
-                        sql = sql + " AND finances.`nameContract` = $P{queryNameContract}";
-                    }
+            }
+            if(queryStatus != null){
+                if(!queryStatus.equals("----------")){
+                    sql = sql + " AND presences.`status` = $P{queryStatus}";
                 }
-                if(!queryMinValue.isEmpty()){
-                    sql = sql + " AND finances.`value` >= $P{queryMinValue}";
+            }
+            if(queryContract != null){
+                if(!queryContract.equals("----------")){
+                    sql = sql + " AND presences.`nameContract` = $P{queryNameContract}";
                 }
-                if(!queryMaxValue.isEmpty()){
-                    sql = sql + " AND finances.`value` <= $P{queryMaxValue}";
-                }
-            case "presences":
-                sql = "SELECT * FROM presences WHERE presences.`cpfCollaborator` = $P{queryCpfCollaborator}";
-                if(queryRecord != null){
-                    if(!queryRecord.equals("----------")){
-                        sql = sql + " AND presences.`record` = $P{queryRecord}";
-                    }
-                }
-                if(queryStatus != null){
-                    if(!queryStatus.equals("----------")){
-                        sql = sql + " AND presences.`status` = $P{queryStatus}";
-                    }
-                }
-                if(queryContract != null){
-                    if(!queryContract.equals("----------")){
-                        sql = sql + " AND presences.`nameContract` = $P{queryNameContract}";
-                    }
-                }
-                if(queryStartDateTimePeriod != null){
-                    sql = sql + " AND presences.`presenceDateTime` >= $P{queryStartDateTime}";
-                }
-                if(queryEndDateTimePeriod != null){
-                    sql = sql + " AND presences.`presenceDateTime` <= $P{queryEndDateTime}";
-                }
+            }
+            if(queryStartDateTimePeriod != null){
+                sql = sql + " AND STR_TO_DATE(presences.`presenceDateTime`, '%d/%m/%Y - %H:%i')  >= STR_TO_DATE($P{queryStartDateTime}, '%d/%m/%Y - %H:%i')";
+            }
+            if(queryEndDateTimePeriod != null){
+                sql = sql + " AND STR_TO_DATE(presences.`presenceDateTime`, '%d/%m/%Y - %H:%i') <= STR_TO_DATE($P{queryEndDateTime}, '%d/%m/%Y - %H:%i')";
+            }
         }
 
         return sql;
