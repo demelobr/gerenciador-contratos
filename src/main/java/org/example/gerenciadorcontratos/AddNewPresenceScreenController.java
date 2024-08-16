@@ -134,7 +134,7 @@ public class AddNewPresenceScreenController implements Initializable {
                 }
             } catch (InvalidPresenseOrRecordDateTimeException | EmptyfieldsException | PresenceNullException |
                      ConnectionFailureDbException | InvalidPresenceException |
-                     thereIsAlreadyARegisteredPresenceException | JustificationRequiredException e) {
+                     ThereIsAlreadyARegisteredPresenceException | JustificationRequiredException e) {
                 lbPushMsgAddNewPresenceWindow.setText(e.getMessage());
                 hbPushMsgAddNewPresenceWindow.getStyleClass().setAll("push-msg-error");
                 hbPushMsgAddNewPresenceWindow.setVisible(true);

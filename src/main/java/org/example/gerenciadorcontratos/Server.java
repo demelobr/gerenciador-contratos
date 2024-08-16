@@ -151,7 +151,7 @@ public class Server {
     }
 
     // Presence's methods
-    public void createPresence(Presence presence) throws InvalidPresenceException, InvalidPresenseOrRecordDateTimeException, ConnectionFailureDbException, PresenceCreatedSuccessfullyException, PresenceNullException, EmptyfieldsException, thereIsAlreadyARegisteredPresenceException, JustificationRequiredException {
+    public void createPresence(Presence presence) throws InvalidPresenceException, InvalidPresenseOrRecordDateTimeException, ConnectionFailureDbException, PresenceCreatedSuccessfullyException, PresenceNullException, EmptyfieldsException, ThereIsAlreadyARegisteredPresenceException, JustificationRequiredException {
         presenceController.createPresence(presence);
     }
 
@@ -171,7 +171,7 @@ public class Server {
         return presenceController.checkIfThereIsAnExistingPresenceWithTheRecord(cpfCollaborator, presenceDateTime, currentRecord, newRecord);
     }
 
-    public boolean checkPresenceData(Presence presence) throws InvalidPresenseOrRecordDateTimeException, EmptyfieldsException, ConnectionFailureDbException, thereIsAlreadyARegisteredPresenceException, JustificationRequiredException {
+    public boolean checkPresenceData(Presence presence) throws InvalidPresenseOrRecordDateTimeException, EmptyfieldsException, ConnectionFailureDbException, ThereIsAlreadyARegisteredPresenceException, JustificationRequiredException {
         return presenceController.checkPresenceData(presence);
     }
 

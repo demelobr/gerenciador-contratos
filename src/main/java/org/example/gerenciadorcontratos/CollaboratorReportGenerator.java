@@ -45,17 +45,63 @@ public class CollaboratorReportGenerator {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         if(typeOfReport.equals("complete")){
-//            try {
-//                conn = DriverManager.getConnection(app.getServer().getSettings().getUrlDB(), app.getServer().getSettings().getUserDB(), app.getServer().getSettings().getPasswordDB());
-//            } catch (SQLException e) {
-//                throw new RuntimeException(e);
-//            }
-//            reportPath = "src/main/resources/org/example/gerenciadorcontratos/collaborator-complete.jrxml";
-//            name = collaborator.getName();
-//            sql = getQueryOfSearch("", "", nameContract, startDateTime, endDateTime,minValue, maxValue, "finances");
-//            sql = sql + " ORDER BY STR_TO_DATE(finances.`date`, '%d/%m/%Y');";
-//            sql = sql + getQueryOfSearch(record, status, nameContract, startDateTime, endDateTime, "", "", "presences");
-//            sql = sql + " ORDER BY STR_TO_DATE(presences.`presenceDateTime`, '%d/%m/%Y - %H:%i');";
+            try {
+                conn = DriverManager.getConnection(app.getServer().getSettings().getUrlDB(), app.getServer().getSettings().getUserDB(), app.getServer().getSettings().getPasswordDB());
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            reportPath = "src/main/resources/org/example/gerenciadorcontratos/collaborator-complete.jrxml";
+            name = collaborator.getName();
+            sql = getQueryOfSearch("", "", nameContract, startDateTime, endDateTime,minValue, maxValue, "finances");
+            sql = sql + " ORDER BY STR_TO_DATE(finances.`date`, '%d/%m/%Y');";
+            sql = sql + getQueryOfSearch(record, status, nameContract, startDateTime, endDateTime, "", "", "presences");
+            sql = sql + " ORDER BY STR_TO_DATE(presences.`presenceDateTime`, '%d/%m/%Y - %H:%i');";
+
+            parameters.put("logo", logo);
+            parameters.put("name", capitalizeWords(name));
+            parameters.put("queryCpfCollaborator", collaborator.getCpf());
+            if(!nameContract.equals("----------")) parameters.put("queryFinanceNameContract", nameContract);
+            if(startDateTime != null) parameters.put("queryFinanceStartDateTime", startDateTime.format(dateFormatter));
+            if(endDateTime != null) parameters.put("queryFinanceEndDateTime", endDateTime.format(dateFormatter));
+            if(!minValue.equals("")) parameters.put("queryFinanceMinValue", minValue);
+            if(!maxValue.equals("")) parameters.put("queryFinanceMaxValue", maxValue);
+
+            if(!record.equals("----------")) parameters.put("queryPresenceRecord", record);
+            if(!status.equals("----------")) parameters.put("queryPresenceStatus", status);
+            if(!nameContract.equals("----------")) parameters.put("queryPresenceNameContract", nameContract);
+            if(startDateTime != null) parameters.put("queryPresenceStartDateTime", startDateTime.atTime(0,0,0).format(dateTimeFormatterWithSeconds));
+            if(endDateTime != null) parameters.put("queryPresenceEndDateTime", endDateTime.atTime(23,59,59).format(dateTimeFormatterWithSeconds));
+
+            try{
+                fileIn = new FileInputStream(reportPath);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            try{
+                jasperDesign = JRXmlLoader.load(fileIn);
+                JRDesignQuery query = new JRDesignQuery();
+                query.setText(sql);
+                jasperDesign.setQuery(query);
+            } catch (JRException e) {
+                e.printStackTrace();
+            }
+
+            try{
+                jasperReport = JasperCompileManager.compileReport(jasperDesign);
+            } catch (JRException e) {
+                System.out.println("jasperReport" + e.getMessage());
+                e.printStackTrace();
+            }
+
+            try{
+                jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conn);
+            } catch (JRException e) {
+                System.out.println(e.getMessage());
+                e.printStackTrace();
+            }
+
+            JasperViewer.viewReport(jasperPrint, false);
 
         }else if(typeOfReport.equals("finances")){
             try {

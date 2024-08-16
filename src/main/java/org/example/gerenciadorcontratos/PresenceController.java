@@ -20,7 +20,7 @@ public class PresenceController implements IPresenceController{
     }
 
     @Override
-    public void createPresence(Presence presence) throws ConnectionFailureDbException, PresenceCreatedSuccessfullyException, InvalidPresenceException, PresenceNullException, InvalidPresenseOrRecordDateTimeException, EmptyfieldsException, thereIsAlreadyARegisteredPresenceException, JustificationRequiredException {
+    public void createPresence(Presence presence) throws ConnectionFailureDbException, PresenceCreatedSuccessfullyException, InvalidPresenceException, PresenceNullException, InvalidPresenseOrRecordDateTimeException, EmptyfieldsException, ThereIsAlreadyARegisteredPresenceException, JustificationRequiredException {
         if(presence != null){
             if(this.checkPresenceData(presence)){
                 presenceRepository.create(presence);
@@ -94,7 +94,7 @@ public class PresenceController implements IPresenceController{
     }
 
     @Override
-    public boolean checkPresenceData(Presence presence) throws ConnectionFailureDbException, EmptyfieldsException, InvalidPresenseOrRecordDateTimeException, thereIsAlreadyARegisteredPresenceException, JustificationRequiredException {
+    public boolean checkPresenceData(Presence presence) throws ConnectionFailureDbException, EmptyfieldsException, InvalidPresenseOrRecordDateTimeException, ThereIsAlreadyARegisteredPresenceException, JustificationRequiredException {
         boolean presenceChecked = true;
         if(presence.getCpfCollaborator().isEmpty() || presence.getNameContract().isEmpty() ||
            presence.getRecord().isEmpty() || presence.getStatus().isEmpty()){
@@ -111,7 +111,7 @@ public class PresenceController implements IPresenceController{
         }
         if(this.checkEntryAndExitPresenceExists(presence.getCpfCollaborator(), presence.getPresenceDateTime(), presence.getRecord())){
             presenceChecked = false;
-            throw new thereIsAlreadyARegisteredPresenceException();
+            throw new ThereIsAlreadyARegisteredPresenceException();
         }
 
         return presenceChecked;
