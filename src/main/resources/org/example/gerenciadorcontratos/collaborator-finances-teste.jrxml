@@ -39,6 +39,11 @@
 		<property name="com.jaspersoft.studio.field.label" value="type"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="finances"/>
 	</field>
+	<field name="paymentMethod" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="paymentMethod"/>
+		<property name="com.jaspersoft.studio.field.label" value="paymentMethod"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="finances"/>
+	</field>
 	<field name="date" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="date"/>
 		<property name="com.jaspersoft.studio.field.label" value="date"/>
@@ -113,7 +118,7 @@
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="43" splitType="Stretch">
+		<band height="107" splitType="Stretch">
 			<textField>
 				<reportElement x="36" y="0" width="424" height="21" uuid="434305a3-8769-4f2d-99f0-40e973e5b544"/>
 				<textElement verticalAlignment="Middle"/>
@@ -125,12 +130,12 @@
 				<textFieldExpression><![CDATA[$F{contractName}]]></textFieldExpression>
 			</textField>
 			<textField pattern="¤#,#00.00;¤-#,#00.00">
-				<reportElement x="496" y="21" width="60" height="21" uuid="feb29b9c-cfe3-4dec-904c-697aba6e6d7b"/>
+				<reportElement x="386" y="63" width="60" height="21" uuid="feb29b9c-cfe3-4dec-904c-697aba6e6d7b"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{value}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="500" y="0" width="56" height="21" uuid="9ed10743-64d8-4722-969d-78612af703c9"/>
+				<reportElement x="380" y="84" width="56" height="21" uuid="9ed10743-64d8-4722-969d-78612af703c9"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{date}]]></textFieldExpression>
 			</textField>
@@ -144,7 +149,7 @@
 				<text><![CDATA[Título:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="470" y="0" width="30" height="21" uuid="c6a3139b-f085-4e45-9e6b-5d048ba4721e">
+				<reportElement x="350" y="84" width="30" height="21" uuid="c6a3139b-f085-4e45-9e6b-5d048ba4721e">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b0eb972d-a3b5-4cfe-8b93-b7538dbb15a8"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -162,7 +167,7 @@
 				<text><![CDATA[Contrato:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="460" y="21" width="36" height="21" uuid="fe08f08f-e441-494e-bd73-1fc65075f3a1">
+				<reportElement x="350" y="63" width="36" height="21" uuid="fe08f08f-e441-494e-bd73-1fc65075f3a1">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e4cc828a-24ec-4aa6-bc9d-72fb6c991c8a"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -170,8 +175,35 @@
 				</textElement>
 				<text><![CDATA[Valor:]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="0" y="63" width="290" height="43" uuid="41c460da-cb54-43c7-b413-b78834957415"/>
+				<textFieldExpression><![CDATA[$F{notes}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="42" width="70" height="21" uuid="97d115eb-bd25-40cb-bf75-d70b16a477be">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="46fafb3d-9eea-45b4-95f3-08b7d2e47eb2"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Observações:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="466" y="42" width="86" height="21" uuid="fad5801a-5545-4ed5-81e2-4d5786335ed7"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{paymentMethod}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="350" y="42" width="116" height="21" uuid="0609d69c-963e-410f-befe-04b834514218">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e4cc828a-24ec-4aa6-bc9d-72fb6c991c8a"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Método de Pagamento:]]></text>
+			</staticText>
 			<line>
-				<reportElement x="-3" y="42" width="560" height="1" uuid="61208a83-76e2-425a-b4cd-3dba035a5816"/>
+				<reportElement x="-3" y="106" width="560" height="1" uuid="61208a83-76e2-425a-b4cd-3dba035a5816"/>
 			</line>
 		</band>
 	</detail>

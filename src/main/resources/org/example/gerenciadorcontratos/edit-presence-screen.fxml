@@ -8,6 +8,7 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -17,9 +18,241 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="600.0" maxWidth="350.0" minHeight="600.0" minWidth="350.0" prefHeight="600.0" prefWidth="350.0" styleClass="background-white-secondary" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.gerenciadorcontratos.EditPresenceScreenController">
+<BorderPane maxHeight="532.0" maxWidth="632.0" minHeight="532.0" minWidth="632.0" prefHeight="532.0" prefWidth="632.0" styleClass="background-white-secondary" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.gerenciadorcontratos.EditPresenceScreenController">
+   <padding>
+      <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+   </padding>
+   <center>
+      <VBox prefHeight="600.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="TOP_CENTER" prefHeight="386.0" prefWidth="600.0">
+               <children>
+                  <VBox maxWidth="275.0" minWidth="275.0" prefWidth="275.0">
+                     <children>
+                        <VBox prefHeight="75.0" prefWidth="350.0">
+                           <children>
+                              <Label prefHeight="20.0" prefWidth="63.0" text="Registro">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="3.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <RadioButton fx:id="rbArrivalEditPresenceWindow" mnemonicParsing="false" onAction="#selectArrival" onMouseClicked="#selectArrival" text="Chegada">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets right="32.0" />
+                                       </HBox.margin>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </RadioButton>
+                                    <RadioButton fx:id="rbExitEditPresenceWindow" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#selectExit" onMouseClicked="#selectExit" text="Saída">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </RadioButton>
+                                 </children>
+                              </HBox>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </VBox>
+                        <VBox prefHeight="75.0" prefWidth="350.0">
+                           <children>
+                              <Label prefHeight="20.0" prefWidth="63.0" text="Situação">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="3.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <RadioButton fx:id="rbPresentEditPresenceWindow" mnemonicParsing="false" onAction="#selectPresent" onMouseClicked="#selectPresent" text="Presente">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets right="32.0" />
+                                       </HBox.margin>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </RadioButton>
+                                    <RadioButton fx:id="rbNotPresentEditPresenceWindow" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#selectNotPresent" onMouseClicked="#selectNotPresent" text="Não Presente">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </RadioButton>
+                                 </children>
+                              </HBox>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </VBox>
+                        <VBox fx:id="vbJustificationEditPresenceWindow" prefHeight="60.0" prefWidth="350.0">
+                           <children>
+                              <Label prefHeight="20.0" prefWidth="151.0" text="Justificativa">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="3.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextArea fx:id="taJustificationEditPresenceWindow" maxHeight="100.0" minHeight="100.0" prefHeight="100.0" />
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                     <HBox.margin>
+                        <Insets right="32.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox maxWidth="275.0" minWidth="275.0" prefWidth="275.0">
+                     <children>
+                        <VBox prefHeight="60.0" prefWidth="275.0">
+                           <children>
+                              <Label prefHeight="20.0" prefWidth="151.0" text="Contrato">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="3.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <ChoiceBox fx:id="cbContractEditPresenceWindow" maxHeight="40.0" maxWidth="250.0" minHeight="40.0" minWidth="250.0" prefHeight="40.0" prefWidth="250.0" styleClass="input-box" stylesheets="@style.css" />
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </VBox>
+                        <VBox prefHeight="75.0" prefWidth="350.0">
+                           <children>
+                              <Label prefHeight="20.0" prefWidth="151.0" text="Data da presença">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="3.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <DatePicker fx:id="dpPresenceDateEditPresenceWindow" maxHeight="40.0" maxWidth="250.0" minHeight="40.0" minWidth="250.0" prefHeight="40.0" prefWidth="250.0" styleClass="input-box" stylesheets="@style.css">
+                                 <effect>
+                                    <Glow />
+                                 </effect>
+                              </DatePicker>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </VBox>
+                        <VBox prefHeight="75.0" prefWidth="350.0">
+                           <children>
+                              <Label prefHeight="20.0" prefWidth="151.0" text="Horário da presença">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="3.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <ChoiceBox fx:id="cbPresenceHourEditPresenceWindow" maxHeight="40.0" maxWidth="65.0" minHeight="40.0" minWidth="65.0" prefHeight="40.0" prefWidth="65.0" styleClass="input-box" stylesheets="@style.css">
+                                       <HBox.margin>
+                                          <Insets right="5.0" />
+                                       </HBox.margin>
+                                    </ChoiceBox>
+                                    <Label text="Horas">
+                                       <HBox.margin>
+                                          <Insets right="16.0" />
+                                       </HBox.margin>
+                                       <font>
+                                          <Font size="10.0" />
+                                       </font>
+                                    </Label>
+                                    <ChoiceBox fx:id="cbPresenceMinuteEditPresenceWindow" layoutX="10.0" layoutY="10.0" maxHeight="40.0" maxWidth="65.0" minHeight="40.0" minWidth="65.0" prefHeight="40.0" prefWidth="65.0" styleClass="input-box" stylesheets="@style.css">
+                                       <HBox.margin>
+                                          <Insets right="5.0" />
+                                       </HBox.margin>
+                                    </ChoiceBox>
+                                    <Label layoutX="75.0" layoutY="10.0" text="Minutos">
+                                       <HBox.margin>
+                                          <Insets right="5.0" />
+                                       </HBox.margin>
+                                       <font>
+                                          <Font size="10.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </VBox>
+                        <VBox prefHeight="60.0" prefWidth="350.0">
+                           <children>
+                              <Label prefHeight="20.0" prefWidth="151.0" text="Observações">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="3.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextArea fx:id="taObservationEditPresenceWindow" maxHeight="100.0" minHeight="100.0" prefHeight="100.0" />
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox alignment="TOP_CENTER" maxHeight="35.0" minHeight="35.0" prefHeight="35.0">
+               <children>
+                  <HBox alignment="TOP_CENTER" maxHeight="35.0" minHeight="35.0" prefHeight="35.0">
+                     <children>
+                        <Button fx:id="btnRegisterEditPresenceWindow" maxHeight="35.0" maxWidth="100.0" minHeight="35.0" minWidth="100.0" mnemonicParsing="false" onAction="#editPresence" prefHeight="35.0" prefWidth="100.0" styleClass="btn-nav-bar" stylesheets="@style.css" text="Salvar" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="10.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="16.0" top="16.0" />
+         </padding>
+      </VBox>
+   </center>
    <top>
-      <VBox prefHeight="70.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+      <HBox maxHeight="60.0" minHeight="60.0" prefHeight="60.0" BorderPane.alignment="CENTER">
          <children>
             <HBox maxHeight="25.0" minHeight="25.0" prefHeight="25.0">
                <children>
@@ -34,10 +267,8 @@
                      </font>
                   </Label>
                </children>
-               <VBox.margin>
-                  <Insets bottom="16.0" />
-               </VBox.margin>
             </HBox>
+            <Pane prefHeight="100.0" prefWidth="83.0" HBox.hgrow="ALWAYS" />
             <HBox alignment="CENTER" maxHeight="45.0" minHeight="45.0" prefHeight="45.0">
                <children>
                   <HBox fx:id="hbPushMsgEditPresenceWindow" alignment="CENTER" maxHeight="45.0" maxWidth="300.0" minHeight="45.0" minWidth="300.0" prefHeight="45.0" prefWidth="300.0" stylesheets="@style.css">
@@ -72,196 +303,6 @@
                </children>
             </HBox>
          </children>
-      </VBox>
+      </HBox>
    </top>
-   <padding>
-      <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-   </padding>
-   <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-         <children>
-            <VBox prefHeight="60.0" prefWidth="350.0">
-               <children>
-                  <Label prefHeight="20.0" prefWidth="63.0" text="Registro">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="3.0" />
-                     </VBox.margin>
-                  </Label>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <RadioButton fx:id="rbArrivalEditPresenceWindow" mnemonicParsing="false" onAction="#selectArrival" onMouseClicked="#selectArrival" text="Chegada">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets right="32.0" />
-                           </HBox.margin>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </RadioButton>
-                        <RadioButton fx:id="rbExitEditPresenceWindow" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#selectExit" onMouseClicked="#selectExit" text="Saída">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </RadioButton>
-                     </children>
-                  </HBox>
-               </children>
-               <VBox.margin>
-                  <Insets bottom="16.0" left="16.0" />
-               </VBox.margin>
-            </VBox>
-            <VBox prefHeight="60.0" prefWidth="350.0">
-               <children>
-                  <Label prefHeight="20.0" prefWidth="63.0" text="Situação">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="3.0" />
-                     </VBox.margin>
-                  </Label>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <RadioButton fx:id="rbPresentEditPresenceWindow" mnemonicParsing="false" onAction="#selectPresent" onMouseClicked="#selectPresent" text="Presente">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets right="32.0" />
-                           </HBox.margin>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </RadioButton>
-                        <RadioButton fx:id="rbNotPresentEditPresenceWindow" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#selectNotPresent" onMouseClicked="#selectNotPresent" text="Não Presente">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </RadioButton>
-                     </children>
-                  </HBox>
-               </children>
-               <VBox.margin>
-                  <Insets bottom="16.0" left="16.0" />
-               </VBox.margin>
-            </VBox>
-            <VBox prefHeight="60.0" prefWidth="350.0">
-               <children>
-                  <Label prefHeight="20.0" prefWidth="151.0" text="Data da presença">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="3.0" />
-                     </VBox.margin>
-                  </Label>
-                  <DatePicker fx:id="dpPresenceDateEditPresenceWindow" maxHeight="40.0" maxWidth="250.0" minHeight="40.0" minWidth="250.0" prefHeight="40.0" prefWidth="250.0" styleClass="input-box" stylesheets="@style.css">
-                     <effect>
-                        <Glow />
-                     </effect>
-                  </DatePicker>
-               </children>
-               <padding>
-                  <Insets bottom="10.0" />
-               </padding>
-               <VBox.margin>
-                  <Insets bottom="16.0" left="16.0" />
-               </VBox.margin>
-            </VBox>
-            <VBox prefHeight="60.0" prefWidth="350.0">
-               <children>
-                  <Label prefHeight="20.0" prefWidth="151.0" text="Horário da presença">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="3.0" />
-                     </VBox.margin>
-                  </Label>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <ChoiceBox fx:id="cbPresenceHourEditPresenceWindow" maxHeight="40.0" maxWidth="65.0" minHeight="40.0" minWidth="65.0" prefHeight="40.0" prefWidth="65.0" styleClass="input-box" stylesheets="@style.css">
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin>
-                        </ChoiceBox>
-                        <Label text="Horas">
-                           <HBox.margin>
-                              <Insets right="16.0" />
-                           </HBox.margin>
-                           <font>
-                              <Font size="10.0" />
-                           </font>
-                        </Label>
-                        <ChoiceBox fx:id="cbPresenceMinuteEditPresenceWindow" layoutX="10.0" layoutY="10.0" maxHeight="40.0" maxWidth="65.0" minHeight="40.0" minWidth="65.0" prefHeight="40.0" prefWidth="65.0" styleClass="input-box" stylesheets="@style.css">
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin>
-                        </ChoiceBox>
-                        <Label layoutX="75.0" layoutY="10.0" text="Minutos">
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin>
-                           <font>
-                              <Font size="10.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-               </children>
-               <padding>
-                  <Insets bottom="10.0" />
-               </padding>
-               <VBox.margin>
-                  <Insets bottom="16.0" left="16.0" />
-               </VBox.margin>
-            </VBox>
-            <VBox prefHeight="60.0" prefWidth="350.0">
-               <children>
-                  <Label prefHeight="20.0" prefWidth="151.0" text="Contrato">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="3.0" />
-                     </VBox.margin>
-                  </Label>
-                  <ChoiceBox fx:id="cbContractEditPresenceWindow" maxHeight="40.0" maxWidth="250.0" minHeight="40.0" minWidth="250.0" prefHeight="40.0" prefWidth="250.0" styleClass="input-box" stylesheets="@style.css" />
-               </children>
-               <padding>
-                  <Insets bottom="10.0" />
-               </padding>
-               <VBox.margin>
-                  <Insets bottom="16.0" left="16.0" />
-               </VBox.margin>
-            </VBox>
-            <HBox alignment="TOP_CENTER" maxHeight="35.0" minHeight="35.0" prefHeight="35.0">
-               <children>
-                  <Button fx:id="btnRegisterEditPresenceWindow" maxHeight="35.0" maxWidth="100.0" minHeight="35.0" minWidth="100.0" mnemonicParsing="false" onAction="#editPresence" prefHeight="35.0" prefWidth="100.0" styleClass="btn-nav-bar" stylesheets="@style.css" text="Salvar" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="10.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-               </children>
-            </HBox>
-         </children>
-         <padding>
-            <Insets bottom="16.0" top="16.0" />
-         </padding>
-      </VBox>
-   </center>
 </BorderPane>

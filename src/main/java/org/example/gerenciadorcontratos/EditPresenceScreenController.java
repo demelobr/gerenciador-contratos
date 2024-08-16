@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -15,6 +16,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import static org.example.gerenciadorcontratos.UtilitiesLibrary.capitalizeWords;
 
 public class EditPresenceScreenController implements Initializable {
     private Application app;
@@ -75,6 +78,15 @@ public class EditPresenceScreenController implements Initializable {
     private RadioButton rbPresentEditPresenceWindow;
 
     @FXML
+    private TextArea taJustificationEditPresenceWindow;
+
+    @FXML
+    private TextArea taObservationEditPresenceWindow;
+
+    @FXML
+    private VBox vbJustificationEditPresenceWindow;
+
+    @FXML
     void closePushMsg(MouseEvent event) {
         hbPushMsgEditPresenceWindow.setVisible(false);
     }
@@ -96,24 +108,28 @@ public class EditPresenceScreenController implements Initializable {
     public void selectPresent(){
         rbPresentEditPresenceWindow.setSelected(true);
         rbNotPresentEditPresenceWindow.setSelected(false);
+        vbJustificationEditPresenceWindow.setVisible(false);
     }
 
     @FXML
     public void selectNotPresent(){
         rbPresentEditPresenceWindow.setSelected(false);
         rbNotPresentEditPresenceWindow.setSelected(true);
+        vbJustificationEditPresenceWindow.setVisible(true);
     }
 
     @FXML
     public void editPresence(){
         String record = rbArrivalEditPresenceWindow.isSelected() ? "CHEGADA" : "SAÍDA";
         String status = rbPresentEditPresenceWindow.isSelected() ? "PRESENTE" : "NÃO PRESENTE";
+        String justification = taJustificationEditPresenceWindow.getText();
+        String observation = taObservationEditPresenceWindow.getText();
         LocalDate presenceDate = dpPresenceDateEditPresenceWindow.getValue();
         String presenceHour = cbPresenceHourEditPresenceWindow.getValue();
         String presenceMinute = cbPresenceMinuteEditPresenceWindow.getValue();
         String nameContract = cbContractEditPresenceWindow.getValue();
 
-        if(record.equals(presence.getRecord()) && status.equals(presence.getStatus()) && presenceDate.equals(presence.getPresenceDateTime().toLocalDate()) &&
+        if(record.equals(presence.getRecord()) && status.equals(presence.getStatus()) && justification.equalsIgnoreCase(presence.getJustification()) && observation.equalsIgnoreCase(presence.getObservation()) && presenceDate.equals(presence.getPresenceDateTime().toLocalDate()) &&
            presence.getPresenceDateTime().getHour() == Integer.parseInt(presenceHour) && presence.getPresenceDateTime().getMinute() == Integer.parseInt(presenceMinute) &&
            (nameContract.equals(presence.getNameContract()) || nameContract.equals(contractsNames.getFirst()))){
             lbPushMsgEditPresenceWindow.setText("Não houve alterações!");
@@ -126,6 +142,12 @@ public class EditPresenceScreenController implements Initializable {
             }
             if(status.equals(presence.getStatus())){
                 status = presence.getStatus();
+            }
+            if(justification.equals(presence.getJustification())){
+                justification = presence.getJustification();
+            }
+            if(observation.equals(presence.getObservation())){
+                observation = presence.getObservation();
             }
             if(presenceDate.equals(presence.getPresenceDateTime().toLocalDate())){
                 presenceDate = presence.getPresenceDateTime().toLocalDate();
@@ -143,7 +165,7 @@ public class EditPresenceScreenController implements Initializable {
             try {
                 if(!app.getServer().checkIfThereIsAnExistingPresenceWithTheRecord(presence.getCpfCollaborator(), presenceDate.atTime(LocalTime.of(Integer.parseInt(presenceHour), Integer.parseInt(presenceMinute))), presence.getRecord(), record)){
                     try {
-                        app.getServer().updatePresence(presence, presence.getCpfCollaborator(), nameContract, record, status, presenceDate, Integer.parseInt(presenceHour), Integer.parseInt(presenceMinute));
+                        app.getServer().updatePresence(presence, presence.getCpfCollaborator(), nameContract, record, status, justification, observation, presenceDate, Integer.parseInt(presenceHour), Integer.parseInt(presenceMinute));
                     } catch (ConnectionFailureDbException | PresenceDoesNotExistException | PresenceNullException e) {
                         lbPushMsgEditPresenceWindow.setText(e.getMessage());
                         hbPushMsgEditPresenceWindow.getStyleClass().setAll("push-msg-error");
@@ -202,7 +224,11 @@ public class EditPresenceScreenController implements Initializable {
         rbExitEditPresenceWindow.setSelected(!presence.getRecord().equals("CHEGADA"));
         rbPresentEditPresenceWindow.setSelected(presence.getStatus().equals("PRESENTE"));
         rbNotPresentEditPresenceWindow.setSelected(!presence.getStatus().equals("PRESENTE"));
+        if(!presence.getStatus().equals("PRESENTE")) vbJustificationEditPresenceWindow.setVisible(true);
+        else vbJustificationEditPresenceWindow.setVisible(false);
         dpPresenceDateEditPresenceWindow.setValue(presence.getPresenceDateTime().toLocalDate());
+        taJustificationEditPresenceWindow.setText(capitalizeWords(presence.getJustification()));
+        taObservationEditPresenceWindow.setText(capitalizeWords(presence.getObservation()));
         this.setCombosBoxOptions();
         for(int i = 1; i < hours.size(); i++){
             if(presence.getPresenceDateTime().getHour() == Integer.parseInt(hours.get(i))) cbPresenceHourEditPresenceWindow.setValue(hours.get(i));
@@ -255,6 +281,7 @@ public class EditPresenceScreenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         hbPushMsgEditPresenceWindow.setVisible(false);
+        vbJustificationEditPresenceWindow.setVisible(false);
     }
 
 }

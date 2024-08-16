@@ -151,12 +151,12 @@ public class Server {
     }
 
     // Presence's methods
-    public void createPresence(Presence presence) throws InvalidPresenceException, InvalidPresenseOrRecordDateTimeException, ConnectionFailureDbException, PresenceCreatedSuccessfullyException, PresenceNullException, EmptyfieldsException, thereIsAlreadyARegisteredPresenceException {
+    public void createPresence(Presence presence) throws InvalidPresenceException, InvalidPresenseOrRecordDateTimeException, ConnectionFailureDbException, PresenceCreatedSuccessfullyException, PresenceNullException, EmptyfieldsException, thereIsAlreadyARegisteredPresenceException, JustificationRequiredException {
         presenceController.createPresence(presence);
     }
 
-    public void updatePresence(Presence presence, String cpfCollaborator, String nameContract, String record, String status, LocalDate presenceDate, int presenceHour, int presenceMinute) throws ConnectionFailureDbException, PresenceDoesNotExistException, PresenceNullException, PresenceUpdatedSuccessfullyException {
-        presenceController.updatePresence(presence, cpfCollaborator, nameContract, record, status, presenceDate, presenceHour, presenceMinute);
+    public void updatePresence(Presence presence, String cpfCollaborator, String nameContract, String record, String status, String justification, String observation, LocalDate presenceDate, int presenceHour, int presenceMinute) throws ConnectionFailureDbException, PresenceDoesNotExistException, PresenceNullException, PresenceUpdatedSuccessfullyException {
+        presenceController.updatePresence(presence, cpfCollaborator, nameContract, record, status, justification, observation, presenceDate, presenceHour, presenceMinute);
     }
 
     public void deletePresence(Presence presence) throws ConnectionFailureDbException, PresenceDoesNotExistException, PresenceNullException, PresenceDeletedSuccessfullyException {
@@ -171,7 +171,7 @@ public class Server {
         return presenceController.checkIfThereIsAnExistingPresenceWithTheRecord(cpfCollaborator, presenceDateTime, currentRecord, newRecord);
     }
 
-    public boolean checkPresenceData(Presence presence) throws InvalidPresenseOrRecordDateTimeException, EmptyfieldsException, ConnectionFailureDbException, thereIsAlreadyARegisteredPresenceException {
+    public boolean checkPresenceData(Presence presence) throws InvalidPresenseOrRecordDateTimeException, EmptyfieldsException, ConnectionFailureDbException, thereIsAlreadyARegisteredPresenceException, JustificationRequiredException {
         return presenceController.checkPresenceData(presence);
     }
 

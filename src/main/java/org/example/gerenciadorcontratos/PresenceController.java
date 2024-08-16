@@ -20,7 +20,7 @@ public class PresenceController implements IPresenceController{
     }
 
     @Override
-    public void createPresence(Presence presence) throws ConnectionFailureDbException, PresenceCreatedSuccessfullyException, InvalidPresenceException, PresenceNullException, InvalidPresenseOrRecordDateTimeException, EmptyfieldsException, thereIsAlreadyARegisteredPresenceException {
+    public void createPresence(Presence presence) throws ConnectionFailureDbException, PresenceCreatedSuccessfullyException, InvalidPresenceException, PresenceNullException, InvalidPresenseOrRecordDateTimeException, EmptyfieldsException, thereIsAlreadyARegisteredPresenceException, JustificationRequiredException {
         if(presence != null){
             if(this.checkPresenceData(presence)){
                 presenceRepository.create(presence);
@@ -34,7 +34,7 @@ public class PresenceController implements IPresenceController{
     }
 
     @Override
-    public void updatePresence(Presence presence, String cpfCollaborator, String nameContract, String record, String status, LocalDate presenceDate, int presenceHour, int presenceMinute) throws ConnectionFailureDbException, PresenceUpdatedSuccessfullyException, PresenceDoesNotExistException, PresenceNullException {
+    public void updatePresence(Presence presence, String cpfCollaborator, String nameContract, String record, String status, String justification, String observation, LocalDate presenceDate, int presenceHour, int presenceMinute) throws ConnectionFailureDbException, PresenceUpdatedSuccessfullyException, PresenceDoesNotExistException, PresenceNullException {
         if(presence != null){
             if(this.presenceExists(presence.getCpfCollaborator(), presence.getRecordDateTime())){
                 LocalDateTime presenceDateTime = presenceDate.atTime(presenceHour, presenceMinute);
@@ -54,7 +54,7 @@ public class PresenceController implements IPresenceController{
                 if(presence.getPresenceDateTime().isEqual(presenceDateTime)){
                     presenceDateTime = presence.getPresenceDateTime();
                 }
-                presenceRepository.update(presence, cpfCollaborator, nameContract, record, status, presenceDate, presenceHour, presenceMinute);
+                presenceRepository.update(presence, cpfCollaborator, nameContract, record, status, justification, observation, presenceDate, presenceHour, presenceMinute);
                 throw new PresenceUpdatedSuccessfullyException();
             }else{
                 throw new PresenceDoesNotExistException();
@@ -94,7 +94,7 @@ public class PresenceController implements IPresenceController{
     }
 
     @Override
-    public boolean checkPresenceData(Presence presence) throws ConnectionFailureDbException, EmptyfieldsException, InvalidPresenseOrRecordDateTimeException, thereIsAlreadyARegisteredPresenceException {
+    public boolean checkPresenceData(Presence presence) throws ConnectionFailureDbException, EmptyfieldsException, InvalidPresenseOrRecordDateTimeException, thereIsAlreadyARegisteredPresenceException, JustificationRequiredException {
         boolean presenceChecked = true;
         if(presence.getCpfCollaborator().isEmpty() || presence.getNameContract().isEmpty() ||
            presence.getRecord().isEmpty() || presence.getStatus().isEmpty()){
@@ -105,10 +105,15 @@ public class PresenceController implements IPresenceController{
             presenceChecked = false;
             throw new InvalidPresenseOrRecordDateTimeException();
         }
+        if(presence.getStatus().equals("NÃO PRESENTE") && presence.getJustification().isEmpty()){
+            presenceChecked = false;
+            throw new JustificationRequiredException();
+        }
         if(this.checkEntryAndExitPresenceExists(presence.getCpfCollaborator(), presence.getPresenceDateTime(), presence.getRecord())){
             presenceChecked = false;
             throw new thereIsAlreadyARegisteredPresenceException();
         }
+
         return presenceChecked;
     }
 

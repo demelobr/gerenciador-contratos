@@ -26,7 +26,7 @@ public class PresenceDAO implements IPresenceDAO{
     @Override
     public void create(Presence presence) throws ConnectionFailureDbException {
         try (Connection conn = ConnectionFactory.getConnection()){
-            String sql = "INSERT INTO presences (cpfCollaborator, nameContract, record, status, presenceDateTime, recordDateTime) VALUES (?,?,?,?,?,?)";
+            String sql = "INSERT INTO presences (cpfCollaborator, nameContract, record, status, justification, observation, presenceDateTime, recordDateTime) VALUES (?,?,?,?,?,?,?,?)";
 
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm");
             DateTimeFormatter dateTimeFormatterWithSeconds = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm:ss");
@@ -36,8 +36,10 @@ public class PresenceDAO implements IPresenceDAO{
             ps.setString(2, presence.getNameContract().toUpperCase());
             ps.setString(3, presence.getRecord().toUpperCase());
             ps.setString(4, presence.getStatus().toUpperCase());
-            ps.setString(5, presence.getPresenceDateTime().format(dateTimeFormatter));
-            ps.setString(6, presence.getRecordDateTime().format(dateTimeFormatterWithSeconds));
+            ps.setString(5, presence.getJustification().toUpperCase());
+            ps.setString(6, presence.getObservation().toUpperCase());
+            ps.setString(7, presence.getPresenceDateTime().format(dateTimeFormatter));
+            ps.setString(8, presence.getRecordDateTime().format(dateTimeFormatterWithSeconds));
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -47,9 +49,9 @@ public class PresenceDAO implements IPresenceDAO{
     }
 
     @Override
-    public void update(Presence presence, String cpfCollaborator, String nameContract, String record, String status, LocalDate presenceDate, int presenceHour, int presenceMinute) throws ConnectionFailureDbException {
+    public void update(Presence presence, String cpfCollaborator, String nameContract, String record, String status, String justification, String observation, LocalDate presenceDate, int presenceHour, int presenceMinute) throws ConnectionFailureDbException {
         try (Connection conn = ConnectionFactory.getConnection()){
-            String sql = "UPDATE presences SET cpfCollaborator = ?, nameContract = ?, record = ?, status = ?, presenceDateTime = ?, recordDateTime = ? WHERE cpfCollaborator = ? AND recordDateTime = ?";
+            String sql = "UPDATE presences SET cpfCollaborator = ?, nameContract = ?, record = ?, status = ?, justification = ?, observation = ?, presenceDateTime = ?, recordDateTime = ? WHERE cpfCollaborator = ? AND recordDateTime = ?";
 
             LocalDateTime presenceDateTime = presenceDate.atTime(LocalTime.of(presenceHour, presenceMinute));
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm");
@@ -60,10 +62,12 @@ public class PresenceDAO implements IPresenceDAO{
             ps.setString(2, nameContract.toUpperCase());
             ps.setString(3, record.toUpperCase());
             ps.setString(4, status.toUpperCase());
-            ps.setString(5, presenceDateTime.format(dateTimeFormatter));
-            ps.setString(6, LocalDateTime.now().format(dateTimeFormatterWithSeconds));
-            ps.setString(7, presence.getCpfCollaborator().toUpperCase());
-            ps.setString(8, presence.getRecordDateTime().format(dateTimeFormatterWithSeconds));
+            ps.setString(5, justification.toUpperCase());
+            ps.setString(6, observation.toUpperCase());
+            ps.setString(7, presenceDateTime.format(dateTimeFormatter));
+            ps.setString(8, LocalDateTime.now().format(dateTimeFormatterWithSeconds));
+            ps.setString(9, presence.getCpfCollaborator().toUpperCase());
+            ps.setString(10, presence.getRecordDateTime().format(dateTimeFormatterWithSeconds));
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -92,7 +96,7 @@ public class PresenceDAO implements IPresenceDAO{
     public boolean presenceExists(String cpfCollaborator, LocalDateTime recordDataTime) throws ConnectionFailureDbException {
         boolean presenceExists = false;
         try (Connection conn = ConnectionFactory.getConnection()){
-            String sql = "SELECT id, cpfCollaborator, nameContract, record, status, presenceDateTime, recordDateTime FROM presences WHERE cpfCollaborator = ? AND recordDateTime = ?";
+            String sql = "SELECT id, cpfCollaborator, nameContract, record, status, justification, observation, presenceDateTime, recordDateTime FROM presences WHERE cpfCollaborator = ? AND recordDateTime = ?";
 
             DateTimeFormatter dateTimeFormatterWithSeconds = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm:ss");
 
@@ -139,7 +143,7 @@ public class PresenceDAO implements IPresenceDAO{
     public Presence getByCpfAndDateTime(String queryCpfCollaborator, LocalDateTime queryRecordDataTime) throws ConnectionFailureDbException {
         Presence presence = null;
         try (Connection conn = ConnectionFactory.getConnection()){
-            String sql = "SELECT id, cpfCollaborator, nameContract, record, status, presenceDateTime, recordDateTime FROM presences WHERE cpfCollaborator = ? AND recordDateTime = ?";
+            String sql = "SELECT id, cpfCollaborator, nameContract, record, status, justification, observation, presenceDateTime, recordDateTime FROM presences WHERE cpfCollaborator = ? AND recordDateTime = ?";
 
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm");
             DateTimeFormatter dateTimeFormatterWithSeconds = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm:ss");
@@ -154,9 +158,11 @@ public class PresenceDAO implements IPresenceDAO{
                     String nameContract = rs.getString("nameContract");
                     String record = rs.getString("record");
                     String status = rs.getString("status");
+                    String justification = rs.getString("justification");
+                    String observation = rs.getString("observation");
                     LocalDateTime presenceDateTime = LocalDateTime.parse(rs.getString("presenceDateTime"), dateTimeFormatter);
                     LocalDateTime recordDateTime = LocalDateTime.parse(rs.getString("recordDateTime"), dateTimeFormatterWithSeconds);
-                    presence = new Presence(cpfCollaborator, nameContract, record, status, presenceDateTime, recordDateTime);
+                    presence = new Presence(cpfCollaborator, nameContract, record, status, justification, observation, presenceDateTime, recordDateTime);
                 }
             }
 
@@ -223,9 +229,11 @@ public class PresenceDAO implements IPresenceDAO{
                     String nameContract = rs.getString("nameContract");
                     String record = rs.getString("record");
                     String status = rs.getString("status");
+                    String justification = rs.getString("justification");
+                    String observation = rs.getString("observation");
                     LocalDateTime presenceDateTime = LocalDateTime.parse(rs.getString("presenceDateTime"), dateTimeFormatter);
                     LocalDateTime recordDateTime = LocalDateTime.parse(rs.getString("recordDateTime"), dateTimeFormatterWithSeconds);
-                    listOfAllWithFilters.add(new Presence(cpfCollaborator, nameContract, record, status, presenceDateTime, recordDateTime));
+                    listOfAllWithFilters.add(new Presence(cpfCollaborator, nameContract, record, status, justification, observation, presenceDateTime, recordDateTime));
                 }
             }
 
@@ -239,7 +247,7 @@ public class PresenceDAO implements IPresenceDAO{
     public List<Presence> listAllByCpf(String cpf) throws ConnectionFailureDbException {
         List<Presence> listOfAllByCpf = new ArrayList<>();
         try (Connection conn = ConnectionFactory.getConnection()){
-            String sql = "SELECT id, cpfCollaborator, nameContract, record, status, presenceDateTime, recordDateTime FROM presences WHERE cpfCollaborator = ? ORDER BY STR_TO_DATE(presenceDateTime, '%d/%m/%Y - %H:%i')";
+            String sql = "SELECT id, cpfCollaborator, nameContract, record, status, justification, observation, presenceDateTime, recordDateTime FROM presences WHERE cpfCollaborator = ? ORDER BY STR_TO_DATE(presenceDateTime, '%d/%m/%Y - %H:%i')";
 
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm");
             DateTimeFormatter dateTimeFormatterWithSeconds = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm:ss");
@@ -253,13 +261,16 @@ public class PresenceDAO implements IPresenceDAO{
                     String nameContract = rs.getString("nameContract");
                     String record = rs.getString("record");
                     String status = rs.getString("status");
+                    String justification = rs.getString("justification");
+                    String observation = rs.getString("observation");
                     LocalDateTime presenceDateTime = LocalDateTime.parse(rs.getString("presenceDateTime"), dateTimeFormatter);
                     LocalDateTime recordDateTime = LocalDateTime.parse(rs.getString("recordDateTime"), dateTimeFormatterWithSeconds);
-                    listOfAllByCpf.add(new Presence(cpfCollaborator, nameContract, record, status, presenceDateTime, recordDateTime));
+                    listOfAllByCpf.add(new Presence(cpfCollaborator, nameContract, record, status, justification, observation, presenceDateTime, recordDateTime));
                 }
             }
 
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             throw new ConnectionFailureDbException();
         }
         return listOfAllByCpf;

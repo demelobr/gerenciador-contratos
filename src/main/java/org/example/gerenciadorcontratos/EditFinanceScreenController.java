@@ -151,8 +151,13 @@ public class EditFinanceScreenController implements Initializable {
         }
 
         try {
-            if(title.isEmpty() && type.equals(finance.getType()) && contractName == null && value.isEmpty() && date == null && rbYesEditFinanceWindow.isSelected() && app.getServer().getCollaboratorByCpf(finance.getCollaboratorCpf()).getName().equals(cbCollaboratorEditFinanceWindow.getValue())){
+            if(title.isEmpty() && type.equals(finance.getType()) && contractName.equals(finance.getContractName()) && notes.equalsIgnoreCase(finance.getNotes()) && value.isEmpty() && date == null && rbYesEditFinanceWindow.isSelected() && app.getServer().getCollaboratorByCpf(finance.getCollaboratorCpf()).getName().equals(cbCollaboratorEditFinanceWindow.getValue())){
                 lbPushMsgEditFinanceWindow.setText("Não houve alterações!");
+                hbPushMsgEditFinanceWindow.getStyleClass().setAll("push-msg-error");
+                hbPushMsgEditFinanceWindow.setVisible(true);
+                this.delayHidePushMsg();
+            }else if(contractName.equals("----------")){
+                lbPushMsgEditFinanceWindow.setText("Necessário escolher um contrato!");
                 hbPushMsgEditFinanceWindow.getStyleClass().setAll("push-msg-error");
                 hbPushMsgEditFinanceWindow.setVisible(true);
                 this.delayHidePushMsg();

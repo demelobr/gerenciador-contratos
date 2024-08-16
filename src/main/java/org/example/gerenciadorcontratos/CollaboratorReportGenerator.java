@@ -63,7 +63,8 @@ public class CollaboratorReportGenerator {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-            reportPath = "src/main/resources/org/example/gerenciadorcontratos/collaborator-finances.jrxml";
+//            reportPath = "src/main/resources/org/example/gerenciadorcontratos/collaborator-finances.jrxml";
+            reportPath = "src/main/resources/org/example/gerenciadorcontratos/collaborator-finances-teste.jrxml";
             name = collaborator.getName();
             sql = getQueryOfSearch("", "", nameContract, startDateTime, endDateTime,minValue, maxValue, "finances");
             sql = sql + " ORDER BY STR_TO_DATE(finances.`date`, '%d/%m/%Y');";
@@ -114,7 +115,8 @@ public class CollaboratorReportGenerator {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-            reportPath = "src/main/resources/org/example/gerenciadorcontratos/collaborator-presences.jrxml";
+//            reportPath = "src/main/resources/org/example/gerenciadorcontratos/collaborator-presences.jrxml";
+            reportPath = "src/main/resources/org/example/gerenciadorcontratos/collaborator-presences-teste.jrxml";
             name = collaborator.getName();
             sql = getQueryOfSearch(record, status, nameContract, startDateTime, endDateTime, "", "", "presences");
             sql = sql + " ORDER BY STR_TO_DATE(presences.`presenceDateTime`, '%d/%m/%Y - %H:%i');";

@@ -50,7 +50,6 @@ public class CollaboratorDAO implements ICollaboratorDAO{
             ps.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
             throw new ConnectionFailureDbException();
         }
     }

@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -74,6 +75,15 @@ public class AddNewPresenceScreenController implements Initializable {
     private RadioButton rbPresentAddNewPresenceWindow;
 
     @FXML
+    private TextArea taJustificationAddNewPresenceWindow;
+
+    @FXML
+    private TextArea taObservationAddNewPresenceWindow;
+
+    @FXML
+    private VBox vbJustificationAddNewPresenceWindow;
+
+    @FXML
     void closePushMsg(MouseEvent event) {
         hbPushMsgAddNewPresenceWindow.setVisible(false);
     }
@@ -94,18 +104,22 @@ public class AddNewPresenceScreenController implements Initializable {
     public void selectPresent(){
         rbPresentAddNewPresenceWindow.setSelected(true);
         rbNotPresentAddNewPresenceWindow.setSelected(false);
+        vbJustificationAddNewPresenceWindow.setVisible(false);
     }
 
     @FXML
     public void selectNotPresent(){
         rbPresentAddNewPresenceWindow.setSelected(false);
         rbNotPresentAddNewPresenceWindow.setSelected(true);
+        vbJustificationAddNewPresenceWindow.setVisible(true);
     }
 
     @FXML
     public void registerPresence(){
         String record = rbArrivalAddNewPresenceWindow.isSelected() ? "CHEGADA" : "SAÍDA";
         String status = rbPresentAddNewPresenceWindow.isSelected() ? "PRESENTE" : "NÃO PRESENTE";
+        String justification = taJustificationAddNewPresenceWindow.getText();
+        String observation = taObservationAddNewPresenceWindow.getText();
         LocalDate presenceDate = dpPresenceDateAddNewPresenceWindow.getValue();
         String presenceHour = cbPresenceHourAddNewPresenceWindow.getValue();
         String presenceMinute = cbPresenceMinuteAddNewPresenceWindow.getValue();
@@ -113,14 +127,14 @@ public class AddNewPresenceScreenController implements Initializable {
 
         if(presenceDate != null && !presenceHour.isEmpty() && !presenceMinute.isEmpty() &&
           !presenceHour.equals(hours.getFirst()) && !presenceMinute.equals(minutes.getFirst()) && !nameContract.equals(contractsNames.getFirst())){
-            Presence presence = new Presence(collaborator.getCpf(), nameContract, record, status, presenceDate, Integer.parseInt(presenceHour), Integer.parseInt(presenceMinute));
+            Presence presence = new Presence(collaborator.getCpf(), nameContract, record, status, justification, observation, presenceDate, Integer.parseInt(presenceHour), Integer.parseInt(presenceMinute));
             try {
                 if(app.getServer().checkPresenceData(presence)){
                     app.getServer().createPresence(presence);
                 }
             } catch (InvalidPresenseOrRecordDateTimeException | EmptyfieldsException | PresenceNullException |
                      ConnectionFailureDbException | InvalidPresenceException |
-                     thereIsAlreadyARegisteredPresenceException e) {
+                     thereIsAlreadyARegisteredPresenceException | JustificationRequiredException e) {
                 lbPushMsgAddNewPresenceWindow.setText(e.getMessage());
                 hbPushMsgAddNewPresenceWindow.getStyleClass().setAll("push-msg-error");
                 hbPushMsgAddNewPresenceWindow.setVisible(true);
@@ -191,6 +205,7 @@ public class AddNewPresenceScreenController implements Initializable {
         rbExitAddNewPresenceWindow.setSelected(false);
         rbPresentAddNewPresenceWindow.setSelected(true);
         rbNotPresentAddNewPresenceWindow.setSelected(false);
+        vbJustificationAddNewPresenceWindow.setVisible(false);
         dpPresenceDateAddNewPresenceWindow.setPromptText(LocalDate.now().format(dateTimeFormatter));
         this.setCombosBoxOptions();
         cbPresenceHourAddNewPresenceWindow.setValue(hours.getFirst());
