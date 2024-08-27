@@ -231,46 +231,57 @@ public class FinanceDAO implements IFinanceDAO {
     }
 
     @Override
-    public List<Finance> listAllWithFilters(String queryCpf, LocalDate queryStartDateTimePeriod, LocalDate queryEndDateTimePeriod, String queryContract, String queryMinValue, String queryMaxValue) throws ConnectionFailureDbException {
+    public List<Finance> listAllWithFilters(String queryType, String queryCpf, LocalDate queryStartDateTimePeriod, LocalDate queryEndDateTimePeriod, String queryContract, String queryMinValue, String queryMaxValue) throws ConnectionFailureDbException {
         List<Finance> listOfAllWithFilters = new ArrayList<>();
+        List<Finance> listOfWithdrawalsFinances = new ArrayList<>();
+
+        listOfAllWithFilters.clear();
+        listOfWithdrawalsFinances.clear();
 
         List<String> filters = new ArrayList<>();
-        filters.add(queryCpf);
+        if(!queryCpf.equals("")) filters.add(queryCpf);
 
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         DateTimeFormatter dateTimeFormatterWithSeconds = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm:ss");
 
         try (Connection conn = ConnectionFactory.getConnection()){
-            String sql = "SELECT * FROM finances WHERE collaboratorCpf = ?";
+            String sql;
+            if(!queryCpf.equals("")) sql = "SELECT * FROM finances WHERE collaboratorCpf = ?";
+            else sql = "SELECT * FROM finances";
 
             if(queryStartDateTimePeriod != null){
-                sql = sql + " AND STR_TO_DATE(date, '%d/%m/%Y') >= STR_TO_DATE(?, '%d/%m/%Y')";
+                if(filters.size() > 0) sql = sql + " AND STR_TO_DATE(date, '%d/%m/%Y') >= STR_TO_DATE(?, '%d/%m/%Y')";
+                else sql = sql + " WHERE STR_TO_DATE(date, '%d/%m/%Y') >= STR_TO_DATE(?, '%d/%m/%Y')";
                 filters.add(queryStartDateTimePeriod.atTime(0,0,0).format(dateTimeFormatterWithSeconds));
             }
 
             if(queryEndDateTimePeriod != null){
-                sql = sql + " AND STR_TO_DATE(date, '%d/%m/%Y') <= STR_TO_DATE(?, '%d/%m/%Y')";
+                if(filters.size() > 0) sql = sql + " AND STR_TO_DATE(date, '%d/%m/%Y') <= STR_TO_DATE(?, '%d/%m/%Y')";
+                else sql = sql + " WHERE STR_TO_DATE(date, '%d/%m/%Y') <= STR_TO_DATE(?, '%d/%m/%Y')";
                 filters.add(queryEndDateTimePeriod.atTime(23,59,59).format(dateTimeFormatterWithSeconds));
             }
 
             if(queryContract != null){
                 if(!queryContract.equals("----------")){
-                    sql = sql + " AND contractName = ?";
+                    if(filters.size() > 0) sql = sql + " AND contractName = ?";
+                    else sql = sql + " WHERE contractName = ?";
                     filters.add(queryContract);
                 }
             }
 
             if(!queryMinValue.equals("")){
-                sql = sql + " AND value >= ?";
+                if(filters.size() > 0) sql = sql + " AND value >= ?";
+                else sql = sql + " WHERE value >= ?";
                 filters.add(queryMinValue);
             }
 
             if(!queryMaxValue.equals("")){
-                sql = sql + " AND value <= ?";
+                if(filters.size() > 0) sql = sql + " AND value <= ?";
+                else sql = sql + " WHERE value <= ?";
                 filters.add(queryMaxValue);
             }
 
-            sql = sql + "ORDER BY STR_TO_DATE(date, '%d/%m/%Y')";
+            sql = sql + " ORDER BY STR_TO_DATE(date, '%d/%m/%Y')";
 
             PreparedStatement ps = conn.prepareStatement(sql);
             for(int i = 0; i < filters.size(); i++){
@@ -291,6 +302,18 @@ public class FinanceDAO implements IFinanceDAO {
                     listOfAllWithFilters.add(new Finance(title, notes, contractName, type, paymentMethod, date, recordDateTime, value, collaboratorCpf));
                 }
             }
+
+            if(queryType.equals("entries")){
+                for(Finance finance : listOfAllWithFilters){
+                    if(!finance.getType().equals("RECEITA")) listOfWithdrawalsFinances.add(finance);
+                }
+            }else if(queryType.equals("expenses")){
+                for(Finance finance : listOfAllWithFilters){
+                    if(!finance.getType().equals("DESPESA")) listOfWithdrawalsFinances.add(finance);
+                }
+            }
+
+            listOfAllWithFilters.removeAll(listOfWithdrawalsFinances);
 
         } catch (SQLException e) {
             throw new ConnectionFailureDbException();

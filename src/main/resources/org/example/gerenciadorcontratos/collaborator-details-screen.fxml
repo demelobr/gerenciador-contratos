@@ -619,7 +619,7 @@
                                                             <Label fx:id="lbTypeDetailsCollaboratorWindow" prefHeight="17.0" prefWidth="158.0" text="Despesa" />
                                                          </children>
                                                          <VBox.margin>
-                                                            <Insets bottom="16.0" />
+                                                            <Insets bottom="8.0" />
                                                          </VBox.margin>
                                                       </VBox>
                                                       <VBox layoutX="18.0" layoutY="18.0" maxHeight="34.0" minHeight="34.0" prefHeight="34.0">

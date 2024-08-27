@@ -244,12 +244,12 @@ public class CollaboratorDetailsScreenController implements Initializable {
     private TableView<Presence> tvPresencesDetailsCollaboratorWindow;
 
     @FXML
-    void closePushMsg(MouseEvent event) {
+    public void closePushMsg(MouseEvent event) {
         hbPushMsgAddDetailsCollaboratorWindow.setVisible(false);
     }
 
     @FXML
-    void goBackCollaboratorScreen(){
+    public void goBackCollaboratorScreen(){
         this.resetWindow();
         ScreenManager sm = ScreenManager.getInstance();
         sm.getCollaboratorsScreenController().setDataScreen(sm.getCollaboratorsScreenController().getUser().getName());
@@ -485,17 +485,14 @@ public class CollaboratorDetailsScreenController implements Initializable {
         return listOfFinances;
     }
 
-    private ObservableList<Finance> searchFinance(){
+    private ObservableList<Finance> searchFinance(String filter){
         ObservableList<Finance> searchResult;
-
         try {
-            searchResult = FXCollections.observableArrayList(app.getServer().listAllFinancesWithFilters(collaborator.getCpf(), dpStartPeriodFinanceDetailsCollaboratorWindow.getValue(), dpEndPeriodFinanceDetailsCollaboratorWindow.getValue(), cbContractFinanceDetailsCollaboratorWindow.getValue(), tfMinValueFinanceDetailsCollaboratorWindow.getText(), tfMaxValueFinanceDetailsCollaboratorWindow.getText()));
+            searchResult = FXCollections.observableArrayList(app.getServer().listAllFinancesWithFilters(filter, collaborator.getCpf(), dpStartPeriodFinanceDetailsCollaboratorWindow.getValue(), dpEndPeriodFinanceDetailsCollaboratorWindow.getValue(), cbContractFinanceDetailsCollaboratorWindow.getValue(), tfMinValueFinanceDetailsCollaboratorWindow.getText(), tfMaxValueFinanceDetailsCollaboratorWindow.getText()));
         } catch (ConnectionFailureDbException e) {
             throw new RuntimeException(e);
         }
-
         return searchResult;
-
     }
 
     public void setFieldsOfFinanceCard(Finance finance){
@@ -820,7 +817,7 @@ public class CollaboratorDetailsScreenController implements Initializable {
         ChangeListener<String> comboBoxFinanceChangeListener = new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                tvFinancesDetailsCollaboratorWindow.setItems(searchFinance());
+                tvFinancesDetailsCollaboratorWindow.setItems(searchFinance("complete"));
                 lbResultsFoundFinancesDetailsCollaboratorWindow.setText(String.format("%d resultado(s) encontrado(s)", tvFinancesDetailsCollaboratorWindow.getItems().size()));
             }
         };
@@ -828,7 +825,7 @@ public class CollaboratorDetailsScreenController implements Initializable {
         ChangeListener<LocalDate> dateChangeFinanceListener = new ChangeListener<LocalDate>() {
             @Override
             public void changed(ObservableValue<? extends LocalDate> observable, LocalDate oldValue, LocalDate newValue) {
-                tvFinancesDetailsCollaboratorWindow.setItems(searchFinance());
+                tvFinancesDetailsCollaboratorWindow.setItems(searchFinance("complete"));
                 lbResultsFoundFinancesDetailsCollaboratorWindow.setText(String.format("%d resultado(s) encontrado(s)", tvFinancesDetailsCollaboratorWindow.getItems().size()));
             }
         };
@@ -901,12 +898,12 @@ public class CollaboratorDetailsScreenController implements Initializable {
         });
 
         tfMinValueFinanceDetailsCollaboratorWindow.setOnKeyReleased((KeyEvent event) -> {
-            tvFinancesDetailsCollaboratorWindow.setItems(this.searchFinance());
+            tvFinancesDetailsCollaboratorWindow.setItems(this.searchFinance("complete"));
             lbResultsFoundFinancesDetailsCollaboratorWindow.setText(String.format("%d resultado(s) encontrado(s)", tvFinancesDetailsCollaboratorWindow.getItems().size()));
         });
 
         tfMaxValueFinanceDetailsCollaboratorWindow.setOnKeyReleased((KeyEvent event) -> {
-            tvFinancesDetailsCollaboratorWindow.setItems(this.searchFinance());
+            tvFinancesDetailsCollaboratorWindow.setItems(this.searchFinance("complete"));
             lbResultsFoundFinancesDetailsCollaboratorWindow.setText(String.format("%d resultado(s) encontrado(s)", tvFinancesDetailsCollaboratorWindow.getItems().size()));
         });
 

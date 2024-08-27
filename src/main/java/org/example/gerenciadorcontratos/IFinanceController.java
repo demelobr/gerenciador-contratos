@@ -14,7 +14,7 @@ public interface IFinanceController {
     Finance getFinanceByContractNameAndRecordDateTime(String contractName, LocalDateTime recordDateTime) throws ConnectionFailureDbException, FinanceDoesNotExistException;
     List<Double> getListOfEntriesForTheYearByMonth(Year year) throws ConnectionFailureDbException;
     List<Double> getListOfExpensesForTheYearByMonth(Year year) throws ConnectionFailureDbException;
-    List<Finance> listAllFinancesWithFilters(String queryCpf, LocalDate queryStartDateTimePeriod, LocalDate queryEndDateTimePeriod, String queryContract, String queryMinValue, String queryMaxValue) throws ConnectionFailureDbException;
+    List<Finance> listAllFinancesWithFilters(String queryType, String queryCpf, LocalDate queryStartDateTimePeriod, LocalDate queryEndDateTimePeriod, String queryContract, String queryMinValue, String queryMaxValue) throws ConnectionFailureDbException;
     List<Finance> listAllFinancesByCollaboratorCpf(String cpf) throws ConnectionFailureDbException;
     List<Finance> listAllFinances() throws ConnectionFailureDbException;
 }

@@ -220,8 +220,8 @@ public class Server {
         return financeController.getListOfExpensesForTheYearByMonth(year);
     }
 
-    public List<Finance> listAllFinancesWithFilters(String queryCpf, LocalDate queryStartDateTimePeriod, LocalDate queryEndDateTimePeriod, String queryContract, String queryMinValue, String queryMaxValue) throws ConnectionFailureDbException {
-        return financeController.listAllFinancesWithFilters(queryCpf, queryStartDateTimePeriod, queryEndDateTimePeriod, queryContract, queryMinValue, queryMaxValue);
+    public List<Finance> listAllFinancesWithFilters(String queryType, String queryCpf, LocalDate queryStartDateTimePeriod, LocalDate queryEndDateTimePeriod, String queryContract, String queryMinValue, String queryMaxValue) throws ConnectionFailureDbException {
+        return financeController.listAllFinancesWithFilters(queryType, queryCpf, queryStartDateTimePeriod, queryEndDateTimePeriod, queryContract, queryMinValue, queryMaxValue);
     }
 
     public List<Finance> listAllFinancesByCollaboratorCpf(String cpf) throws ConnectionFailureDbException {

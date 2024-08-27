@@ -124,8 +124,8 @@ public class FinanceController implements IFinanceController{
     }
 
     @Override
-    public List<Finance> listAllFinancesWithFilters(String queryCpf, LocalDate queryStartDateTimePeriod, LocalDate queryEndDateTimePeriod, String queryContract, String queryMinValue, String queryMaxValue) throws ConnectionFailureDbException {
-        return financeRepository.listAllWithFilters(queryCpf, queryStartDateTimePeriod, queryEndDateTimePeriod, queryContract, queryMinValue, queryMaxValue);
+    public List<Finance> listAllFinancesWithFilters(String queryType, String queryCpf, LocalDate queryStartDateTimePeriod, LocalDate queryEndDateTimePeriod, String queryContract, String queryMinValue, String queryMaxValue) throws ConnectionFailureDbException {
+        return financeRepository.listAllWithFilters(queryType, queryCpf, queryStartDateTimePeriod, queryEndDateTimePeriod, queryContract, queryMinValue, queryMaxValue);
     }
 
     @Override

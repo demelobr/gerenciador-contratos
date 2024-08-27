@@ -13,7 +13,7 @@ public interface IFinanceDAO {
     Finance getFinanceByContractNameAndRecordDateTime(String contractName, LocalDateTime recordDateTime) throws ConnectionFailureDbException;
     List<Double> getListOfEntriesForTheYearByMonth(Year year) throws ConnectionFailureDbException;
     List<Double> getListOfExpensesForTheYearByMonth(Year year) throws ConnectionFailureDbException;
-    List<Finance> listAllWithFilters(String queryCpf, LocalDate queryStartDateTimePeriod, LocalDate queryEndDateTimePeriod, String queryContract, String queryMinValue, String queryMaxValue) throws ConnectionFailureDbException;
+    List<Finance> listAllWithFilters(String queryType, String queryCpf, LocalDate queryStartDateTimePeriod, LocalDate queryEndDateTimePeriod, String queryContract, String queryMinValue, String queryMaxValue) throws ConnectionFailureDbException;
     List<Finance> listAllByCollaboratorCpf(String cpf) throws ConnectionFailureDbException;
     List<Finance> listAll() throws ConnectionFailureDbException;
 }

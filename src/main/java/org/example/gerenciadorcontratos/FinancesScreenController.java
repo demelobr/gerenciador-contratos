@@ -154,6 +154,42 @@ public class FinancesScreenController implements Initializable {
     }
 
     @FXML
+    public void goToFinanceDatailsScreenWithFilterComplete(){
+        this.resetWindow();
+        ScreenManager sm = ScreenManager.getInstance();
+        sm.getFinanceDetailsScreenController().setUser(user);
+        sm.getFinanceDetailsScreenController().setFilter("complete");
+        sm.getFinanceDetailsScreenController().initializeComboBoxsWindow();
+        sm.getFinanceDetailsScreenController().addOrRemoveListeners(true);
+        sm.getFinanceDetailsScreenController().initializeTable();
+        sm.changeScreen("finance-details-screen.fxml", "Gerenciador de Contratos - Detalhes das Finanças");
+    }
+
+    @FXML
+    public void goToFinanceDatailsScreenWithFilterEntries(){
+        this.resetWindow();
+        ScreenManager sm = ScreenManager.getInstance();
+        sm.getFinanceDetailsScreenController().setUser(user);
+        sm.getFinanceDetailsScreenController().setFilter("entries");
+        sm.getFinanceDetailsScreenController().initializeComboBoxsWindow();
+        sm.getFinanceDetailsScreenController().addOrRemoveListeners(true);
+        sm.getFinanceDetailsScreenController().initializeTable();
+        sm.changeScreen("finance-details-screen.fxml", "Gerenciador de Contratos - Detalhes das Finanças");
+    }
+
+    @FXML
+    public void goToFinanceDatailsScreenWithFilterExpenses(){
+        this.resetWindow();
+        ScreenManager sm = ScreenManager.getInstance();
+        sm.getFinanceDetailsScreenController().setUser(user);
+        sm.getFinanceDetailsScreenController().setFilter("expenses");
+        sm.getFinanceDetailsScreenController().initializeComboBoxsWindow();
+        sm.getFinanceDetailsScreenController().addOrRemoveListeners(true);
+        sm.getFinanceDetailsScreenController().initializeTable();
+        sm.changeScreen("finance-details-screen.fxml", "Gerenciador de Contratos - Detalhes das Finanças");
+    }
+
+    @FXML
     public void goToAddFinanceScreen(){
         this.resetWindow();
         ScreenManager sm = ScreenManager.getInstance();
