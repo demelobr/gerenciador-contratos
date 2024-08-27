@@ -27,30 +27,51 @@ public class UtilitiesLibrary {
         return capitalized.toString().trim();
     }
 
-    public static String getQueryOfSearch(String queryRecord, String queryStatus, String queryContract, LocalDate queryStartDateTimePeriod, LocalDate queryEndDateTimePeriod, String queryMinValue, String queryMaxValue, String type){
+    public static String getQueryOfSearch(boolean withCollaborator, boolean financeReportComplete, String queryRecord, String queryStatus, String queryContract, LocalDate queryStartDateTimePeriod, LocalDate queryEndDateTimePeriod, String queryMinValue, String queryMaxValue, String type){
         String sql = "";
+        int count = 0;
 
         if(type.equals("complete")){
 
         }else if(type.equals("finances")){
-            sql = "SELECT * FROM finances WHERE finances.`collaboratorCpf` = $P{queryCpfCollaborator}";
+            if(withCollaborator) sql = "SELECT * FROM finances WHERE finances.`collaboratorCpf` = $P{queryCpfCollaborator}";
+            else{
+                if(financeReportComplete){
+                    sql = "SELECT * FROM finances WHERE";
+                }else{
+                    sql = "SELECT * FROM finances WHERE type = $P{queryFinanceType}";
+                }
+            }
+
             if(queryStartDateTimePeriod != null){
-                sql = sql + " AND STR_TO_DATE(finances.`date`, '%d/%m/%Y') >= STR_TO_DATE($P{queryStartDateTime}, '%d/%m/%Y')";
+                if(withCollaborator || !financeReportComplete) sql = sql + " AND STR_TO_DATE(finances.`date`, '%d/%m/%Y') >= STR_TO_DATE($P{queryStartDateTime}, '%d/%m/%Y')";
+                else sql = sql + " STR_TO_DATE(finances.`date`, '%d/%m/%Y') >= STR_TO_DATE($P{queryStartDateTime}, '%d/%m/%Y')";
+                count++;
             }
             if(queryEndDateTimePeriod != null){
-                sql = sql + " AND STR_TO_DATE(finances.`date`, '%d/%m/%Y')  <= STR_TO_DATE($P{queryEndDateTime}, '%d/%m/%Y')";
+                if(withCollaborator || !financeReportComplete || count > 0) sql = sql + " AND STR_TO_DATE(finances.`date`, '%d/%m/%Y')  <= STR_TO_DATE($P{queryEndDateTime}, '%d/%m/%Y')";
+                else sql = sql + " STR_TO_DATE(finances.`date`, '%d/%m/%Y')  <= STR_TO_DATE($P{queryEndDateTime}, '%d/%m/%Y')";
+                count++;
             }
             if(queryContract != null){
                 if(!queryContract.equals("----------")){
-                    sql = sql + " AND finances.`nameContract` = $P{queryNameContract}";
+                    if(withCollaborator || !financeReportComplete || count > 0) sql = sql + " AND finances.`contractName` = $P{queryNameContract}";
+                    else sql = sql + " finances.`contractName` = $P{queryNameContract}";
+                    count++;
                 }
             }
             if(!queryMinValue.isEmpty()){
-                sql = sql + " AND finances.`value` >= $P{queryMinValue}";
+                if(withCollaborator || !financeReportComplete || count > 0) sql = sql + " AND finances.`value` >= $P{queryMinValue}";
+                else sql = sql + " finances.`value` >= $P{queryMinValue}";
+                count++;
             }
             if(!queryMaxValue.isEmpty()){
-                sql = sql + " AND finances.`value` <= $P{queryMaxValue}";
+                if(withCollaborator || !financeReportComplete ||  count > 0) sql = sql + " AND finances.`value` <= $P{queryMaxValue}";
+                else sql = sql + " finances.`value` <= $P{queryMaxValue}";
+                count++;
             }
+
+            if(count == 0) sql = "SELECT * FROM finances";
 
         }else if(type.equals("presences")){
             sql = "SELECT * FROM presences WHERE presences.`cpfCollaborator` = $P{queryCpfCollaborator}";

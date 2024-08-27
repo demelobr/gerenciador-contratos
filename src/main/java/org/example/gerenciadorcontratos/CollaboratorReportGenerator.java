@@ -52,9 +52,9 @@ public class CollaboratorReportGenerator {
             }
             reportPath = "src/main/resources/org/example/gerenciadorcontratos/collaborator-complete.jrxml";
             name = collaborator.getName();
-            sql = getQueryOfSearch("", "", nameContract, startDateTime, endDateTime,minValue, maxValue, "finances");
+            sql = getQueryOfSearch(true, true,"", "", nameContract, startDateTime, endDateTime,minValue, maxValue, "finances");
             sql = sql + " ORDER BY STR_TO_DATE(finances.`date`, '%d/%m/%Y');";
-            sql = sql + getQueryOfSearch(record, status, nameContract, startDateTime, endDateTime, "", "", "presences");
+            sql = sql + getQueryOfSearch(true,  true, record, status, nameContract, startDateTime, endDateTime, "", "", "presences");
             sql = sql + " ORDER BY STR_TO_DATE(presences.`presenceDateTime`, '%d/%m/%Y - %H:%i');";
 
             parameters.put("logo", logo);
@@ -112,7 +112,7 @@ public class CollaboratorReportGenerator {
 //            reportPath = "src/main/resources/org/example/gerenciadorcontratos/collaborator-finances.jrxml";
             reportPath = "src/main/resources/org/example/gerenciadorcontratos/collaborator-finances-teste.jrxml";
             name = collaborator.getName();
-            sql = getQueryOfSearch("", "", nameContract, startDateTime, endDateTime,minValue, maxValue, "finances");
+            sql = getQueryOfSearch(true, true, "", "", nameContract, startDateTime, endDateTime,minValue, maxValue, "finances");
             sql = sql + " ORDER BY STR_TO_DATE(finances.`date`, '%d/%m/%Y');";
 
             parameters.put("logo", logo);
@@ -164,7 +164,7 @@ public class CollaboratorReportGenerator {
 //            reportPath = "src/main/resources/org/example/gerenciadorcontratos/collaborator-presences.jrxml";
             reportPath = "src/main/resources/org/example/gerenciadorcontratos/collaborator-presences-teste.jrxml";
             name = collaborator.getName();
-            sql = getQueryOfSearch(record, status, nameContract, startDateTime, endDateTime, "", "", "presences");
+            sql = getQueryOfSearch(true, true, record, status, nameContract, startDateTime, endDateTime, "", "", "presences");
             sql = sql + " ORDER BY STR_TO_DATE(presences.`presenceDateTime`, '%d/%m/%Y - %H:%i');";
 
             parameters.put("logo", logo);

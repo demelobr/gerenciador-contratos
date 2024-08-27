@@ -129,7 +129,7 @@
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{contractName}]]></textFieldExpression>
 			</textField>
-			<textField pattern="¤#,#00.00;¤-#,#00.00">
+			<textField pattern="¤#,##0.00;¤-#,##0.00">
 				<reportElement x="386" y="63" width="60" height="21" uuid="feb29b9c-cfe3-4dec-904c-697aba6e6d7b"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{value}]]></textFieldExpression>

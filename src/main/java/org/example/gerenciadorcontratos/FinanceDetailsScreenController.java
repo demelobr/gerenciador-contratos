@@ -178,9 +178,8 @@ public class FinanceDetailsScreenController implements Initializable {
 
     @FXML
     public void generateFinanceReport(){
-//        CollaboratorReportGenerator generator = new CollaboratorReportGenerator();
-//        generator.reportGenerator(collaborator, "", "", cbContractFinanceDetailsCollaboratorWindow.getValue(), dpStartPeriodFinanceDetailsCollaboratorWindow.getValue(), dpEndPeriodFinanceDetailsCollaboratorWindow.getValue(), tfMinValueFinanceDetailsCollaboratorWindow.getText(), tfMaxValueFinanceDetailsCollaboratorWindow.getText(), "finances");
-        System.out.println("Generating finance report");
+        FinanceReportGenerator generator = new FinanceReportGenerator();
+        generator.reportGenarator(filter, entries, expenses, entries-expenses, dpStartPeriodDetailsFinancesWindow.getValue(), dpEndPeriodDetailsFinancesWindow.getValue(), cbContractDetailsFinancesWindow.getValue(), tfMinValueDetailsFinancesWindow.getText(), tfMaxValueDetailsFinancesWindow.getText());
     }
 
     @FXML
