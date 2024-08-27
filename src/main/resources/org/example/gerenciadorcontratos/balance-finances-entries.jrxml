@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="balance-finances-entries" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="edba21db-da90-4cbb-839f-93dfa78e53a8">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="logo" class="java.lang.String"/>
+	<parameter name="entries" class="java.lang.Double"/>
+	<parameter name="queryStartDateTime" class="java.lang.String"/>
+	<parameter name="queryEndDateTime" class="java.lang.String"/>
+	<parameter name="queryNameContract" class="java.lang.String"/>
+	<parameter name="queryMinValue" class="java.lang.String"/>
+	<parameter name="queryMaxValue" class="java.lang.String"/>
+	<parameter name="queryFinanceType" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id"/>
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="finances"/>
+	</field>
+	<field name="title" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="title"/>
+		<property name="com.jaspersoft.studio.field.label" value="title"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="finances"/>
+	</field>
+	<field name="notes" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="notes"/>
+		<property name="com.jaspersoft.studio.field.label" value="notes"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="finances"/>
+	</field>
+	<field name="contractName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="contractName"/>
+		<property name="com.jaspersoft.studio.field.label" value="contractName"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="finances"/>
+	</field>
+	<field name="type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="type"/>
+		<property name="com.jaspersoft.studio.field.label" value="type"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="finances"/>
+	</field>
+	<field name="paymentMethod" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="paymentMethod"/>
+		<property name="com.jaspersoft.studio.field.label" value="paymentMethod"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="finances"/>
+	</field>
+	<field name="date" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="date"/>
+		<property name="com.jaspersoft.studio.field.label" value="date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="finances"/>
+	</field>
+	<field name="recordDateTime" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="recordDateTime"/>
+		<property name="com.jaspersoft.studio.field.label" value="recordDateTime"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="finances"/>
+	</field>
+	<field name="value" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="value"/>
+		<property name="com.jaspersoft.studio.field.label" value="value"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="finances"/>
+	</field>
+	<field name="collaboratorCpf" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="collaboratorCpf"/>
+		<property name="com.jaspersoft.studio.field.label" value="collaboratorCpf"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="finances"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="191" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<staticText>
+				<reportElement x="0" y="160" width="220" height="30" uuid="0f3872ce-8c19-44c8-9c94-0fae7722d819"/>
+				<textElement verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Detalhamento das Finanças]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="80" width="260" height="30" uuid="fbedd022-99a7-4ec4-88f7-0ac5e8592909"/>
+				<textElement verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relatório Completo das Entradas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="120" width="50" height="21" uuid="d4856b4a-27ca-4093-af13-63962627be7f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="46fafb3d-9eea-45b4-95f3-08b7d2e47eb2"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Entradas:]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="0" width="150" height="70" uuid="c99c1220-200a-4826-957c-28966832041c"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+			<textField pattern="¤#,##0.00;¤-#,##0.00">
+				<reportElement x="50" y="120" width="100" height="21" uuid="7ab5d180-3ede-469b-a1de-d95288967a5a"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{entries}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="-3" y="190" width="560" height="1" uuid="4a143c0f-dc7e-479a-8541-856c66aa86a8"/>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="107" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement x="350" y="42" width="116" height="21" uuid="4cc4beda-1e0a-40b7-b288-cd806a86f3c6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e4cc828a-24ec-4aa6-bc9d-72fb6c991c8a"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Método de Pagamento:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="21" width="50" height="21" uuid="c0e4a3df-9911-4492-bbf7-cfb450a5ca8b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="46fafb3d-9eea-45b4-95f3-08b7d2e47eb2"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Contrato:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="42" width="70" height="21" uuid="66ad4e1f-d7bb-4d2e-9383-32992e7fe404">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="46fafb3d-9eea-45b4-95f3-08b7d2e47eb2"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Observações:]]></text>
+			</staticText>
+			<textField pattern="¤#,##0.00;¤-#,##0.00">
+				<reportElement x="386" y="63" width="60" height="21" uuid="b1628a55-aafb-4964-9d18-599dc8c16fb6"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{value}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="84" width="56" height="21" uuid="ba5eafdb-a86d-4c61-a592-7845de5c0c8f"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{date}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="40" height="21" uuid="1c032c52-b9fd-4b73-9cd0-b8076a59c968">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="46fafb3d-9eea-45b4-95f3-08b7d2e47eb2"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Título:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="466" y="42" width="86" height="21" uuid="f37948ee-44cd-496e-984c-ea6c10c64c36"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{paymentMethod}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="350" y="63" width="36" height="21" uuid="b9c5e227-3607-4ae7-85bc-6fad44d56cf8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e4cc828a-24ec-4aa6-bc9d-72fb6c991c8a"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="63" width="290" height="43" uuid="3fc8f078-2206-4d59-8ad6-7452a9795e13"/>
+				<textFieldExpression><![CDATA[$F{notes}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="350" y="84" width="30" height="21" uuid="40b996be-361e-4794-bb2c-cf270d41c0a9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b0eb972d-a3b5-4cfe-8b93-b7538dbb15a8"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="50" y="21" width="400" height="21" uuid="9893a381-dc86-4ac7-b9be-49e5a5fa472f"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{contractName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="36" y="0" width="424" height="21" uuid="5a436a05-d3ba-4040-ac28-105ef05180a3"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{title}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="-3" y="106" width="560" height="1" uuid="114d56d7-b6b6-4310-a78e-a2f3a6bee73f"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

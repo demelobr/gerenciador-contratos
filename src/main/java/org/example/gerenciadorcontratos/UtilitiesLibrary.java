@@ -27,19 +27,19 @@ public class UtilitiesLibrary {
         return capitalized.toString().trim();
     }
 
-    public static String getQueryOfSearch(boolean withCollaborator, boolean financeReportComplete, String queryRecord, String queryStatus, String queryContract, LocalDate queryStartDateTimePeriod, LocalDate queryEndDateTimePeriod, String queryMinValue, String queryMaxValue, String type){
+    public static String getQueryOfSearch(boolean withCollaborator, boolean financeReportComplete, String queryRecord, String queryStatus, String queryContract, LocalDate queryStartDateTimePeriod, LocalDate queryEndDateTimePeriod, String queryMinValue, String queryMaxValue, String typeOfReport){
         String sql = "";
         int count = 0;
 
-        if(type.equals("complete")){
+        if(typeOfReport.equals("complete")){
 
-        }else if(type.equals("finances")){
+        }else if(typeOfReport.equals("finances")){
             if(withCollaborator) sql = "SELECT * FROM finances WHERE finances.`collaboratorCpf` = $P{queryCpfCollaborator}";
             else{
                 if(financeReportComplete){
                     sql = "SELECT * FROM finances WHERE";
                 }else{
-                    sql = "SELECT * FROM finances WHERE type = $P{queryFinanceType}";
+                    sql = "SELECT * FROM finances WHERE finances.`type` = $P{queryFinanceType}";
                 }
             }
 
@@ -49,7 +49,7 @@ public class UtilitiesLibrary {
                 count++;
             }
             if(queryEndDateTimePeriod != null){
-                if(withCollaborator || !financeReportComplete || count > 0) sql = sql + " AND STR_TO_DATE(finances.`date`, '%d/%m/%Y')  <= STR_TO_DATE($P{queryEndDateTime}, '%d/%m/%Y')";
+                if(withCollaborator || !financeReportComplete || count > 0) sql = sql + " AND STR_TO_DATE(finances.`date`, '%d/%m/%Y') <= STR_TO_DATE($P{queryEndDateTime}, '%d/%m/%Y')";
                 else sql = sql + " STR_TO_DATE(finances.`date`, '%d/%m/%Y')  <= STR_TO_DATE($P{queryEndDateTime}, '%d/%m/%Y')";
                 count++;
             }
@@ -71,9 +71,9 @@ public class UtilitiesLibrary {
                 count++;
             }
 
-            if(count == 0) sql = "SELECT * FROM finances";
+            if(count == 0 && financeReportComplete) sql = "SELECT * FROM finances";
 
-        }else if(type.equals("presences")){
+        }else if(typeOfReport.equals("presences")){
             sql = "SELECT * FROM presences WHERE presences.`cpfCollaborator` = $P{queryCpfCollaborator}";
             if(queryRecord != null){
                 if(!queryRecord.equals("----------")){
