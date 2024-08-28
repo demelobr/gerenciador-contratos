@@ -320,6 +320,12 @@ public class CollaboratorDetailsScreenController implements Initializable {
     }
 
     @FXML
+    public void generateDataReport(){
+        CollaboratorReportGenerator generator = new CollaboratorReportGenerator();
+        generator.reportGenerator(collaborator, "", "", cbContractFinanceDetailsCollaboratorWindow.getValue(), dpStartPeriodFinanceDetailsCollaboratorWindow.getValue(), dpEndPeriodFinanceDetailsCollaboratorWindow.getValue(), tfMinValueFinanceDetailsCollaboratorWindow.getText(), tfMaxValueFinanceDetailsCollaboratorWindow.getText(), "data");
+    }
+
+    @FXML
     public void generateFinanceReport(){
         CollaboratorReportGenerator generator = new CollaboratorReportGenerator();
         generator.reportGenerator(collaborator, "", "", cbContractFinanceDetailsCollaboratorWindow.getValue(), dpStartPeriodFinanceDetailsCollaboratorWindow.getValue(), dpEndPeriodFinanceDetailsCollaboratorWindow.getValue(), tfMinValueFinanceDetailsCollaboratorWindow.getText(), tfMaxValueFinanceDetailsCollaboratorWindow.getText(), "finances");
