@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -279,7 +280,7 @@ public class FinancesScreenController implements Initializable {
             expensesChart = (XYChart.Series<String, Double>) acGraphcFinancesWindow.getData().get(1);
         }
 
-        entriesChart.setName("Receitas");
+        entriesChart.setName("Entradas");
         expensesChart.setName("Saídas");
 
         entriesChart.getData().clear();
