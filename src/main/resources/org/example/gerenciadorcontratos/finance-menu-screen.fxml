@@ -307,7 +307,7 @@
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lbEntriesValueFinancesWindow" layoutX="10.0" layoutY="10.0" prefHeight="35.0" prefWidth="160.0" text="75.000,00" textFill="#05a1f5">
+                        <Label fx:id="lbEntriesValueFinancesWindow" layoutX="10.0" layoutY="10.0" prefHeight="35.0" prefWidth="160.0" text="75.000,00" textFill="#55ff7f">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
@@ -329,7 +329,7 @@
                   </VBox>
                   <VBox fx:id="btnExpensesFinancesWindow" alignment="CENTER_LEFT" layoutX="210.0" layoutY="10.0" maxHeight="100.0" maxWidth="200.0" minHeight="100.0" minWidth="200.0" onMouseClicked="#goToFinanceDatailsScreenWithFilterExpenses" prefHeight="100.0" prefWidth="200.0" stylesheets="@style.css">
                      <children>
-                        <Label text="Despesas (R$)" textFill="#757575">
+                        <Label text="Saídas (R$)" textFill="#757575">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>

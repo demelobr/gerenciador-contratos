@@ -68,10 +68,10 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="191" splitType="Stretch">
+		<band height="162" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 			<staticText>
-				<reportElement x="0" y="160" width="220" height="30" uuid="0f3872ce-8c19-44c8-9c94-0fae7722d819"/>
+				<reportElement x="0" y="131" width="220" height="30" uuid="0f3872ce-8c19-44c8-9c94-0fae7722d819"/>
 				<textElement verticalAlignment="Middle">
 					<font size="16" isBold="true"/>
 				</textElement>
@@ -85,7 +85,7 @@
 				<text><![CDATA[Relatório Completo das Entradas]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="120" width="50" height="21" uuid="d4856b4a-27ca-4093-af13-63962627be7f">
+				<reportElement x="0" y="110" width="50" height="21" uuid="d4856b4a-27ca-4093-af13-63962627be7f">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="46fafb3d-9eea-45b4-95f3-08b7d2e47eb2"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -98,12 +98,12 @@
 				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
 			</image>
 			<textField pattern="¤#,##0.00;¤-#,##0.00">
-				<reportElement x="50" y="120" width="100" height="21" uuid="7ab5d180-3ede-469b-a1de-d95288967a5a"/>
+				<reportElement x="50" y="110" width="100" height="21" uuid="7ab5d180-3ede-469b-a1de-d95288967a5a"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{entries}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="-3" y="190" width="560" height="1" uuid="4a143c0f-dc7e-479a-8541-856c66aa86a8"/>
+				<reportElement x="-3" y="161" width="560" height="1" uuid="4a143c0f-dc7e-479a-8541-856c66aa86a8"/>
 			</line>
 		</band>
 	</title>
@@ -209,12 +209,18 @@
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch"/>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
 	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
 	</summary>
 </jasperReport>
