@@ -165,7 +165,15 @@ public class FinanceDetailsScreenController implements Initializable {
 
     @FXML
     public void goToEditFinanceScreen(){
-        System.out.println("Editing finance screen");
+        Finance selectFinance = tvDetailsFinancesWindow.getSelectionModel().getSelectedItem();
+        if(selectFinance != null){
+            System.out.println("Editing finance screen");
+        }else{
+            lbPushMsgDetailsFinancesWindow.setText("Selecione uma finança!");
+            hbPushMsgDetailsFinancesWindow.getStyleClass().setAll("push-msg-error");
+            hbPushMsgDetailsFinancesWindow.setVisible(true);
+            this.delayHidePushMsg();
+        }
     }
 
     @FXML
@@ -184,7 +192,15 @@ public class FinanceDetailsScreenController implements Initializable {
 
     @FXML
     public void confirmFinanceDeletion(){
-        System.out.println("Confirming finance deletion");
+        Finance selectFinance = tvDetailsFinancesWindow.getSelectionModel().getSelectedItem();
+        if(selectFinance != null){
+            System.out.println("Confirming finance deletion");
+        }else{
+            lbPushMsgDetailsFinancesWindow.setText("Selecione uma finança!");
+            hbPushMsgDetailsFinancesWindow.getStyleClass().setAll("push-msg-error");
+            hbPushMsgDetailsFinancesWindow.setVisible(true);
+            this.delayHidePushMsg();
+        }
     }
 
     public void deleteFinance(Finance selectFinance){
@@ -447,6 +463,9 @@ public class FinanceDetailsScreenController implements Initializable {
         tvDetailsFinancesWindow.addEventHandler(KeyEvent.KEY_RELEASED, keyEvent -> {
             switch (keyEvent.getCode()){
                 case UP, DOWN -> this.selectAndSetFields();
+                case E -> this.goToEditFinanceScreen();
+                case D -> this.confirmFinanceDeletion();
+                case G -> this.generateFinanceReport();
                 case H -> this.goToHelpScreen();
             }
         });
