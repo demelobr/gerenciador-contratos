@@ -126,7 +126,7 @@
                         <String fx:value="shadow" />
                      </styleClass>
                      <children>
-                        <Button fx:id="btnCompleteDetailsCollaboratorWindow" alignment="TOP_LEFT" maxHeight="32.0" maxWidth="95.0" minHeight="32.0" minWidth="95.0" mnemonicParsing="false" onAction="#generateDataReport" prefHeight="32.0" prefWidth="95.0" styleClass="btn-nav-bar" stylesheets="@style.css" text="Completo" textFill="WHITE">
+                        <Button fx:id="btnCompleteDetailsCollaboratorWindow" alignment="TOP_LEFT" maxHeight="32.0" maxWidth="95.0" minHeight="32.0" minWidth="95.0" mnemonicParsing="false" onAction="#generateDataReport" prefHeight="32.0" prefWidth="95.0" styleClass="btn-nav-bar" stylesheets="@style.css" text="Dados" textFill="WHITE">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
