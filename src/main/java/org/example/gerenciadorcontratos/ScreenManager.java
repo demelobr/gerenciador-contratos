@@ -24,8 +24,9 @@ public class ScreenManager {
     private Scene deleteFinanceScreenScene;
     private Scene financesScreenScene;
     private Scene addNewFinanceScreenScene;
-    private Scene editFinanceScreenScene;
+    private Scene editFinanceCollaboratorScreenScene;
     private Scene financeDatailsScreenScene;
+    private Scene editFinanceFinancessScreenScene;
 
     private LoginScreenController loginScreenController;
     private RegistrationScreenController registrationScreenController;
@@ -43,8 +44,9 @@ public class ScreenManager {
     private DeleteFinanceScreenController deleteFinanceScreenController;
     private FinancesScreenController financesScreenController;
     private AddNewFinanceScreenController addNewFinanceScreenController;
-    private EditFinanceScreenController editFinanceScreenController;
+    private EditFinanceCollaboratorScreenController editFinanceCollaboratorScreenController;
     private FinanceDetailsScreenController financeDetailsScreenController;
+    private EditFinanceFinancesScreenController editFinanceFinancesScreenController;
 
     public ScreenManager(){
         this.screenLoader();
@@ -131,12 +133,16 @@ public class ScreenManager {
         return addNewFinanceScreenScene;
     }
 
-    public Scene getEditFinanceScreenScene() {
-        return editFinanceScreenScene;
+    public Scene getEditFinanceCollaboratorScreenScene() {
+        return editFinanceCollaboratorScreenScene;
     }
 
     public Scene getFinanceDatailsScreenScene() {
         return financeDatailsScreenScene;
+    }
+
+    public Scene getEditFinanceFinancessScreenScene() {
+        return editFinanceFinancessScreenScene;
     }
 
     // GETTERS dos Controllers
@@ -204,12 +210,16 @@ public class ScreenManager {
         return addNewFinanceScreenController;
     }
 
-    public EditFinanceScreenController getEditFinanceScreenController() {
-        return editFinanceScreenController;
+    public EditFinanceCollaboratorScreenController getEditFinanceCollaboratorScreenController() {
+        return editFinanceCollaboratorScreenController;
     }
 
     public FinanceDetailsScreenController getFinanceDetailsScreenController() {
         return financeDetailsScreenController;
+    }
+
+    public EditFinanceFinancesScreenController getEditFinanceFinancesScreenController() {
+        return editFinanceFinancesScreenController;
     }
 
     private void screenLoader(){
@@ -278,13 +288,17 @@ public class ScreenManager {
             this.addNewFinanceScreenScene = new Scene(addNewFinanceScreenPane.load());
             this.addNewFinanceScreenController = addNewFinanceScreenPane.getController();
 
-            FXMLLoader editFinanceScreenPane = new FXMLLoader(getClass().getResource("edit-finance-screen.fxml"));
-            this.editFinanceScreenScene = new Scene(editFinanceScreenPane.load());
-            this.editFinanceScreenController = editFinanceScreenPane.getController();
+            FXMLLoader editFinanceCollaboratorScreenPane = new FXMLLoader(getClass().getResource("edit-finance-collaborator-screen.fxml"));
+            this.editFinanceCollaboratorScreenScene = new Scene(editFinanceCollaboratorScreenPane.load());
+            this.editFinanceCollaboratorScreenController = editFinanceCollaboratorScreenPane.getController();
 
             FXMLLoader financeDetailsScreenPane = new FXMLLoader(getClass().getResource("finance-details-screen.fxml"));
             this.financeDatailsScreenScene = new Scene(financeDetailsScreenPane.load());
             this.financeDetailsScreenController = financeDetailsScreenPane.getController();
+
+            FXMLLoader editFinanceFinancesScreenPane = new FXMLLoader(getClass().getResource("edit-finance-finances-screen.fxml"));
+            this.editFinanceFinancessScreenScene = new Scene(editFinanceFinancesScreenPane.load());
+            this.editFinanceFinancesScreenController = editFinanceFinancesScreenPane.getController();
 
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -306,8 +320,9 @@ public class ScreenManager {
             case "edit-collaborator-screen.fxml" -> stg.setScene(editCollaboratorScreenScene);
             case "finance-menu-screen.fxml" -> stg.setScene(financesScreenScene);
             case "add-new-finance-screen.fxml" -> stg.setScene(addNewFinanceScreenScene);
-            case "edit-finance-screen.fxml" -> stg.setScene(editFinanceScreenScene);
+            case "edit-finance-collaborator-screen.fxml" -> stg.setScene(editFinanceCollaboratorScreenScene);
             case "finance-details-screen.fxml" -> stg.setScene(financeDatailsScreenScene);
+            case "edit-finance-finances-screen.fxml" -> stg.setScene(editFinanceFinancessScreenScene);
         }
         stg.setTitle(titleScreen);
         if(max) stg.setMaximized(true);
