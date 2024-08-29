@@ -68,18 +68,25 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="155" splitType="Stretch">
+		<band height="171" splitType="Stretch">
 			<image>
-				<reportElement x="0" y="0" width="150" height="70" uuid="3966703e-5a2d-4027-82f3-23189e2fb827"/>
+				<reportElement x="0" y="0" width="150" height="70" uuid="d550040d-dbec-4231-9d6f-db26f96e87fd"/>
 				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
 			</image>
 			<textField>
-				<reportElement x="30" y="130" width="90" height="20" uuid="4d2e9f6d-c29e-4711-adb7-58afbda77640"/>
+				<reportElement x="40" y="120" width="140" height="20" uuid="10e320d5-2b80-420f-a11d-7132c47c78e9"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{collaboratorCpf}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{name}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="130" width="30" height="20" uuid="fdc3a64c-c7d0-4896-875a-6375c65211a1">
+				<reportElement x="0" y="80" width="210" height="30" uuid="9ab7e815-2eb6-4fdd-9c72-dfdf57395b30"/>
+				<textElement verticalAlignment="Middle">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relatório de Finanças]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="140" width="30" height="20" uuid="582638c9-1386-4190-8166-524f0b5331df">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f75df2ab-2019-464a-bb37-8f8b09bd4e56"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -88,27 +95,20 @@
 				<text><![CDATA[CPF:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="110" width="40" height="20" uuid="8e46bd55-ef45-4d1d-a532-94b6dfea4176"/>
+				<reportElement x="0" y="120" width="40" height="20" uuid="c6a676e9-3e1b-4c8b-b400-8dcf387d1caa"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nome:]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="40" y="110" width="140" height="20" uuid="cd55e692-dcac-491c-8be5-15c1721d2e39"/>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{name}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="0" y="80" width="180" height="30" uuid="aa0e8fae-cdd9-4988-84ec-0ddf5fa43685"/>
-				<textElement verticalAlignment="Middle">
-					<font size="16" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Relatório de Finanças]]></text>
-			</staticText>
 			<line>
-				<reportElement x="-3" y="154" width="560" height="1" uuid="3692e474-1be8-4cae-b4cd-a8a4253474ba"/>
+				<reportElement x="-3" y="170" width="560" height="1" uuid="50a87f47-677b-4e18-a42e-9113f2aedbb7"/>
 			</line>
+			<textField>
+				<reportElement x="30" y="140" width="120" height="20" uuid="cc9ce8d8-1794-4682-ac64-bf024208b73f"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{queryCpfCollaborator}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -208,12 +208,18 @@
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch"/>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
 	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
 	</summary>
 </jasperReport>

@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="collaborator-data" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8fe90ecb-2edc-442e-9c23-baf48024636d">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="dbgc.jrdax"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="logo" class="java.lang.String"/>
+	<parameter name="cpf" class="java.lang.String"/>
+	<parameter name="rg" class="java.lang.String"/>
+	<parameter name="address" class="java.lang.String"/>
+	<parameter name="telephone" class="java.lang.String"/>
+	<parameter name="email" class="java.lang.String"/>
+	<parameter name="admissionDate" class="java.lang.String"/>
+	<parameter name="terminationDate" class="java.lang.String"/>
+	<parameter name="status" class="java.lang.String"/>
+	<parameter name="name" class="java.lang.String"/>
+	<parameter name="office" class="java.lang.String"/>
+	<parameter name="photo" class="java.lang.String"/>
+	<parameter name="lastPoint" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id"/>
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="collaborators"/>
+	</field>
+	<field name="name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="name"/>
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="collaborators"/>
+	</field>
+	<field name="cpf" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cpf"/>
+		<property name="com.jaspersoft.studio.field.label" value="cpf"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="collaborators"/>
+	</field>
+	<field name="rg" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="rg"/>
+		<property name="com.jaspersoft.studio.field.label" value="rg"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="collaborators"/>
+	</field>
+	<field name="address" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="address"/>
+		<property name="com.jaspersoft.studio.field.label" value="address"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="collaborators"/>
+	</field>
+	<field name="telephone" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="telephone"/>
+		<property name="com.jaspersoft.studio.field.label" value="telephone"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="collaborators"/>
+	</field>
+	<field name="email" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="email"/>
+		<property name="com.jaspersoft.studio.field.label" value="email"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="collaborators"/>
+	</field>
+	<field name="office" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="office"/>
+		<property name="com.jaspersoft.studio.field.label" value="office"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="collaborators"/>
+	</field>
+	<field name="status" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="status"/>
+		<property name="com.jaspersoft.studio.field.label" value="status"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="collaborators"/>
+	</field>
+	<field name="lastPoint" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="lastPoint"/>
+		<property name="com.jaspersoft.studio.field.label" value="lastPoint"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="collaborators"/>
+	</field>
+	<field name="admissionDate" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="admissionDate"/>
+		<property name="com.jaspersoft.studio.field.label" value="admissionDate"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="collaborators"/>
+	</field>
+	<field name="terminationDate" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="terminationDate"/>
+		<property name="com.jaspersoft.studio.field.label" value="terminationDate"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="collaborators"/>
+	</field>
+	<field name="photoUrl" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="photoUrl"/>
+		<property name="com.jaspersoft.studio.field.label" value="photoUrl"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="collaborators"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="110" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<image>
+				<reportElement x="0" y="0" width="150" height="70" uuid="3f0ec0dc-0e1e-483b-a7b3-d31a5f358ed4"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="80" width="250" height="30" uuid="b1fd3832-2f99-4d34-ae59-ca094f0bcf61"/>
+				<textElement verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ficha de dados do Colaborador]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="300" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="170" width="120" height="30" uuid="7935f40d-8e75-49c2-851e-e0dfab87a789"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Dados Pessoais]]></text>
+			</staticText>
+			<line>
+				<reportElement x="10" y="170" width="1" height="30" uuid="c3aab349-8b30-466d-8ea3-07b5cab2a148"/>
+				<graphicElement>
+					<pen lineWidth="2.0" lineColor="#008DD8"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="290" y="170" width="140" height="30" uuid="ab408d90-dd3f-4f13-a343-a76856da5328"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Dados Empresariais]]></text>
+			</staticText>
+			<line>
+				<reportElement x="290" y="170" width="1" height="30" uuid="1d27f7c0-7e8f-4f10-8279-e194e855286b"/>
+				<graphicElement>
+					<pen lineWidth="2.0" lineColor="#008DD8"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="19" y="200" width="30" height="20" uuid="91f7a5bb-d77b-4c73-8fdd-3c8369e4540a"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CPF:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="19" y="220" width="26" height="20" uuid="ce9cb2b5-cdb0-4cb8-9ecf-ca124f825463"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[RG:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="19" y="240" width="60" height="20" uuid="a824657a-b18f-4d85-8d6d-6a51912ddf00"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Endereço:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="19" y="260" width="50" height="20" uuid="692f7d52-fd38-41f6-bff3-6ca62d03d04e"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telefone:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="19" y="280" width="40" height="20" uuid="86fb2188-61ae-49be-a553-2b70f3c6ae73"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Email:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="299" y="200" width="100" height="20" uuid="8fbf8824-9c59-4c14-bf7a-9cfebe86757f"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data de Admissão:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="299" y="220" width="110" height="20" uuid="5428226e-08db-4e7b-b7e9-bb55f343d174"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data de desligamento:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="299" y="240" width="70" height="20" uuid="3715d4af-ca2b-42c2-aecb-5bfdc3be3eb0"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Último ponto:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="299" y="260" width="50" height="20" uuid="d4317bfa-f520-4e09-88d6-968bdef7a99d"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Situação:]]></text>
+			</staticText>
+			<image>
+				<reportElement x="10" y="30" width="100" height="100" uuid="447d7a5d-5ab1-4fa7-85aa-8817c88e5a8e"/>
+				<imageExpression><![CDATA[$P{photo}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="49" y="200" width="100" height="20" uuid="f7280b57-1f2d-4c8c-a0d4-c9c73bf506b1"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{cpf}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="45" y="220" width="104" height="20" uuid="e39e2b51-3fef-4518-bb95-989ebade131b"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{rg}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="79" y="240" width="169" height="20" uuid="4fea208c-effa-49fc-9c9a-b59dbfe0e8a2"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{address}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="69" y="260" width="100" height="20" uuid="f7cac27e-58b4-46b9-8d6c-d2049aa02321"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{telephone}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="59" y="280" width="189" height="20" uuid="fa3f1ced-498c-468c-a103-24eafa96ca9c"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{email}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="399" y="200" width="100" height="20" uuid="3080f012-b7d1-4d5f-9f1a-d4efc5e14769"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{admissionDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="409" y="220" width="100" height="20" uuid="f388d0d2-2df8-4627-a957-26d22dc439c5"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{terminationDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="349" y="260" width="100" height="20" uuid="decc6007-1f72-46e2-b2c2-7c2dad6dd5e2"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{status}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="369" y="240" width="100" height="20" uuid="5d302572-5a4b-437e-9741-bb972a21837a"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{lastPoint}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="60" width="100" height="20" uuid="ff916a65-4555-4ed4-ba95-d5de8d8470d3"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="80" width="100" height="20" uuid="fbb1fa50-e7ec-4782-87ad-35adb29f105d"/>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font size="12" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{office}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</summary>
+</jasperReport>

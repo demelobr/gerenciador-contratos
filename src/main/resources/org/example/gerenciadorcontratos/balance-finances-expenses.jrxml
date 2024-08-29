@@ -68,43 +68,52 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="162" splitType="Stretch">
+		<band height="181" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<staticText>
-				<reportElement x="0" y="131" width="220" height="30" uuid="d4369d18-ecb4-4ac6-adf6-83797022cda7"/>
+				<reportElement x="0" y="80" width="330" height="30" uuid="f8252e4f-d002-4970-af6d-91b9c0f58ba0"/>
 				<textElement verticalAlignment="Middle">
-					<font size="16" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Detalhamento das Finanças]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="80" width="260" height="30" uuid="f8252e4f-d002-4970-af6d-91b9c0f58ba0"/>
-				<textElement verticalAlignment="Middle">
-					<font size="16" isBold="true"/>
+					<font size="20" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Relatório Completo das Despesas]]></text>
 			</staticText>
-			<line>
-				<reportElement x="-3" y="161" width="560" height="1" uuid="e29b0734-e2c0-49d5-aae6-24696ecc65c7"/>
-			</line>
 			<staticText>
-				<reportElement x="0" y="110" width="40" height="21" uuid="d5179c3a-5b9a-4b26-ad27-e65692c86d1e">
+				<reportElement x="11" y="120" width="40" height="20" uuid="d5179c3a-5b9a-4b26-ad27-e65692c86d1e">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="46fafb3d-9eea-45b4-95f3-08b7d2e47eb2"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Saídas:]]></text>
+				<text><![CDATA[ Saídas:]]></text>
 			</staticText>
 			<image>
 				<reportElement x="0" y="0" width="150" height="70" uuid="83f1ed1b-dd46-492d-989f-265a2839b44b"/>
 				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
 			</image>
 			<textField pattern="¤#,##0.00;¤-#,##0.00">
-				<reportElement x="40" y="110" width="100" height="21" uuid="0c033b03-a051-4962-ba71-11428ca61d5e"/>
+				<reportElement x="51" y="120" width="100" height="20" uuid="0c033b03-a051-4962-ba71-11428ca61d5e"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{expenses}]]></textFieldExpression>
 			</textField>
+			<line>
+				<reportElement x="10" y="120" width="1" height="20" uuid="7a1ff718-2501-4477-9913-7958c4f0ebd4">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="2.0" lineColor="#FF5580"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="0" y="150" width="220" height="30" uuid="7b4b77ca-24e1-44e8-8a77-073a985b9753"/>
+				<textElement verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Detalhamento das Despesas]]></text>
+			</staticText>
+			<line>
+				<reportElement x="-3" y="180" width="560" height="1" uuid="15523bc9-1778-4d47-8cd3-9bbaa40f7daf"/>
+			</line>
 		</band>
 	</title>
 	<pageHeader>

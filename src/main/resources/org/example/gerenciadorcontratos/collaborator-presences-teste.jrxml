@@ -63,25 +63,25 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="151" splitType="Stretch">
+		<band height="171" splitType="Stretch">
 			<image>
 				<reportElement x="0" y="0" width="150" height="70" uuid="a28c523e-2a68-4e48-8038-7b700cc6d70a"/>
 				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
 			</image>
 			<textField>
-				<reportElement x="40" y="110" width="140" height="20" uuid="59303666-3955-4936-8b31-1b32eba213d2"/>
+				<reportElement x="40" y="120" width="140" height="20" uuid="59303666-3955-4936-8b31-1b32eba213d2"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{name}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="80" width="180" height="30" uuid="48c6327e-6998-48d2-9165-71003021fd05"/>
+				<reportElement x="0" y="80" width="230" height="30" uuid="48c6327e-6998-48d2-9165-71003021fd05"/>
 				<textElement verticalAlignment="Middle">
-					<font size="16" isBold="true"/>
+					<font size="20" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Relatório de Presenças]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="130" width="30" height="20" uuid="746da468-0182-4024-a94b-052bda1d6fb2">
+				<reportElement x="0" y="140" width="30" height="20" uuid="746da468-0182-4024-a94b-052bda1d6fb2">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f75df2ab-2019-464a-bb37-8f8b09bd4e56"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -90,21 +90,21 @@
 				<text><![CDATA[CPF:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="110" width="40" height="20" uuid="d3f534b6-6283-4c77-acf9-345ca75af2cb"/>
+				<reportElement x="0" y="120" width="40" height="20" uuid="d3f534b6-6283-4c77-acf9-345ca75af2cb"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nome:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="30" y="130" width="90" height="20" uuid="0d14e933-47bb-4db1-a55d-891147c9ffd1">
+				<reportElement x="30" y="140" width="90" height="20" uuid="0d14e933-47bb-4db1-a55d-891147c9ffd1">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f75df2ab-2019-464a-bb37-8f8b09bd4e56"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{cpfCollaborator}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="-3" y="150" width="560" height="1" uuid="964e8948-b4c6-48a1-b14a-7d1c93975386"/>
+				<reportElement x="-3" y="170" width="560" height="1" uuid="964e8948-b4c6-48a1-b14a-7d1c93975386"/>
 			</line>
 		</band>
 	</title>
@@ -216,9 +216,13 @@
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch"/>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
 	</pageFooter>
 </jasperReport>
