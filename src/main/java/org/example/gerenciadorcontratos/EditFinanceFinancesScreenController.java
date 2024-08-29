@@ -23,16 +23,18 @@ import java.util.ResourceBundle;
 import static org.example.gerenciadorcontratos.UtilitiesLibrary.capitalizeWords;
 import static org.example.gerenciadorcontratos.UtilitiesLibrary.formatValue;
 
-public class EditFinanceCollaboratorScreenController implements Initializable {
+public class EditFinanceFinancesScreenController implements Initializable {
     private Application app;
     private Finance finance;
+    private User user;
+    private String filter;
     private List<String> types;
     private List<String> paymentMethods;
     private List<String> collaboratorsName;
     private List<String> collaboratorsCpf;
     private List<String> contractsName;
 
-    public EditFinanceCollaboratorScreenController() {
+    public EditFinanceFinancesScreenController() {
         this.app = new Application();
         this.types = new ArrayList<>();
         this.paymentMethods = new ArrayList<>();
@@ -47,6 +49,22 @@ public class EditFinanceCollaboratorScreenController implements Initializable {
 
     public void setFinance(Finance finance) {
         this.finance = finance;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getFilter() {
+        return filter;
+    }
+
+    public void setFilter(String filter) {
+        this.filter = filter;
     }
 
     @FXML
@@ -92,13 +110,13 @@ public class EditFinanceCollaboratorScreenController implements Initializable {
     private RadioButton rbYesEditFinanceWindow;
 
     @FXML
+    private TextArea taNotesEditFinanceWindow;
+
+    @FXML
     private TextField tfTitileEditFinanceWindow;
 
     @FXML
     private TextField tfValueEditFinanceWindow;
-
-    @FXML
-    private TextArea taNotesEditFinanceWindow;
 
     @FXML
     private VBox vbCollaboratorEditFinanceWindow;
@@ -109,15 +127,15 @@ public class EditFinanceCollaboratorScreenController implements Initializable {
     }
 
     @FXML
-    public void goBackCollaboratorDetailsScreen(){
+    public void goBackFinanceDetailsScreen(){
         this.resetWindow();
         ScreenManager sm = ScreenManager.getInstance();
-        sm.getCollaboratorDetailsScreenController().setDataScreen();
-        sm.getCollaboratorDetailsScreenController().initializeFinanceTable();
-        sm.getCollaboratorDetailsScreenController().initializePresenceTable();
-        sm.getCollaboratorDetailsScreenController().initializeComboBoxsWindow();
-        sm.getCollaboratorDetailsScreenController().addOrRemoveListeners(true);
-        sm.changeScreen("collaborator-details-screen.fxml", "Gerenciador de Contratos - Informações do Colaborador");
+        sm.getFinanceDetailsScreenController().setUser(user);
+        sm.getFinanceDetailsScreenController().setFilter(filter);
+        sm.getFinanceDetailsScreenController().initializeComboBoxsWindow();
+        sm.getFinanceDetailsScreenController().addOrRemoveListeners(true);
+        sm.getFinanceDetailsScreenController().initializeTable();
+        sm.changeScreen("finance-details-screen.fxml", "Gerenciador de Contratos - Detalhes das Finanças");
     }
 
     @FXML
@@ -208,12 +226,12 @@ public class EditFinanceCollaboratorScreenController implements Initializable {
                             hbPushMsgEditFinanceWindow.setVisible(false);
                             this.resetWindow();
                             ScreenManager sm = ScreenManager.getInstance();
-                            sm.getCollaboratorDetailsScreenController().setDataScreen();
-                            sm.getCollaboratorDetailsScreenController().initializeFinanceTable();
-                            sm.getCollaboratorDetailsScreenController().initializePresenceTable();
-                            sm.getCollaboratorDetailsScreenController().initializeComboBoxsWindow();
-                            sm.getCollaboratorDetailsScreenController().addOrRemoveListeners(true);
-                            sm.changeScreen("collaborator-details-screen.fxml", "Gerenciador de Contratos - Informações do Colaborador");
+                            sm.getFinanceDetailsScreenController().setUser(user);
+                            sm.getFinanceDetailsScreenController().setFilter(filter);
+                            sm.getFinanceDetailsScreenController().initializeComboBoxsWindow();
+                            sm.getFinanceDetailsScreenController().addOrRemoveListeners(true);
+                            sm.getFinanceDetailsScreenController().initializeTable();
+                            sm.changeScreen("finance-details-screen.fxml", "Gerenciador de Contratos - Detalhes das Finanças");
                         });
                     }).start();
                 }
