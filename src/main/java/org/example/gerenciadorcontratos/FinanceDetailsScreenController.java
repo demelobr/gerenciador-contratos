@@ -8,13 +8,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -167,7 +171,12 @@ public class FinanceDetailsScreenController implements Initializable {
     public void goToEditFinanceScreen(){
         Finance selectFinance = tvDetailsFinancesWindow.getSelectionModel().getSelectedItem();
         if(selectFinance != null){
-            System.out.println("Editing finance screen");
+            ScreenManager sm = ScreenManager.getInstance();
+            sm.getEditFinanceFinancesScreenController().setUser(user);
+            sm.getEditFinanceFinancesScreenController().setFinance(selectFinance);
+            sm.getEditFinanceFinancesScreenController().setFilter(filter);
+            sm.getEditFinanceFinancesScreenController().initializeWindow();
+            sm.changeScreen("edit-finance-finances-screen.fxml", "Gerenciador de Contratos - Editar Finança");
         }else{
             lbPushMsgDetailsFinancesWindow.setText("Selecione uma finança!");
             hbPushMsgDetailsFinancesWindow.getStyleClass().setAll("push-msg-error");
@@ -194,7 +203,29 @@ public class FinanceDetailsScreenController implements Initializable {
     public void confirmFinanceDeletion(){
         Finance selectFinance = tvDetailsFinancesWindow.getSelectionModel().getSelectedItem();
         if(selectFinance != null){
-            System.out.println("Confirming finance deletion");
+            ScreenManager sm = ScreenManager.getInstance();
+            Scene scene = sm.getDeleteFinanceScreenScene();
+            Button yesBtn = sm.getDeleteFinanceScreenController().getBtnYesDeleteFinanceWindow();
+            Button noBtn = sm.getDeleteFinanceScreenController().getBtnNoDeleteFinanceWindow();
+
+            Stage dialogStage = new Stage();
+            dialogStage.initModality(Modality.APPLICATION_MODAL);
+            dialogStage.setResizable(false);
+            dialogStage.setTitle("Deletar Finança?");
+            dialogStage.getIcons().add(new Image("file:"));
+            dialogStage.setScene(scene);
+
+            yesBtn.setOnAction(e -> {
+                this.deleteFinance(selectFinance);
+                dialogStage.close();
+            });
+
+            noBtn.setOnAction(e -> {
+                dialogStage.close();
+            });
+
+            dialogStage.centerOnScreen();
+            dialogStage.showAndWait();
         }else{
             lbPushMsgDetailsFinancesWindow.setText("Selecione uma finança!");
             hbPushMsgDetailsFinancesWindow.getStyleClass().setAll("push-msg-error");
@@ -204,7 +235,23 @@ public class FinanceDetailsScreenController implements Initializable {
     }
 
     public void deleteFinance(Finance selectFinance){
-        System.out.println("Deleting finance");
+        try {
+            app.getServer().deleteFiance(selectFinance);
+        }catch (FinanceNullException | FinanceDoesNotExistException | ConnectionFailureDbException e) {
+            lbPushMsgDetailsFinancesWindow.setText(e.getMessage());
+            hbPushMsgDetailsFinancesWindow.getStyleClass().setAll("push-msg-error");
+            hbPushMsgDetailsFinancesWindow.setVisible(true);
+            this.delayHidePushMsg();
+        } catch (FinanceDeletedSuccessfullyException e) {
+            int idSelectFinance = tvDetailsFinancesWindow.getSelectionModel().getSelectedIndex();
+            tvDetailsFinancesWindow.getItems().remove(idSelectFinance);
+            this.setBalanceValue();
+            
+            lbPushMsgDetailsFinancesWindow.setText(e.getMessage());
+            hbPushMsgDetailsFinancesWindow.getStyleClass().setAll("push-msg-success");
+            hbPushMsgDetailsFinancesWindow.setVisible(true);
+            this.delayHidePushMsg();
+        }
     }
 
     public void initializeTable(){

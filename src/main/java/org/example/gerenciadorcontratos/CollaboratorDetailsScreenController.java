@@ -300,9 +300,9 @@ public class CollaboratorDetailsScreenController implements Initializable {
         Finance selectFinance = tvFinancesDetailsCollaboratorWindow.getSelectionModel().getSelectedItem();
         if(selectFinance != null){
             ScreenManager sm = ScreenManager.getInstance();
-            sm.getEditFinanceScreenController().setFinance(selectFinance);
-            sm.getEditFinanceScreenController().initializeWindow();
-            sm.changeScreen("edit-finance-screen.fxml", "Gerenciador de Contratos - Editar Finança");
+            sm.getEditFinanceCollaboratorScreenController().setFinance(selectFinance);
+            sm.getEditFinanceCollaboratorScreenController().initializeWindow();
+            sm.changeScreen("edit-finance-collaborator-screen.fxml", "Gerenciador de Contratos - Editar Finança");
         }else{
             lbPushMsgDetailsCollaboratorWindow.setText("Selecione uma finança!");
             hbPushMsgAddDetailsCollaboratorWindow.getStyleClass().setAll("push-msg-error");
@@ -427,7 +427,6 @@ public class CollaboratorDetailsScreenController implements Initializable {
         } catch (FinanceDeletedSuccessfullyException e) {
             int idSelectFinance = tvFinancesDetailsCollaboratorWindow.getSelectionModel().getSelectedIndex();
             tvFinancesDetailsCollaboratorWindow.getItems().remove(idSelectFinance);
-            listOfFinances.remove(idSelectFinance);
 
             lbPushMsgDetailsCollaboratorWindow.setText(e.getMessage());
             hbPushMsgAddDetailsCollaboratorWindow.getStyleClass().setAll("push-msg-success");
@@ -579,7 +578,6 @@ public class CollaboratorDetailsScreenController implements Initializable {
         } catch (PresenceDeletedSuccessfullyException e) {
             int idSelectPresence = tvPresencesDetailsCollaboratorWindow.getSelectionModel().getSelectedIndex();
             tvPresencesDetailsCollaboratorWindow.getItems().remove(idSelectPresence);
-            listOfPresences.remove(selectPresence);
 
             lbPushMsgDetailsCollaboratorWindow.setText(e.getMessage());
             hbPushMsgAddDetailsCollaboratorWindow.getStyleClass().setAll("push-msg-success");
