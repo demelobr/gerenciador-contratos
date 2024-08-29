@@ -193,6 +193,8 @@ public class AddNewPresenceScreenController implements Initializable {
     public void clearFiels(){
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         dpPresenceDateAddNewPresenceWindow.setPromptText(LocalDate.now().format(dateTimeFormatter));
+        taJustificationAddNewPresenceWindow.setText("");
+        taObservationAddNewPresenceWindow.setText("");
         cbPresenceHourAddNewPresenceWindow.getItems().clear();
         cbPresenceMinuteAddNewPresenceWindow.getItems().clear();
         cbContractAddNewPresenceWindow.getItems().clear();
