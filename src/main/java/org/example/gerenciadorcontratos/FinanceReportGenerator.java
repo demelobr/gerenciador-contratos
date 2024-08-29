@@ -61,7 +61,6 @@ public class FinanceReportGenerator {
             sql = sql + " ORDER BY STR_TO_DATE(finances.`date`, '%d/%m/%Y');";
             parameters.put("expenses", expenses);
             parameters.put("queryFinanceType", "DESPESA");
-            System.out.println(sql);
         }
 
         try {
