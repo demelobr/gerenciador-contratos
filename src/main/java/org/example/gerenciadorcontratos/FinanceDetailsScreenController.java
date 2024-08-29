@@ -246,7 +246,7 @@ public class FinanceDetailsScreenController implements Initializable {
             int idSelectFinance = tvDetailsFinancesWindow.getSelectionModel().getSelectedIndex();
             tvDetailsFinancesWindow.getItems().remove(idSelectFinance);
             this.setBalanceValue();
-            
+
             lbPushMsgDetailsFinancesWindow.setText(e.getMessage());
             hbPushMsgDetailsFinancesWindow.getStyleClass().setAll("push-msg-success");
             hbPushMsgDetailsFinancesWindow.setVisible(true);
