@@ -44,33 +44,30 @@ public class CollaboratorReportGenerator {
         DateTimeFormatter dateTimeFormatterWithSeconds = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm:ss");
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-        if(typeOfReport.equals("complete")){
+        if(typeOfReport.equals("data")){
+            System.out.println("Data Report generate");
             try {
                 conn = DriverManager.getConnection(app.getServer().getSettings().getUrlDB(), app.getServer().getSettings().getUserDB(), app.getServer().getSettings().getPasswordDB());
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-            reportPath = "src/main/resources/org/example/gerenciadorcontratos/collaborator-complete.jrxml";
-            name = collaborator.getName();
-            sql = getQueryOfSearch(true, true,"", "", nameContract, startDateTime, endDateTime,minValue, maxValue, "finances");
-            sql = sql + " ORDER BY STR_TO_DATE(finances.`date`, '%d/%m/%Y');";
-            sql = sql + getQueryOfSearch(true,  true, record, status, nameContract, startDateTime, endDateTime, "", "", "presences");
-            sql = sql + " ORDER BY STR_TO_DATE(presences.`presenceDateTime`, '%d/%m/%Y - %H:%i');";
+            reportPath = "src/main/resources/org/example/gerenciadorcontratos/collaborator-data.jrxml";
 
             parameters.put("logo", logo);
-            parameters.put("name", capitalizeWords(name));
-            parameters.put("queryCpfCollaborator", collaborator.getCpf());
-            if(!nameContract.equals("----------")) parameters.put("queryFinanceNameContract", nameContract);
-            if(startDateTime != null) parameters.put("queryFinanceStartDateTime", startDateTime.format(dateFormatter));
-            if(endDateTime != null) parameters.put("queryFinanceEndDateTime", endDateTime.format(dateFormatter));
-            if(!minValue.equals("")) parameters.put("queryFinanceMinValue", minValue);
-            if(!maxValue.equals("")) parameters.put("queryFinanceMaxValue", maxValue);
-
-            if(!record.equals("----------")) parameters.put("queryPresenceRecord", record);
-            if(!status.equals("----------")) parameters.put("queryPresenceStatus", status);
-            if(!nameContract.equals("----------")) parameters.put("queryPresenceNameContract", nameContract);
-            if(startDateTime != null) parameters.put("queryPresenceStartDateTime", startDateTime.atTime(0,0,0).format(dateTimeFormatterWithSeconds));
-            if(endDateTime != null) parameters.put("queryPresenceEndDateTime", endDateTime.atTime(23,59,59).format(dateTimeFormatterWithSeconds));
+            parameters.put("photo", collaborator.getPhotoUrl());
+            parameters.put("name", capitalizeWords(collaborator.getName()));
+            parameters.put("office", capitalizeWords(collaborator.getOffice()));
+            parameters.put("cpf", collaborator.getCpf());
+            parameters.put("rg", collaborator.getRg());
+            parameters.put("address", capitalizeWords(collaborator.getAddress()));
+            parameters.put("telephone", collaborator.getTelephone());
+            parameters.put("email", capitalizeWords(collaborator.getEmail()));
+            parameters.put("admissionDate", collaborator.getAdmissionDate().format(dateFormatter));
+            if(collaborator.getTerminationDate() == null) parameters.put("terminationDate", "Não Informado");
+            else parameters.put("terminationDate", collaborator.getTerminationDate().format(dateFormatter));
+            parameters.put("lastPoint", collaborator.getLastPoint().format(dateTimeFormatterWithSeconds));
+            String statusOfCollaborator = collaborator.isStatus() ? "Ativo" : "Inativo";
+            parameters.put("status", statusOfCollaborator);
 
             try{
                 fileIn = new FileInputStream(reportPath);
@@ -80,9 +77,6 @@ public class CollaboratorReportGenerator {
 
             try{
                 jasperDesign = JRXmlLoader.load(fileIn);
-                JRDesignQuery query = new JRDesignQuery();
-                query.setText(sql);
-                jasperDesign.setQuery(query);
             } catch (JRException e) {
                 e.printStackTrace();
             }
@@ -90,12 +84,11 @@ public class CollaboratorReportGenerator {
             try{
                 jasperReport = JasperCompileManager.compileReport(jasperDesign);
             } catch (JRException e) {
-                System.out.println("jasperReport" + e.getMessage());
                 e.printStackTrace();
             }
 
             try{
-                jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conn);
+                jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
             } catch (JRException e) {
                 System.out.println(e.getMessage());
                 e.printStackTrace();
