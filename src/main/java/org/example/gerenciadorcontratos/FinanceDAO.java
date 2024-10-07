@@ -26,7 +26,7 @@ public class FinanceDAO implements IFinanceDAO {
     @Override
     public void create(Finance finance) throws ConnectionFailureDbException {
         try (Connection conn = ConnectionFactory.getConnection()){
-            String sql = "INSERT INTO finances (title, notes, contractName, type, paymentMethod, date, recordDateTime, value, collaboratorCpf) VALUES(?,?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO finances (title, notes, contractName, type, financeClass, paymentMethod, date, recordDateTime, value, collaboratorCpf) VALUES(?,?,?,?,?,?,?,?,?,?)";
 
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             DateTimeFormatter dateTimeFormatterWithSeconds = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm:ss");
@@ -36,11 +36,12 @@ public class FinanceDAO implements IFinanceDAO {
             ps.setString(2, finance.getNotes().toUpperCase());
             ps.setString(3, finance.getContractName().toUpperCase());
             ps.setString(4, finance.getType().toUpperCase());
-            ps.setString(5, finance.getPaymentMethod().toUpperCase());
-            ps.setString(6, finance.getDate().format(dateTimeFormatter));
-            ps.setString(7, finance.getRecordDateTime().format(dateTimeFormatterWithSeconds));
-            ps.setDouble(8, finance.getValue());
-            ps.setString(9, finance.getCollaboratorCpf().toUpperCase());
+            ps.setString(5, finance.getFinanceClass().toUpperCase());
+            ps.setString(6, finance.getPaymentMethod().toUpperCase());
+            ps.setString(7, finance.getDate().format(dateTimeFormatter));
+            ps.setString(8, finance.getRecordDateTime().format(dateTimeFormatterWithSeconds));
+            ps.setDouble(9, finance.getValue());
+            ps.setString(10, finance.getCollaboratorCpf().toUpperCase());
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -50,9 +51,9 @@ public class FinanceDAO implements IFinanceDAO {
     }
 
     @Override
-    public void update(Finance finance, String title, String notes, String contractName, String type, String paymentMethod, LocalDate date, LocalDateTime recordDateTime, double value, String collaboratorCpf) throws ConnectionFailureDbException {
+    public void update(Finance finance, String title, String notes, String contractName, String type, String financeClass, String paymentMethod, LocalDate date, LocalDateTime recordDateTime, double value, String collaboratorCpf) throws ConnectionFailureDbException {
         try (Connection conn = ConnectionFactory.getConnection()){
-            String sql = "UPDATE finances SET title = ?, notes = ?, contractName = ?, type = ?, paymentMethod = ?, date = ?, recordDateTime = ?, value = ?, collaboratorCpf = ? WHERE contractName = ? AND recordDateTime = ?";
+            String sql = "UPDATE finances SET title = ?, notes = ?, contractName = ?, type = ?, financeClass = ?, paymentMethod = ?, date = ?, recordDateTime = ?, value = ?, collaboratorCpf = ? WHERE contractName = ? AND recordDateTime = ?";
 
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             DateTimeFormatter dateTimeFormatterWithSeconds = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm:ss");
@@ -62,13 +63,14 @@ public class FinanceDAO implements IFinanceDAO {
             ps.setString(2, notes.toUpperCase());
             ps.setString(3, contractName.toUpperCase());
             ps.setString(4, type.toUpperCase());
-            ps.setString(5, paymentMethod.toUpperCase());
-            ps.setString(6, date.format(dateTimeFormatter));
-            ps.setString(7, recordDateTime.format(dateTimeFormatterWithSeconds));
-            ps.setDouble(8, value);
-            ps.setString(9, collaboratorCpf.toUpperCase());
-            ps.setString(10, finance.getContractName().toUpperCase());
-            ps.setString(11, finance.getRecordDateTime().format(dateTimeFormatterWithSeconds));
+            ps.setString(5, financeClass.toUpperCase());
+            ps.setString(6, paymentMethod.toUpperCase());
+            ps.setString(7, date.format(dateTimeFormatter));
+            ps.setString(8, recordDateTime.format(dateTimeFormatterWithSeconds));
+            ps.setDouble(9, value);
+            ps.setString(10, collaboratorCpf.toUpperCase());
+            ps.setString(11, finance.getContractName().toUpperCase());
+            ps.setString(12, finance.getRecordDateTime().format(dateTimeFormatterWithSeconds));
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -97,7 +99,7 @@ public class FinanceDAO implements IFinanceDAO {
     public boolean financeExists(String contractName, LocalDateTime recordDateTime) throws ConnectionFailureDbException {
         boolean financeExists = false;
         try (Connection conn = ConnectionFactory.getConnection()){
-            String sql = "SELECT id, title, notes, contractName, type, paymentMethod, date, recordDateTime, value, collaboratorCpf FROM finances WHERE contractName = ? AND recordDateTime = ?";
+            String sql = "SELECT id, title, notes, contractName, type, financeClass, paymentMethod, date, recordDateTime, value, collaboratorCpf FROM finances WHERE contractName = ? AND recordDateTime = ?";
 
             DateTimeFormatter dateTimeFormatterWithSeconds = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm:ss");
 
@@ -120,7 +122,7 @@ public class FinanceDAO implements IFinanceDAO {
     public Finance getFinanceByContractNameAndRecordDateTime(String queryContractName, LocalDateTime queryRecordDateTime) throws ConnectionFailureDbException {
         Finance finance = null;
         try (Connection conn = ConnectionFactory.getConnection()){
-            String sql = "SELECT id, title, notes, contractName, type, paymentMethod, date, recordDateTime, value, collaboratorCpf FROM finances WHERE contractName = ? AND recordDateTime = ?";
+            String sql = "SELECT id, title, notes, contractName, type, financeClass, paymentMethod, date, recordDateTime, value, collaboratorCpf FROM finances WHERE contractName = ? AND recordDateTime = ?";
 
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             DateTimeFormatter dateTimeFormatterWithSeconds = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm:ss");
@@ -135,12 +137,13 @@ public class FinanceDAO implements IFinanceDAO {
                     String notes = rs.getString("notes");
                     String contractName = rs.getString("contractName");
                     String type = rs.getString("type");
+                    String financeClass = rs.getString("financeClass");
                     String paymentMethod = rs.getString("paymentMethod");
                     LocalDate date = LocalDate.parse(rs.getString("date"), dateTimeFormatter);
                     LocalDateTime recordDateTime = LocalDateTime.parse(rs.getString("recordDateTime"), dateTimeFormatterWithSeconds);
                     double value = rs.getDouble("value");
                     String collaboratorCpf = rs.getString("collaboratorCpf");
-                    finance = new Finance(title, notes, contractName, type, paymentMethod, date, recordDateTime, value, collaboratorCpf);
+                    finance = new Finance(title, notes, contractName, type, financeClass, paymentMethod, date, recordDateTime, value, collaboratorCpf);
                 }
             }
 
@@ -170,12 +173,13 @@ public class FinanceDAO implements IFinanceDAO {
                     String notes = rs.getString("notes");
                     String contractName = rs.getString("contractName");
                     String type = rs.getString("type");
+                    String financeClass = rs.getString("financeClass");
                     String paymentMethod = rs.getString("paymentMethod");
                     LocalDate date = LocalDate.parse(rs.getString("date"), dateTimeFormatter);
                     LocalDateTime recordDateTime = LocalDateTime.parse(rs.getString("recordDateTime"), dateTimeFormatterWithSeconds);
                     double value = rs.getDouble("value");
                     String collaboratorCpf = rs.getString("collaboratorCpf");
-                    listOfFinances.add(new Finance(title, notes, contractName, type, paymentMethod, date, recordDateTime, value, collaboratorCpf));
+                    listOfFinances.add(new Finance(title, notes, contractName, type, financeClass, paymentMethod, date, recordDateTime, value, collaboratorCpf));
                 }
             }
 
@@ -210,12 +214,13 @@ public class FinanceDAO implements IFinanceDAO {
                     String notes = rs.getString("notes");
                     String contractName = rs.getString("contractName");
                     String type = rs.getString("type");
+                    String financeClass = rs.getString("financeClass");
                     String paymentMethod = rs.getString("paymentMethod");
                     LocalDate date = LocalDate.parse(rs.getString("date"), dateTimeFormatter);
                     LocalDateTime recordDateTime = LocalDateTime.parse(rs.getString("recordDateTime"), dateTimeFormatterWithSeconds);
                     double value = rs.getDouble("value");
                     String collaboratorCpf = rs.getString("collaboratorCpf");
-                    listOfFinances.add(new Finance(title, notes, contractName, type, paymentMethod, date, recordDateTime, value, collaboratorCpf));
+                    listOfFinances.add(new Finance(title, notes, contractName, type, financeClass, paymentMethod, date, recordDateTime, value, collaboratorCpf));
                 }
             }
 
@@ -294,12 +299,13 @@ public class FinanceDAO implements IFinanceDAO {
                     String notes = rs.getString("notes");
                     String contractName = rs.getString("contractName");
                     String type = rs.getString("type");
+                    String financeClass = rs.getString("financeClass");
                     String paymentMethod = rs.getString("paymentMethod");
                     LocalDate date = LocalDate.parse(rs.getString("date"), dateFormatter);
                     LocalDateTime recordDateTime = LocalDateTime.parse(rs.getString("recordDateTime"), dateTimeFormatterWithSeconds);
                     double value = rs.getDouble("value");
                     String collaboratorCpf = rs.getString("collaboratorCpf");
-                    listOfAllWithFilters.add(new Finance(title, notes, contractName, type, paymentMethod, date, recordDateTime, value, collaboratorCpf));
+                    listOfAllWithFilters.add(new Finance(title, notes, contractName, type, financeClass, paymentMethod, date, recordDateTime, value, collaboratorCpf));
                 }
             }
 
@@ -326,7 +332,7 @@ public class FinanceDAO implements IFinanceDAO {
     public List<Finance> listAllByCollaboratorCpf(String cpf) throws ConnectionFailureDbException {
         List<Finance> listOfAllByCpf = new ArrayList<>();
         try (Connection conn = ConnectionFactory.getConnection()){
-            String sql = "SELECT id, title, notes, contractName, type, paymentMethod, date, recordDateTime, value, collaboratorCpf FROM finances WHERE collaboratorCpf = ? ORDER BY STR_TO_DATE(date, '%d/%m/%Y')";
+            String sql = "SELECT id, title, notes, contractName, type, financeClass, paymentMethod, date, recordDateTime, value, collaboratorCpf FROM finances WHERE collaboratorCpf = ? ORDER BY STR_TO_DATE(date, '%d/%m/%Y')";
 
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm:ss");
@@ -340,12 +346,13 @@ public class FinanceDAO implements IFinanceDAO {
                     String notes = rs.getString("notes");
                     String contractName = rs.getString("contractName");
                     String type = rs.getString("type");
+                    String financeClass = rs.getString("financeClass");
                     String paymentMethod = rs.getString("paymentMethod");
                     LocalDate date = LocalDate.parse(rs.getString("date"), dateFormatter);
                     LocalDateTime recordDateTime = LocalDateTime.parse(rs.getString("recordDateTime"), dateTimeFormatter);
                     double value = rs.getDouble("value");
                     String collaboratorCpf = rs.getString("collaboratorCpf");
-                    listOfAllByCpf.add(new Finance(title, notes, contractName, type, paymentMethod, date, recordDateTime, value, collaboratorCpf));
+                    listOfAllByCpf.add(new Finance(title, notes, contractName, type, financeClass, paymentMethod, date, recordDateTime, value, collaboratorCpf));
                 }
             }
 
@@ -360,7 +367,7 @@ public class FinanceDAO implements IFinanceDAO {
     public List<Finance> listAll() throws ConnectionFailureDbException {
         List<Finance> listOfFinances = new ArrayList<Finance>();
         try (Connection conn = ConnectionFactory.getConnection()){
-            String sql = "SELECT id, title, notes, contractName, type, paymentMethod, date, recordDateTime, value, collaboratorCpf FROM finances";
+            String sql = "SELECT id, title, notes, contractName, type, financeClass, paymentMethod, date, recordDateTime, value, collaboratorCpf FROM finances";
 
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             DateTimeFormatter dateTimeFormatterWithSeconds = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm:ss");
@@ -372,12 +379,13 @@ public class FinanceDAO implements IFinanceDAO {
                     String notes = rs.getString("notes");
                     String contractName = rs.getString("contractName");
                     String type = rs.getString("type");
+                    String financeClass = rs.getString("financeClass");
                     String paymentMethod = rs.getString("paymentMethod");
                     LocalDate date = LocalDate.parse(rs.getString("date"), dateTimeFormatter);
                     LocalDateTime recordDateTime = LocalDateTime.parse(rs.getString("recordDateTime"), dateTimeFormatterWithSeconds);
                     double value = rs.getDouble("value");
                     String collaboratorCpf = rs.getString("collaboratorCpf");
-                    listOfFinances.add(new Finance(title, notes, contractName, type, paymentMethod, date, recordDateTime, value, collaboratorCpf));
+                    listOfFinances.add(new Finance(title, notes, contractName, type, financeClass, paymentMethod, date, recordDateTime, value, collaboratorCpf));
                 }
             }
 

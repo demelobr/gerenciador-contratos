@@ -195,6 +195,7 @@ public class FinancesScreenController implements Initializable {
         this.resetWindow();
         ScreenManager sm = ScreenManager.getInstance();
         sm.getAddNewFinanceScreenController().initializeWindow();
+        sm.getAddNewFinanceScreenController().addOrRemoveListeners(true);
         sm.changeScreen("add-new-finance-screen.fxml", "Gerenciador de Contratos - Cadastrar Finança");
     }
 
@@ -273,8 +274,7 @@ public class FinancesScreenController implements Initializable {
         if (acGraphcFinancesWindow.getData().size() == 0) {
             entriesChart = new XYChart.Series<String, Double>();
             expensesChart = new XYChart.Series<String, Double>();
-            if(entries >= expenses) acGraphcFinancesWindow.getData().addAll(entriesChart, expensesChart);
-            else acGraphcFinancesWindow.getData().addAll(expensesChart, entriesChart);
+            acGraphcFinancesWindow.getData().addAll(entriesChart, expensesChart);
         } else {
             entriesChart = (XYChart.Series<String, Double>) acGraphcFinancesWindow.getData().get(0);
             expensesChart = (XYChart.Series<String, Double>) acGraphcFinancesWindow.getData().get(1);

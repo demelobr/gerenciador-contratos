@@ -71,7 +71,7 @@ public class UtilitiesLibrary {
                 count++;
             }
 
-            if(count == 0 && financeReportComplete) sql = "SELECT * FROM finances";
+            if(count == 0 && financeReportComplete && !withCollaborator) sql = "SELECT * FROM finances";
 
         }else if(typeOfReport.equals("presences")){
             sql = "SELECT * FROM presences WHERE presences.`cpfCollaborator` = $P{queryCpfCollaborator}";

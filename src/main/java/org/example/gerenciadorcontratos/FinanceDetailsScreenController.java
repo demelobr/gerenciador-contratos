@@ -176,6 +176,7 @@ public class FinanceDetailsScreenController implements Initializable {
             sm.getEditFinanceFinancesScreenController().setFinance(selectFinance);
             sm.getEditFinanceFinancesScreenController().setFilter(filter);
             sm.getEditFinanceFinancesScreenController().initializeWindow();
+            sm.getEditFinanceFinancesScreenController().addOrRemoveListeners(true);
             sm.changeScreen("edit-finance-finances-screen.fxml", "Gerenciador de Contratos - Editar Finança");
         }else{
             lbPushMsgDetailsFinancesWindow.setText("Selecione uma finança!");

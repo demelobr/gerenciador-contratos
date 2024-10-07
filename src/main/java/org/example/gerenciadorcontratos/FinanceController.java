@@ -33,7 +33,7 @@ public class FinanceController implements IFinanceController{
     }
 
     @Override
-    public void updateFiance(Finance finance, String title, String notes, String contractName, String type, String paymentMethod, LocalDate date, LocalDateTime recordDateTime, double value, String collaboratorCpf) throws ConnectionFailureDbException, FinanceUpdatedSuccessfullyException, FinanceDoesNotExistException, FinanceNullException {
+    public void updateFiance(Finance finance, String title, String notes, String contractName, String type, String financeClass, String paymentMethod, LocalDate date, LocalDateTime recordDateTime, double value, String collaboratorCpf) throws ConnectionFailureDbException, FinanceUpdatedSuccessfullyException, FinanceDoesNotExistException, FinanceNullException {
         if(finance != null){
            if(this.financeExist(finance.getContractName(), finance.getRecordDateTime())){
                if(title.isEmpty() || finance.getTitle().equals(title)){
@@ -47,6 +47,9 @@ public class FinanceController implements IFinanceController{
                }
                if(type.isEmpty() || finance.getType().equals(type)){
                    type = finance.getType();
+               }
+               if(financeClass.isEmpty() || finance.getFinanceClass().equals(financeClass)){
+                   financeClass = finance.getFinanceClass();
                }
                if(paymentMethod.isEmpty() || finance.getPaymentMethod().equals(paymentMethod)){
                    paymentMethod = finance.getPaymentMethod();
@@ -63,7 +66,7 @@ public class FinanceController implements IFinanceController{
                if(collaboratorCpf.isEmpty() || finance.getCollaboratorCpf().equals(collaboratorCpf)){
                    collaboratorCpf = finance.getCollaboratorCpf();
                }
-               financeRepository.update(finance, title, notes, contractName, type, paymentMethod, date, recordDateTime, value, collaboratorCpf);
+               financeRepository.update(finance, title, notes, contractName, type, financeClass, paymentMethod, date, recordDateTime, value, collaboratorCpf);
                throw new FinanceUpdatedSuccessfullyException();
            }else{
                throw new FinanceDoesNotExistException();

@@ -302,6 +302,7 @@ public class CollaboratorDetailsScreenController implements Initializable {
             ScreenManager sm = ScreenManager.getInstance();
             sm.getEditFinanceCollaboratorScreenController().setFinance(selectFinance);
             sm.getEditFinanceCollaboratorScreenController().initializeWindow();
+            sm.getEditFinanceCollaboratorScreenController().addOrRemoveListeners(true);
             sm.changeScreen("edit-finance-collaborator-screen.fxml", "Gerenciador de Contratos - Editar Finança");
         }else{
             lbPushMsgDetailsCollaboratorWindow.setText("Selecione uma finança!");

@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IFinanceController {
     void createFiance(Finance finance) throws ConnectionFailureDbException, FinanceCreatedSuccessfullyException, EmptyfieldsException, InvalidFinanceAmountException, FinanceNullException;
-    void updateFiance(Finance finance, String title, String notes, String contractName, String type, String paymentMethod, LocalDate date, LocalDateTime recordDateTime, double value, String collaboratorCpf) throws ConnectionFailureDbException, FinanceUpdatedSuccessfullyException, FinanceDoesNotExistException, FinanceNullException;
+    void updateFiance(Finance finance, String title, String notes, String contractName, String type, String financeClass, String paymentMethod, LocalDate date, LocalDateTime recordDateTime, double value, String collaboratorCpf) throws ConnectionFailureDbException, FinanceUpdatedSuccessfullyException, FinanceDoesNotExistException, FinanceNullException;
     void deleteFiance(Finance finance) throws ConnectionFailureDbException, FinanceDeletedSuccessfullyException, FinanceDoesNotExistException, FinanceNullException;
     boolean financeExist(String contractName, LocalDateTime recordDateTime) throws ConnectionFailureDbException;
     boolean checkFinanceData(Finance finance) throws EmptyfieldsException, InvalidFinanceAmountException;

@@ -26,6 +26,8 @@ import static org.example.gerenciadorcontratos.UtilitiesLibrary.formatValue;
 public class AddNewFinanceScreenController implements Initializable {
     private Application app;
     private List<String> types;
+    private List<String> entriesClasses;
+    private List<String> expensesClasses;
     private List<String> paymentMethods;
     private List<String> collaboratorsName;
     private List<String> collaboratorsCpf;
@@ -34,6 +36,8 @@ public class AddNewFinanceScreenController implements Initializable {
     public AddNewFinanceScreenController(){
         this.app = new Application();
         this.types = new ArrayList<>();
+        this.entriesClasses = new ArrayList<>();
+        this.expensesClasses = new ArrayList<>();
         this.paymentMethods = new ArrayList<>();
         this.collaboratorsName = new ArrayList<>();
         this.collaboratorsCpf = new ArrayList<>();
@@ -63,6 +67,9 @@ public class AddNewFinanceScreenController implements Initializable {
 
     @FXML
     private ChoiceBox<String> cbTypeAddNewFinanceWindow;
+
+    @FXML
+    private ChoiceBox<String> cbCategoryAddNewFinanceWindow;
 
     @FXML
     private DatePicker dpFinanceDateAddNewFinanceWindow;
@@ -126,6 +133,7 @@ public class AddNewFinanceScreenController implements Initializable {
         String title = tfTitileAddNewFinanceWindow.getText();
         String notes = taNotesAddNewFinanceWindow.getText();
         String type = cbTypeAddNewFinanceWindow.getValue();
+        String financeClass = cbCategoryAddNewFinanceWindow.getValue();
         String paymentMethod = cbPaymentMethodAddNewFinanceWindow.getValue();
         String contractName = cbContractAddNewFinanceWindow.getValue();
         String value = tfValueAddNewFinanceWindow.getText();
@@ -158,8 +166,8 @@ public class AddNewFinanceScreenController implements Initializable {
                     try {
                         try {
                             int index = cbCollaboratorAddNewFinanceWindow.getSelectionModel().getSelectedIndex();
-                            if(collaboratorsName.get(index).equals("----------")) app.getServer().createFiance(new Finance(title, notes, contractName, type, paymentMethod, date, LocalDateTime.now(), formatValue(value), "NÃO INFORMADO"));
-                            else app.getServer().createFiance(new Finance(title, notes, contractName, type, paymentMethod, date, LocalDateTime.now(), formatValue(value), collaboratorsCpf.get(index)));
+                            if(collaboratorsName.get(index).equals("----------")) app.getServer().createFiance(new Finance(title, notes, contractName, type, financeClass, paymentMethod, date, LocalDateTime.now(), formatValue(value), "NÃO INFORMADO"));
+                            else app.getServer().createFiance(new Finance(title, notes, contractName, type, financeClass, paymentMethod, date, LocalDateTime.now(), formatValue(value), collaboratorsCpf.get(index)));
                         } catch (ParseException e) {
                             lbPushMsgAddNewFinanceWindow.setText(e.getMessage());
                             hbPushMsgAddNewFinanceWindow.getStyleClass().setAll("push-msg-error");
@@ -212,6 +220,7 @@ public class AddNewFinanceScreenController implements Initializable {
         cbPaymentMethodAddNewFinanceWindow.getItems().clear();
         cbContractAddNewFinanceWindow.getItems().clear();
         cbCollaboratorAddNewFinanceWindow.getItems().clear();
+        this.addOrRemoveListeners(false);
     }
 
     public void initializeWindow(){
@@ -225,6 +234,7 @@ public class AddNewFinanceScreenController implements Initializable {
         this.setCombosBoxOptions();
         cbPaymentMethodAddNewFinanceWindow.setValue(paymentMethods.get(0));
         cbTypeAddNewFinanceWindow.setValue(types.get(0));
+        cbCategoryAddNewFinanceWindow.setValue(entriesClasses.get(0));
         cbContractAddNewFinanceWindow.setValue(contractsName.get(0));
         cbCollaboratorAddNewFinanceWindow.setValue(collaboratorsName.get(0));
     }
@@ -233,6 +243,18 @@ public class AddNewFinanceScreenController implements Initializable {
         types.clear();
         types.add("RECEITA");
         types.add("DESPESA");
+
+        entriesClasses.clear();
+        entriesClasses.add("VERBAS CONTRATUAIS");
+        entriesClasses.add("ADTIVOS CONTRATUAIS");
+
+        expensesClasses.add("MÃO DE OBRA");
+        expensesClasses.add("MATERIAIS DE CONSTRUÇÃO");
+        expensesClasses.add("EQUIPAMENTOS");
+        expensesClasses.add("LOGÍSTICA");
+        expensesClasses.add("TERCEIRIZAÇÕES");
+        expensesClasses.add("MANUNTENÇÃO");
+
 
         paymentMethods.clear();
         paymentMethods.add("DINHEIRO");
@@ -262,9 +284,35 @@ public class AddNewFinanceScreenController implements Initializable {
         } catch (ConnectionFailureDbException ignored) {}
 
         cbTypeAddNewFinanceWindow.getItems().addAll(types);
+        cbCategoryAddNewFinanceWindow.getItems().addAll(entriesClasses);
         cbPaymentMethodAddNewFinanceWindow.getItems().addAll(paymentMethods);
         cbContractAddNewFinanceWindow.getItems().addAll(contractsName);
         cbCollaboratorAddNewFinanceWindow.getItems().addAll(collaboratorsName);
+    }
+
+    public void addOrRemoveListeners(boolean add){
+        ChangeListener<String> comboBoxFinanceClassChangeListener = new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if(newValue != null){
+                    if(newValue.equals("RECEITA")){
+                        cbCategoryAddNewFinanceWindow.getItems().clear();
+                        cbCategoryAddNewFinanceWindow.getItems().addAll(entriesClasses);
+                        cbCategoryAddNewFinanceWindow.setValue(entriesClasses.get(0));
+                    }else{
+                        cbCategoryAddNewFinanceWindow.getItems().clear();
+                        cbCategoryAddNewFinanceWindow.getItems().addAll(expensesClasses);
+                        cbCategoryAddNewFinanceWindow.setValue(expensesClasses.get(0));
+                    }
+                }
+            }
+        };
+
+        if(add){
+            cbTypeAddNewFinanceWindow.valueProperty().addListener(comboBoxFinanceClassChangeListener);
+        }else{
+            cbTypeAddNewFinanceWindow.valueProperty().removeListener(comboBoxFinanceClassChangeListener);
+        }
     }
 
     void delayHidePushMsg(){
@@ -288,7 +336,7 @@ public class AddNewFinanceScreenController implements Initializable {
         vbCollaboratorAddNewFinanceWindow.setVisible(false);
 
         tfValueAddNewFinanceWindow.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("^[\\d,.]*$")) {
+            if (!newValue.matches("^[\\d,]*$")) {
                 tfValueAddNewFinanceWindow.setText(oldValue);
             }
         });

@@ -38,7 +38,7 @@ public class Application extends javafx.application.Application {
 //            throw new RuntimeException(e);
 //        }
         try {
-//            System.out.println(app.getServer().loadSettings());
+            System.out.println(app.getServer().loadSettings());
             app.getServer().setSettings(app.getServer().loadSettings());
 
         } catch (ConfigurationLoadFailureException e) {

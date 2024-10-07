@@ -185,6 +185,49 @@
                   </VBox>
                   <VBox maxWidth="400.0" minWidth="400.0" prefWidth="400.0">
                      <children>
+                        <HBox layoutX="10.0" layoutY="160.0" maxHeight="75.0" prefHeight="75.0" prefWidth="200.0">
+                           <children>
+                              <VBox maxWidth="184.0" prefHeight="60.0" prefWidth="184.0">
+                                 <children>
+                                    <Label prefHeight="20.0" prefWidth="128.0" text="Data da Finança">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets bottom="3.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <DatePicker fx:id="dpFinanceDateAddNewFinanceWindow" maxHeight="40.0" maxWidth="184.0" minHeight="40.0" minWidth="184.0" prefHeight="40.0" prefWidth="184.0" styleClass="input-box" stylesheets="@style.css">
+                                       <effect>
+                                          <Glow />
+                                       </effect>
+                                    </DatePicker>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" />
+                                 </padding>
+                                 <HBox.margin>
+                                    <Insets right="32.0" />
+                                 </HBox.margin>
+                              </VBox>
+                              <VBox maxHeight="60.0" maxWidth="184.0" prefHeight="60.0" prefWidth="184.0">
+                                 <children>
+                                    <Label prefHeight="20.0" prefWidth="151.0" text="Contrato">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets bottom="3.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <ChoiceBox fx:id="cbContractAddNewFinanceWindow" maxHeight="40.0" maxWidth="184.0" minHeight="40.0" minWidth="184.0" prefHeight="40.0" prefWidth="184.0" styleClass="input-box" stylesheets="@style.css" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                        </HBox>
                         <HBox maxHeight="75.0" prefHeight="75.0" prefWidth="400.0">
                            <children>
                               <VBox maxHeight="60.0" maxWidth="184.0" prefHeight="60.0" prefWidth="184.0">
@@ -206,9 +249,9 @@
                                     <Insets right="32.0" />
                                  </HBox.margin>
                               </VBox>
-                              <VBox maxHeight="60.0" maxWidth="184.0" prefHeight="60.0" prefWidth="184.0">
+                              <VBox layoutX="10.0" layoutY="10.0" maxHeight="60.0" maxWidth="184.0" prefHeight="60.0" prefWidth="184.0">
                                  <children>
-                                    <Label prefHeight="20.0" prefWidth="151.0" text="Contrato">
+                                    <Label prefHeight="20.0" prefWidth="151.0" text="Categoria">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
@@ -216,7 +259,7 @@
                                           <Insets bottom="3.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <ChoiceBox fx:id="cbContractAddNewFinanceWindow" maxHeight="40.0" maxWidth="184.0" minHeight="40.0" minWidth="184.0" prefHeight="40.0" prefWidth="184.0" styleClass="input-box" stylesheets="@style.css" />
+                                    <ChoiceBox fx:id="cbCategoryAddNewFinanceWindow" maxHeight="40.0" maxWidth="184.0" minHeight="40.0" minWidth="184.0" prefHeight="40.0" prefWidth="184.0" styleClass="input-box" stylesheets="@style.css" />
                                  </children>
                                  <padding>
                                     <Insets bottom="10.0" />
@@ -318,33 +361,6 @@
                                  <padding>
                                     <Insets bottom="10.0" />
                                  </padding>
-                              </VBox>
-                           </children>
-                        </HBox>
-                        <HBox layoutX="10.0" layoutY="160.0" maxHeight="75.0" prefHeight="75.0" prefWidth="200.0">
-                           <children>
-                              <VBox maxWidth="184.0" prefHeight="60.0" prefWidth="184.0">
-                                 <children>
-                                    <Label prefHeight="20.0" prefWidth="128.0" text="Data da Finança">
-                                       <font>
-                                          <Font name="System Bold" size="14.0" />
-                                       </font>
-                                       <VBox.margin>
-                                          <Insets bottom="3.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                    <DatePicker fx:id="dpFinanceDateAddNewFinanceWindow" maxHeight="40.0" maxWidth="184.0" minHeight="40.0" minWidth="184.0" prefHeight="40.0" prefWidth="184.0" styleClass="input-box" stylesheets="@style.css">
-                                       <effect>
-                                          <Glow />
-                                       </effect>
-                                    </DatePicker>
-                                 </children>
-                                 <padding>
-                                    <Insets bottom="10.0" />
-                                 </padding>
-                                 <HBox.margin>
-                                    <Insets right="32.0" />
-                                 </HBox.margin>
                               </VBox>
                            </children>
                         </HBox>
