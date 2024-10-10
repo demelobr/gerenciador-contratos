@@ -24,17 +24,20 @@ public class ContractDAO implements IContractDAO{
     @Override
     public void create(Contract contract) throws ConnectionFailureDbException {
         try (Connection conn = ConnectionFactory.getConnection()){
-            String sql = "INSERT INTO contracts (name, description, budget, address, startDate, endDate) VALUES(?,?,?,?,?,?)";
+            String sql = "INSERT INTO contracts (name, description, address, engineer, contractFile, expectedStartDate, expectedEndDate, startDate, endDate) VALUES(?,?,?,?,?,?,?,?,?)";
 
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, contract.getName().toUpperCase());
             ps.setString(2, contract.getDescription().toUpperCase());
-            ps.setFloat(3, contract.getBudget());
-            ps.setString(4, contract.getAddress().toUpperCase());
-            ps.setString(5, contract.getStartDate().format(dateTimeFormatter));
-            ps.setString(6, contract.getEndDate().format(dateTimeFormatter));
+            ps.setString(3, contract.getAddress().toUpperCase());
+            ps.setString(4, contract.getEngineer().toUpperCase());
+            ps.setString(5, contract.getContractFile().toUpperCase());
+            ps.setString(6, contract.getExpectedStartDate().format(dateTimeFormatter));
+            ps.setString(7, contract.getExpectedEndDate().format(dateTimeFormatter));
+            ps.setString(8, contract.getStartDate().format(dateTimeFormatter));
+            ps.setString(9, contract.getEndDate().format(dateTimeFormatter));
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -43,20 +46,23 @@ public class ContractDAO implements IContractDAO{
     }
 
     @Override
-    public void update(Contract contract, String name, String description, String address, float budget, LocalDate startDate, LocalDate endDate) throws ConnectionFailureDbException {
+    public void update(Contract contract, String name, String description, String address, String engineer, String contractFile, LocalDate expectedStartDate, LocalDate expectedEndDate, LocalDate startDate, LocalDate endDate) throws ConnectionFailureDbException {
         try (Connection conn = ConnectionFactory.getConnection()){
-            String sql = "UPDATE contracts SET name = ?, description = ?, budget = ?, address = ?, startDate = ?, endDate = ? WHERE name = ?";
+            String sql = "UPDATE contracts SET name = ?, description = ?, address = ?, engineer = ?, contractFile = ?, expectedStartDate = ?, expectedEndDate = ?, startDate = ?, endDate = ? WHERE name = ?";
 
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, name.toUpperCase());
             ps.setString(2, description.toUpperCase());
-            ps.setFloat(3, budget);
-            ps.setString(4, address.toUpperCase());
-            ps.setString(5, startDate.format(dateTimeFormatter));
-            ps.setString(6, endDate.format(dateTimeFormatter));
-            ps.setString(7, contract.getName().toUpperCase());
+            ps.setString(3, address.toUpperCase());
+            ps.setString(4, engineer.toUpperCase());
+            ps.setString(5, contractFile.toUpperCase());
+            ps.setString(6, expectedStartDate.format(dateTimeFormatter));
+            ps.setString(7, expectedEndDate.format(dateTimeFormatter));
+            ps.setString(8, startDate.format(dateTimeFormatter));
+            ps.setString(9, endDate.format(dateTimeFormatter));
+            ps.setString(10, contract.getName().toUpperCase());
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -82,7 +88,7 @@ public class ContractDAO implements IContractDAO{
     public boolean contractExists(String name) throws ConnectionFailureDbException {
         boolean contractExists = false;
         try (Connection conn = ConnectionFactory.getConnection()){
-            String sql = "SELECT id, name, description, budget, address, startDate, endDate FROM contracts WHERE name = ?";
+            String sql = "SELECT id, name, description, address, engineer, contractFile, expectedStartDate, expectedEndDate, startDate, endDate FROM contracts WHERE name = ?";
 
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, name.toUpperCase());
@@ -101,7 +107,7 @@ public class ContractDAO implements IContractDAO{
     public Contract getByName(String queryName) throws ConnectionFailureDbException {
         Contract contract = null;
         try (Connection conn = ConnectionFactory.getConnection()){
-            String sql = "SELECT id, name, description, budget, address, startDate, endDate FROM contracts WHERE name = ?";
+            String sql = "SELECT id, name, description, address, engineer, contractFile, expectedStartDate, expectedEndDate, startDate, endDate FROM contracts WHERE name = ?";
 
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
@@ -112,11 +118,14 @@ public class ContractDAO implements IContractDAO{
                 if(rs.next()) {
                     String name = rs.getString("name");
                     String description = rs.getString("description");
-                    float budget = rs.getFloat("budget");
                     String address = rs.getString("address");
+                    String engineer = rs.getString("engineer");
+                    String contractFile = rs.getString("contractFile");
+                    LocalDate expectedStartDate = LocalDate.parse(rs.getString("expectedStartDate"), dateTimeFormatter);
+                    LocalDate expectedEndDate = LocalDate.parse(rs.getString("expectedEndDate"), dateTimeFormatter);
                     LocalDate startDate = LocalDate.parse(rs.getString("startDate"), dateTimeFormatter);
                     LocalDate endDate = LocalDate.parse(rs.getString("endDate"), dateTimeFormatter);
-                    contract = new Contract(name, description, address, budget, startDate, endDate);
+                    contract = new Contract(name, description, address, engineer, contractFile, expectedStartDate, expectedEndDate, startDate, endDate);
                 }
             }
 
@@ -130,7 +139,7 @@ public class ContractDAO implements IContractDAO{
     public List<Contract> listAll() throws ConnectionFailureDbException {
         List<Contract> listOfContracts = new ArrayList<>();
         try (Connection conn = ConnectionFactory.getConnection()){
-            String sql = "SELECT id, name, description, budget, address, startDate, endDate FROM contracts";
+            String sql = "SELECT id, name, description, address, engineer, contractFile, expectedStartDate, expectedEndDate, startDate, endDate FROM contracts";
 
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
@@ -139,11 +148,14 @@ public class ContractDAO implements IContractDAO{
                 while(rs.next()) {
                     String name = rs.getString("name");
                     String description = rs.getString("description");
-                    float budget = rs.getFloat("budget");
                     String address = rs.getString("address");
+                    String engineer = rs.getString("engineer");
+                    String contractFile = rs.getString("contractFile");
+                    LocalDate expectedStartDate = LocalDate.parse(rs.getString("expectedStartDate"), dateTimeFormatter);
+                    LocalDate expectedEndDate = LocalDate.parse(rs.getString("expectedEndDate"), dateTimeFormatter);
                     LocalDate startDate = LocalDate.parse(rs.getString("startDate"), dateTimeFormatter);
                     LocalDate endDate = LocalDate.parse(rs.getString("endDate"), dateTimeFormatter);
-                    listOfContracts.add(new Contract(name, description, address, budget, startDate, endDate));
+                    listOfContracts.add(new Contract(name, description, address, engineer, contractFile, expectedStartDate, expectedEndDate, startDate, endDate));
                 }
             }
 

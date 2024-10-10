@@ -161,10 +161,11 @@ public class CollaboratorsScreenController implements Initializable {
 
     @FXML
     public void goToContractsScreen(){
-        lbPushMsgCollaboratorsWindow.setText("Em Desenvolvimento!");
-        hbPushMsgCollaboratorsWindow.getStyleClass().setAll("push-msg-info");
-        hbPushMsgCollaboratorsWindow.setVisible(true);
-        this.delayHidePushMsg();
+        this.resetWindow();
+        ScreenManager sm = ScreenManager.getInstance();
+        sm.getContractsScreenController().setUser(user);
+        sm.getContractsScreenController().setDataScreen(capitalizeWords(user.getName()));
+        sm.changeScreen("contract-menu-screen.fxml", "Gerenciador de Contratos - Contratos");
     }
 
     @FXML

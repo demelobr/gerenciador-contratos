@@ -122,12 +122,12 @@ public class Server {
     }
 
     // Contract's methods
-    public void createContract(Contract contract) throws ContractCreatedSuccessfullyException, InvalidBudgetException, ConnectionFailureDbException, InvalidContractException, ContractNullException, EmptyfieldsException, StartDateAfterEndDateException {
+    public void createContract(Contract contract) throws ContractCreatedSuccessfullyException, InvalidBudgetException, ConnectionFailureDbException, InvalidContractException, ContractNullException, EmptyfieldsException, StartDateAfterEndDateException, ContractWithThisNameAlreadyExistsException {
         contractController.createContract(contract);
     }
 
-    public void updateContract(Contract contract, String name, String description, String address, float budget, LocalDate startDate, LocalDate endDate) throws ConnectionFailureDbException, ContractUpdatedSuccessfullyException, ContractDoesNotExistException, ContractNullException {
-        contractController.updateContract(contract, name, description, address, budget, startDate, endDate);
+    public void updateContract(Contract contract, String name, String description, String address, String engineer, String contractFile, LocalDate expectedStartDate, LocalDate expectedEndDate, LocalDate startDate, LocalDate endDate) throws ConnectionFailureDbException, ContractUpdatedSuccessfullyException, ContractDoesNotExistException, ContractNullException {
+        contractController.updateContract(contract, name, description, address, engineer, contractFile, expectedStartDate, expectedEndDate, startDate, endDate);
     }
 
     public void deleteContarct(Contract contract) throws ConnectionFailureDbException, ContractDeletedSuccessfullyException, ContractDoesNotExistException, ContractNullException {
@@ -138,7 +138,7 @@ public class Server {
         return contractController.contractExists(name);
     }
 
-    public boolean checkContractData(Contract contract) throws InvalidBudgetException, EmptyfieldsException, StartDateAfterEndDateException {
+    public boolean checkContractData(Contract contract) throws InvalidBudgetException, EmptyfieldsException, StartDateAfterEndDateException, ConnectionFailureDbException, ContractWithThisNameAlreadyExistsException {
         return contractController.checkContractData(contract);
     }
 

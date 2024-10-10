@@ -27,6 +27,7 @@ public class ScreenManager {
     private Scene editFinanceCollaboratorScreenScene;
     private Scene financeDatailsScreenScene;
     private Scene editFinanceFinancessScreenScene;
+    private Scene contractsScreenScene;
 
     private LoginScreenController loginScreenController;
     private RegistrationScreenController registrationScreenController;
@@ -47,6 +48,7 @@ public class ScreenManager {
     private EditFinanceCollaboratorScreenController editFinanceCollaboratorScreenController;
     private FinanceDetailsScreenController financeDetailsScreenController;
     private EditFinanceFinancesScreenController editFinanceFinancesScreenController;
+    private ContractsScreenController contractsScreenController;
 
     public ScreenManager(){
         this.screenLoader();
@@ -145,6 +147,10 @@ public class ScreenManager {
         return editFinanceFinancessScreenScene;
     }
 
+    public Scene getContractsScreenScene() {
+        return contractsScreenScene;
+    }
+
     // GETTERS dos Controllers
     public LoginScreenController getLoginScreenController() {
         return loginScreenController;
@@ -220,6 +226,10 @@ public class ScreenManager {
 
     public EditFinanceFinancesScreenController getEditFinanceFinancesScreenController() {
         return editFinanceFinancesScreenController;
+    }
+
+    public ContractsScreenController getContractsScreenController() {
+        return contractsScreenController;
     }
 
     private void screenLoader(){
@@ -300,6 +310,10 @@ public class ScreenManager {
             this.editFinanceFinancessScreenScene = new Scene(editFinanceFinancesScreenPane.load());
             this.editFinanceFinancesScreenController = editFinanceFinancesScreenPane.getController();
 
+            FXMLLoader contractScreenPane = new FXMLLoader(getClass().getResource("contract-menu-screen.fxml"));
+            this.contractsScreenScene = new Scene(contractScreenPane.load());
+            this.contractsScreenController = contractScreenPane.getController();
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -323,6 +337,7 @@ public class ScreenManager {
             case "edit-finance-collaborator-screen.fxml" -> stg.setScene(editFinanceCollaboratorScreenScene);
             case "finance-details-screen.fxml" -> stg.setScene(financeDatailsScreenScene);
             case "edit-finance-finances-screen.fxml" -> stg.setScene(editFinanceFinancessScreenScene);
+            case "contract-menu-screen.fxml" -> stg.setScene(contractsScreenScene);
         }
         stg.setTitle(titleScreen);
         if(max) stg.setMaximized(true);

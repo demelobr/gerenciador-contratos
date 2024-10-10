@@ -137,30 +137,35 @@
 .chart-legend-item-symbol {
 	-fx-background-color: transparent;
 }
+
 .series0.chart-legend-item-symbol {
 	-fx-background-color: #55ff7f;
 }
+
 .series1.chart-legend-item-symbol {
 	-fx-background-color: #ff5580;
 }
+
 .chart-legend-item {
 	-fx-text-fill: #000000; /* Cor do texto da legenda */
 }
 
 .default-color0.chart-series-area-fill {
-	-fx-fill: rgba(85, 255, 127, 0.5);
+	-fx-fill: rgba(85, 255, 127, 0.25);
 }
 
 .default-color0.chart-series-area-line {
 	-fx-stroke: #55ff7f;
+	-fx-stroke-width: 2px;
 }
 
 .default-color1.chart-series-area-fill {
-	-fx-fill: rgba(255, 85, 128, 0.5);
+	-fx-fill: rgba(255, 85, 128, 0.25);
 }
 
 .default-color1.chart-series-area-line {
 	-fx-stroke: #ff5580;
+	-fx-stroke-width: 2px;
 }
 
 .btn-main{

@@ -117,10 +117,11 @@ public class FinancesScreenController implements Initializable {
 
     @FXML
     public void goToContractsScreen(){
-        lbPushMsgFinancesWindow.setText("Em Desenvolvimento!");
-        hbPushMsgFinancesWindow.getStyleClass().setAll("push-msg-info");
-        hbPushMsgFinancesWindow.setVisible(true);
-        this.delayHidePushMsg();
+        this.resetWindow();
+        ScreenManager sm = ScreenManager.getInstance();
+        sm.getContractsScreenController().setUser(user);
+        sm.getContractsScreenController().setDataScreen(capitalizeWords(user.getName()));
+        sm.changeScreen("contract-menu-screen.fxml", "Gerenciador de Contratos - Contratos");
     }
 
     @FXML

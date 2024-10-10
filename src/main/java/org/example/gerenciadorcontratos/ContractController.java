@@ -19,9 +19,11 @@ public class ContractController implements IContractController{
     }
 
     @Override
-    public void createContract(Contract contract) throws ConnectionFailureDbException, ContractCreatedSuccessfullyException, InvalidContractException, ContractNullException, InvalidBudgetException, EmptyfieldsException, StartDateAfterEndDateException {
+    public void createContract(Contract contract) throws ConnectionFailureDbException, ContractCreatedSuccessfullyException, InvalidContractException, ContractNullException, InvalidBudgetException, EmptyfieldsException, StartDateAfterEndDateException, ContractWithThisNameAlreadyExistsException {
         if(contract != null){
             if(this.checkContractData(contract)){
+                if(contract.getStartDate() == null) contract.setStartDate(contract.getExpectedStartDate());
+                if(contract.getEndDate() == null) contract.setEndDate(contract.getExpectedEndDate());
                 contractRepository.create(contract);
                 throw new ContractCreatedSuccessfullyException();
             }else{
@@ -33,7 +35,7 @@ public class ContractController implements IContractController{
     }
 
     @Override
-    public void updateContract(Contract contract, String name, String description, String address, float budget, LocalDate startDate, LocalDate endDate) throws ConnectionFailureDbException, ContractUpdatedSuccessfullyException, ContractDoesNotExistException, ContractNullException {
+    public void updateContract(Contract contract, String name, String description, String address, String engineer, String contractFile, LocalDate expectedStartDate, LocalDate expectedEndDate, LocalDate startDate, LocalDate endDate) throws ConnectionFailureDbException, ContractUpdatedSuccessfullyException, ContractDoesNotExistException, ContractNullException {
         if(contract != null){
             if(this.contractExists(contract.getName())){
                 if(name.isEmpty() || contract.getName().equals(name)){
@@ -45,8 +47,17 @@ public class ContractController implements IContractController{
                 if(address.isEmpty() || contract.getAddress().equals(address)){
                     address = contract.getAddress();
                 }
-                if(budget < 0 || contract.getBudget() == budget){
-                    budget = contract.getBudget();
+                if(engineer.isEmpty() || contract.getEngineer().equals(engineer)){
+                    engineer = contract.getEngineer();
+                }
+                if(contractFile.isEmpty() || contract.equals(contractFile)){
+                    contractFile = contract.getContractFile();
+                }
+                if(contract.getExpectedStartDate().isEqual(expectedStartDate)){
+                    expectedStartDate = contract.getExpectedStartDate();
+                }
+                if(contract.getExpectedEndDate().isEqual(expectedEndDate)){
+                    expectedEndDate = contract.getExpectedEndDate();
                 }
                 if(contract.getStartDate().isEqual(startDate)){
                     startDate = contract.getStartDate();
@@ -54,7 +65,7 @@ public class ContractController implements IContractController{
                 if(contract.getEndDate().isEqual(endDate)){
                     endDate = contract.getEndDate();
                 }
-                contractRepository.update(contract, name, description, address, budget, startDate, endDate);
+                contractRepository.update(contract, name, description, address, engineer, contractFile, expectedStartDate, expectedEndDate, startDate, endDate);
                 throw new ContractUpdatedSuccessfullyException();
             }else{
                 throw new ContractDoesNotExistException();
@@ -84,21 +95,27 @@ public class ContractController implements IContractController{
     }
 
     @Override
-    public boolean checkContractData(Contract contract) throws EmptyfieldsException, InvalidBudgetException, StartDateAfterEndDateException {
+    public boolean checkContractData(Contract contract) throws EmptyfieldsException, StartDateAfterEndDateException, ConnectionFailureDbException, ContractWithThisNameAlreadyExistsException {
         boolean contractChecked = true;
-        if(contract.getName().isEmpty() || contract.getAddress().isEmpty()){
+
+        if(this.contractExists(contract.getName())){
+            contractChecked = false;
+            throw new ContractWithThisNameAlreadyExistsException();
+        }
+        if(contract.getName().isEmpty() || contract.getAddress().isEmpty() || contract.getEngineer().isEmpty() || contract.getExpectedStartDate() == null || contract.getExpectedEndDate() == null){
             contractChecked = false;
             throw new EmptyfieldsException();
         }
-        if(contract.getBudget() <= 0){
-            contractChecked = false;
-            throw new InvalidBudgetException();
-        }
-        if(contract.getStartDate().isAfter(contract.getEndDate())){
+        if(contract.getExpectedStartDate().isAfter(contract.getExpectedEndDate())){
             contractChecked = false;
             throw new StartDateAfterEndDateException();
         }
-
+        if(contract.getStartDate() != null && contract.getEndDate() != null){
+            if(contract.getStartDate().isAfter(contract.getEndDate())){
+                contractChecked = false;
+                throw new StartDateAfterEndDateException();
+            }
+        }
         return contractChecked;
     }
 
