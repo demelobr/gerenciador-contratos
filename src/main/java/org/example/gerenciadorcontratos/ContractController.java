@@ -24,6 +24,7 @@ public class ContractController implements IContractController{
             if(this.checkContractData(contract)){
                 if(contract.getStartDate() == null) contract.setStartDate(contract.getExpectedStartDate());
                 if(contract.getEndDate() == null) contract.setEndDate(contract.getExpectedEndDate());
+                if(contract.getEngineer().equals("----------")) contract.setEngineer("NÃO INFORMADO");
                 contractRepository.create(contract);
                 throw new ContractCreatedSuccessfullyException();
             }else{

@@ -28,6 +28,7 @@ public class EditFinanceFinancesScreenController implements Initializable {
     private Finance finance;
     private User user;
     private String filter;
+    private String year;
     private List<String> types;
     private List<String> entriesClasses;
     private List<String> expensesClasses;
@@ -69,6 +70,14 @@ public class EditFinanceFinancesScreenController implements Initializable {
 
     public void setFilter(String filter) {
         this.filter = filter;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
     }
 
     @FXML
@@ -139,6 +148,7 @@ public class EditFinanceFinancesScreenController implements Initializable {
         ScreenManager sm = ScreenManager.getInstance();
         sm.getFinanceDetailsScreenController().setUser(user);
         sm.getFinanceDetailsScreenController().setFilter(filter);
+        sm.getFinanceDetailsScreenController().setYear(year);
         sm.getFinanceDetailsScreenController().initializeComboBoxsWindow();
         sm.getFinanceDetailsScreenController().addOrRemoveListeners(true);
         sm.getFinanceDetailsScreenController().initializeTable();
@@ -239,6 +249,7 @@ public class EditFinanceFinancesScreenController implements Initializable {
                             ScreenManager sm = ScreenManager.getInstance();
                             sm.getFinanceDetailsScreenController().setUser(user);
                             sm.getFinanceDetailsScreenController().setFilter(filter);
+                            sm.getFinanceDetailsScreenController().setYear(year);
                             sm.getFinanceDetailsScreenController().initializeComboBoxsWindow();
                             sm.getFinanceDetailsScreenController().addOrRemoveListeners(true);
                             sm.getFinanceDetailsScreenController().initializeTable();

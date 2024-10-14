@@ -367,7 +367,7 @@ public class FinanceDAO implements IFinanceDAO {
     public List<Finance> listAll() throws ConnectionFailureDbException {
         List<Finance> listOfFinances = new ArrayList<Finance>();
         try (Connection conn = ConnectionFactory.getConnection()){
-            String sql = "SELECT id, title, notes, contractName, type, financeClass, paymentMethod, date, recordDateTime, value, collaboratorCpf FROM finances";
+            String sql = "SELECT id, title, notes, contractName, type, financeClass, paymentMethod, date, recordDateTime, value, collaboratorCpf FROM finances ORDER BY STR_TO_DATE(date, '%d/%m/%Y')";
 
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             DateTimeFormatter dateTimeFormatterWithSeconds = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm:ss");

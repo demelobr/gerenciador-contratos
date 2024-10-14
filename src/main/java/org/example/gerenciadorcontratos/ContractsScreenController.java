@@ -8,20 +8,29 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -83,6 +92,15 @@ public class ContractsScreenController implements Initializable {
 
     @FXML
     private HBox hbSearchContractsWindow;
+
+    @FXML
+    private VBox btnBalanceContractsWindow;
+
+    @FXML
+    private VBox btnEntriesContractsWindow;
+
+    @FXML
+    private VBox btnExpensesContractsWindow;
 
     @FXML
     private ImageView imgDataBaseConnectionContractsWindow;
@@ -197,17 +215,126 @@ public class ContractsScreenController implements Initializable {
 
     @FXML
     public void goToAddContractScreen(){
-        System.out.println("Add contract");
+        this.resetWindow();
+        ScreenManager sm = ScreenManager.getInstance();
+        sm.getAddNewContractScreenController().initializeWindow();
+        sm.changeScreen("add-new-contract-screen.fxml", "Gerenciador de Contratos - Registrar Contrato");
     }
 
     @FXML
     public void goToMoreInfoScreen(){
-        System.out.println("More info");
+        Contract selectedContract = tvContractsWindow.getSelectionModel().getSelectedItem();
+        this.resetWindow();
+        ScreenManager sm = ScreenManager.getInstance();
+        sm.getContractDetailsScreenController().setContract(selectedContract);
+        sm.getContractDetailsScreenController().setUser(user);
+        try {
+            sm.getContractDetailsScreenController().setDataWindow();
+        } catch (ConnectionFailureDbException e) {
+            lbPushMsgContractsWindow.setText(e.getMessage());
+            hbPushMsgContractsWindow.getStyleClass().setAll("push-msg-error");
+            hbPushMsgContractsWindow.setVisible(true);
+            this.delayHidePushMsg();
+        }
+        sm.changeScreen("contract-details-screen.fxml", "Gerenciador de Contratos - Contratos");
+    }
+
+    @FXML
+    public void goToFinanceDatailsScreenWithFilterComplete(){
+        Contract selectContract = tvContractsWindow.getSelectionModel().getSelectedItem();
+        if(selectContract != null){
+            this.resetWindow();
+            ScreenManager sm = ScreenManager.getInstance();
+            sm.getFinanceDetailsScreenController().setUser(user);
+            sm.getFinanceDetailsScreenController().setContractName(selectContract.getName());
+            sm.getFinanceDetailsScreenController().setYear(null);
+            sm.getFinanceDetailsScreenController().setFilter("complete");
+            sm.getFinanceDetailsScreenController().initializeComboBoxsWindow();
+            sm.getFinanceDetailsScreenController().addOrRemoveListeners(true);
+            sm.getFinanceDetailsScreenController().initializeTable();
+            sm.changeScreen("finance-details-screen.fxml", "Gerenciador de Contratos - Detalhes das Finanças");
+
+        }else{
+            lbPushMsgContractsWindow.setText("Selecione um contrato!");
+            hbPushMsgContractsWindow.getStyleClass().setAll("push-msg-error");
+            hbPushMsgContractsWindow.setVisible(true);
+            this.delayHidePushMsg();
+        }
+    }
+
+    @FXML
+    public void goToFinanceDatailsScreenWithFilterEntries(){
+        Contract selectContract = tvContractsWindow.getSelectionModel().getSelectedItem();
+        if(selectContract != null){
+            this.resetWindow();
+            ScreenManager sm = ScreenManager.getInstance();
+            sm.getFinanceDetailsScreenController().setUser(user);
+            sm.getFinanceDetailsScreenController().setContractName(selectContract.getName());
+            sm.getFinanceDetailsScreenController().setYear(null);
+            sm.getFinanceDetailsScreenController().setFilter("entries");
+            sm.getFinanceDetailsScreenController().initializeComboBoxsWindow();
+            sm.getFinanceDetailsScreenController().addOrRemoveListeners(true);
+            sm.getFinanceDetailsScreenController().initializeTable();
+            sm.changeScreen("finance-details-screen.fxml", "Gerenciador de Contratos - Detalhes das Finanças");
+        }else{
+            lbPushMsgContractsWindow.setText("Selecione um contrato!");
+            hbPushMsgContractsWindow.getStyleClass().setAll("push-msg-error");
+            hbPushMsgContractsWindow.setVisible(true);
+            this.delayHidePushMsg();
+        }
+    }
+
+    @FXML
+    public void goToFinanceDatailsScreenWithFilterExpenses(){
+        Contract selectContract = tvContractsWindow.getSelectionModel().getSelectedItem();
+        if(selectContract != null){
+            this.resetWindow();
+            ScreenManager sm = ScreenManager.getInstance();
+            sm.getFinanceDetailsScreenController().setUser(user);
+            sm.getFinanceDetailsScreenController().setContractName(selectContract.getName());
+            sm.getFinanceDetailsScreenController().setYear(null);
+            sm.getFinanceDetailsScreenController().setFilter("expenses");
+            sm.getFinanceDetailsScreenController().initializeComboBoxsWindow();
+            sm.getFinanceDetailsScreenController().addOrRemoveListeners(true);
+            sm.getFinanceDetailsScreenController().initializeTable();
+            sm.changeScreen("finance-details-screen.fxml", "Gerenciador de Contratos - Detalhes das Finanças");
+
+        }else{
+            lbPushMsgContractsWindow.setText("Selecione um contrato!");
+            hbPushMsgContractsWindow.getStyleClass().setAll("push-msg-error");
+            hbPushMsgContractsWindow.setVisible(true);
+            this.delayHidePushMsg();
+        }
     }
 
     @FXML
     public void goToViewContractFile(){
-        System.out.println("View Contract File");
+        Contract selectedContract = tvContractsWindow.getSelectionModel().getSelectedItem();
+        String filePath = selectedContract.getContractFile();
+
+        if (filePath != null && !filePath.isEmpty()) {
+            File file = new File(filePath);
+            if (file.exists()) {
+                try {
+                    Desktop.getDesktop().open(file);
+                } catch (IOException e) {
+                    lbPushMsgContractsWindow.setText("Erro ao abrir o arquivo!");
+                    hbPushMsgContractsWindow.getStyleClass().setAll("push-msg-error");
+                    hbPushMsgContractsWindow.setVisible(true);
+                    this.delayHidePushMsg();
+                }
+            } else {
+                lbPushMsgContractsWindow.setText("Arquivo não encontrado!");
+                hbPushMsgContractsWindow.getStyleClass().setAll("push-msg-error");
+                hbPushMsgContractsWindow.setVisible(true);
+                this.delayHidePushMsg();
+            }
+        } else {
+            lbPushMsgContractsWindow.setText("Nenhum contrato foi anexado!");
+            hbPushMsgContractsWindow.getStyleClass().setAll("push-msg-error");
+            hbPushMsgContractsWindow.setVisible(true);
+            this.delayHidePushMsg();
+        }
     }
 
     @FXML
@@ -246,7 +373,7 @@ public class ContractsScreenController implements Initializable {
         lbDateTimeContractsWindow.setText(dataHoraFormatada);
     }
 
-    private void initializeTable(){
+    public void initializeTable(){
         tvContractsWindow.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
 
         tcNameContractsWindow.setCellValueFactory(new PropertyValueFactory<Contract, String>("name"));
@@ -254,6 +381,14 @@ public class ContractsScreenController implements Initializable {
         tcEngineerContractsWindow.setCellValueFactory(new PropertyValueFactory<Contract, String>("engineer"));
         tcStartDateContractsWindow.setCellValueFactory(new PropertyValueFactory<Contract, String>("startDate"));
         tcEndDateContractsWindow.setCellValueFactory(new PropertyValueFactory<Contract, String>("endDate"));
+
+        tcEngineerContractsWindow.setCellValueFactory(cellData ->{
+            if(cellData.getValue().getEngineer().equals("----------")){
+                return  new javafx.beans.property.SimpleStringProperty("NÃO INFORMADO");
+            }else{
+                return  new javafx.beans.property.SimpleStringProperty(cellData.getValue().getEngineer().toUpperCase());
+            }
+        });
 
         tcStartDateContractsWindow.setCellValueFactory(cellData -> {
             if(cellData.getValue().getStartDate() != null){
@@ -325,11 +460,15 @@ public class ContractsScreenController implements Initializable {
     private void setFieldsOfCard(Contract contract) throws ConnectionFailureDbException {
         btnMoreContractsWindow.setDisable(false);
         btnContractFileContractsWindow.setDisable(false);
+        btnEntriesContractsWindow.setDisable(false);
+        btnExpensesContractsWindow.setDisable(false);
+        btnBalanceContractsWindow.setDisable(false);
 
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         lbNameContractsWindow.setText(capitalizeWords(contract.getName()));
         lbAddressContractsWindow.setText(capitalizeWords(contract.getAddress()));
-        lbEngineerContractsWindow.setText(capitalizeWords(contract.getEngineer()));
+        if(contract.getEngineer().equals("----------")) lbEngineerContractsWindow.setText("Não Informado");
+        else lbEngineerContractsWindow.setText(capitalizeWords(contract.getEngineer()));
         lbStartDateContractsWindow.setText(dateTimeFormatter.format(contract.getStartDate()));
         lbExpectedStartDateContractsWindow.setText(dateTimeFormatter.format(contract.getExpectedStartDate()));
         lbEndDateContractsWindow.setText(dateTimeFormatter.format(contract.getEndDate()));
@@ -386,6 +525,9 @@ public class ContractsScreenController implements Initializable {
         lbBalanceValueContractsWindow.setText("");
         btnMoreContractsWindow.setDisable(true);
         btnContractFileContractsWindow.setDisable(true);
+        btnEntriesContractsWindow.setDisable(true);
+        btnExpensesContractsWindow.setDisable(true);
+        btnBalanceContractsWindow.setDisable(true);
         this.initializeTable();
     }
 
@@ -407,6 +549,9 @@ public class ContractsScreenController implements Initializable {
         hbPushMsgContractsWindow.setVisible(false);
         btnMoreContractsWindow.setDisable(true);
         btnContractFileContractsWindow.setDisable(true);
+        btnEntriesContractsWindow.setDisable(true);
+        btnExpensesContractsWindow.setDisable(true);
+        btnBalanceContractsWindow.setDisable(true);
 
         this.clearFields();
         this.initializeTable();
@@ -438,6 +583,7 @@ public class ContractsScreenController implements Initializable {
                     }
                 }
                 case M -> this.goToMoreInfoScreen();
+                case V -> this.goToViewContractFile();
                 case R -> this.goToAddContractScreen();
                 case H -> this.goToHelpScreen();
             }

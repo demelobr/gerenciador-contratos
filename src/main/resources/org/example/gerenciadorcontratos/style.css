@@ -134,6 +134,15 @@
 	-fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0 , 0.0 , 0.0 ,10.0);
 }
 
+.card-secondary{
+	-fx-background-color: #f8f8f8;
+}
+
+.card-secondary:hover{
+	-fx-background-color: #ffffff;
+	-fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0 , 0.0 , 0.0 ,10.0);
+}
+
 .chart-legend-item-symbol {
 	-fx-background-color: transparent;
 }

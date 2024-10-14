@@ -7,6 +7,7 @@
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -350,7 +351,11 @@
                         <String fx:value="border-radius" />
                         <String fx:value="card" />
                      </styleClass>
+                     <HBox.margin>
+                        <Insets right="32.0" />
+                     </HBox.margin>
                   </VBox>
+                  <ChoiceBox fx:id="cbYearFinancesWindow" maxHeight="40.0" maxWidth="100.0" minHeight="40.0" minWidth="100.0" prefHeight="40.0" prefWidth="100.0" styleClass="input-box" stylesheets="@style.css" />
                </children>
                <VBox.margin>
                   <Insets bottom="16.0" />

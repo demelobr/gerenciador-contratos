@@ -6,15 +6,15 @@ import javafx.scene.control.Button;
 public class DeleteCollaboratorScreenController {
     private Application app;
 
-    public DeleteCollaboratorScreenController(){
-        this.app = new Application();
-    }
-
     @FXML
     private Button btnNoDeleteCollaboratorWindow;
 
     @FXML
     private Button btnYesDeleteCollaboratorWindow;
+
+    public DeleteCollaboratorScreenController(){
+        this.app = new Application();
+    }
 
     public Button getBtnNoDeleteCollaboratorWindow() {
         return btnNoDeleteCollaboratorWindow;

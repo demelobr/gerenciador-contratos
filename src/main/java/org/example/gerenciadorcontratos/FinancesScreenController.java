@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
@@ -21,6 +22,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.Year;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -32,9 +34,11 @@ public class FinancesScreenController implements Initializable {
     private User user;
     private double entries;
     private double expenses;
+    private List<String> listOfYears;
 
     public FinancesScreenController() {
         this.app = new Application();
+        this.listOfYears = new ArrayList<>();
         this.entries = 0.0;
         this.expenses = 0.0;
     }
@@ -85,6 +89,9 @@ public class FinancesScreenController implements Initializable {
 
     @FXML
     private HBox hbPushMsgFinancesWindow;
+
+    @FXML
+    private ChoiceBox<String> cbYearFinancesWindow;
 
     @FXML
     private ImageView imgDataBaseConnectionWindow;
@@ -160,6 +167,8 @@ public class FinancesScreenController implements Initializable {
         this.resetWindow();
         ScreenManager sm = ScreenManager.getInstance();
         sm.getFinanceDetailsScreenController().setUser(user);
+        sm.getFinanceDetailsScreenController().setContractName(null);
+        sm.getFinanceDetailsScreenController().setYear(cbYearFinancesWindow.getValue());
         sm.getFinanceDetailsScreenController().setFilter("complete");
         sm.getFinanceDetailsScreenController().initializeComboBoxsWindow();
         sm.getFinanceDetailsScreenController().addOrRemoveListeners(true);
@@ -172,6 +181,8 @@ public class FinancesScreenController implements Initializable {
         this.resetWindow();
         ScreenManager sm = ScreenManager.getInstance();
         sm.getFinanceDetailsScreenController().setUser(user);
+        sm.getFinanceDetailsScreenController().setContractName(null);
+        sm.getFinanceDetailsScreenController().setYear(cbYearFinancesWindow.getValue());
         sm.getFinanceDetailsScreenController().setFilter("entries");
         sm.getFinanceDetailsScreenController().initializeComboBoxsWindow();
         sm.getFinanceDetailsScreenController().addOrRemoveListeners(true);
@@ -184,6 +195,8 @@ public class FinancesScreenController implements Initializable {
         this.resetWindow();
         ScreenManager sm = ScreenManager.getInstance();
         sm.getFinanceDetailsScreenController().setUser(user);
+        sm.getFinanceDetailsScreenController().setContractName(null);
+        sm.getFinanceDetailsScreenController().setYear(cbYearFinancesWindow.getValue());
         sm.getFinanceDetailsScreenController().setFilter("expenses");
         sm.getFinanceDetailsScreenController().initializeComboBoxsWindow();
         sm.getFinanceDetailsScreenController().addOrRemoveListeners(true);
@@ -225,7 +238,7 @@ public class FinancesScreenController implements Initializable {
         expenses = 0.0;
         List<Finance> listOfFinances = new ArrayList<>();
         try {
-            listOfFinances = app.getServer().listAllFinances();
+            listOfFinances = app.getServer().listAllFinancesWithFilters("", "", LocalDate.of(Integer.parseInt(cbYearFinancesWindow.getValue()), 1, 1), LocalDate.of(Integer.parseInt(cbYearFinancesWindow.getValue()), 12, 31), null, "", "");
         } catch (ConnectionFailureDbException e) {
             lbPushMsgFinancesWindow.setText(e.getMessage());
             hbPushMsgFinancesWindow.getStyleClass().setAll("push-msg-error");
@@ -259,8 +272,8 @@ public class FinancesScreenController implements Initializable {
         List<Double> listOfEntries = new ArrayList<>();
         List<Double> listOfExpenses = new ArrayList<>();
         try {
-            listOfEntries = app.getServer().getListOfEntriesForTheYearByMonth(Year.of(LocalDate.now().getYear()));
-            listOfExpenses = app.getServer().getListOfExpensesForTheYearByMonth(Year.of(LocalDate.now().getYear()));
+            listOfEntries = app.getServer().getListOfEntriesForTheYearByMonth(Year.of(Integer.parseInt(cbYearFinancesWindow.getValue())));
+            listOfExpenses = app.getServer().getListOfExpensesForTheYearByMonth(Year.of(Integer.parseInt(cbYearFinancesWindow.getValue())));
         } catch (ConnectionFailureDbException e) {
             lbPushMsgFinancesWindow.setText(e.getMessage());
             hbPushMsgFinancesWindow.getStyleClass().setAll("push-msg-error");
@@ -271,7 +284,6 @@ public class FinancesScreenController implements Initializable {
         XYChart.Series<String, Double> entriesChart;
         XYChart.Series<String, Double> expensesChart;
 
-        // Verifica se as séries já existem, se não, cria novas
         if (acGraphcFinancesWindow.getData().size() == 0) {
             entriesChart = new XYChart.Series<String, Double>();
             expensesChart = new XYChart.Series<String, Double>();
@@ -281,6 +293,7 @@ public class FinancesScreenController implements Initializable {
             expensesChart = (XYChart.Series<String, Double>) acGraphcFinancesWindow.getData().get(1);
         }
 
+        acGraphcFinancesWindow.setTitle(String.format("Balanço Geral das Finanças no Ano de %s", cbYearFinancesWindow.getValue()));
         entriesChart.setName("Entradas");
         expensesChart.setName("Saídas");
 
@@ -296,7 +309,6 @@ public class FinancesScreenController implements Initializable {
             for (XYChart.Data<String, Double> data : serie.getData()) {
                 Node node = data.getNode();
 
-                // Verifica se o nó existe e define um novo estilo para ele
                 if (node != null) {
                     node.setStyle("-fx-background-radius: 8px; -fx-background-color: rgba(255,255,255,0.5), white;");
                     node.setScaleX(1.5);
@@ -322,8 +334,23 @@ public class FinancesScreenController implements Initializable {
         }
     }
 
+    private void setCombosBoxOptions(){
+        cbYearFinancesWindow.getItems().clear();
+        listOfYears.clear();
+        try {
+            List<Finance> listOfAllFinances = app.getServer().listAllFinances();
+            for(Finance finance : listOfAllFinances){
+                if(!listOfYears.contains(String.valueOf(finance.getDate().getYear()))) listOfYears.add(String.valueOf(finance.getDate().getYear()));
+            }
+        } catch (ConnectionFailureDbException ignored) {}
+        listOfYears.sort(Comparator.reverseOrder());
+        cbYearFinancesWindow.getItems().addAll(listOfYears);
+        cbYearFinancesWindow.setValue(String.valueOf(Year.of(LocalDate.now().getYear())));
+    }
+
     public void setDataWindow(){
         lbUserNameWindow.setText(capitalizeWords(user.getName()+"!"));
+        this.setCombosBoxOptions();
         this.calculateFinances();
         this.setDataOnGraphc();
     }
@@ -350,5 +377,12 @@ public class FinancesScreenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         hbPushMsgFinancesWindow.setVisible(false);
+
+        cbYearFinancesWindow.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                this.calculateFinances();
+                this.setDataOnGraphc();
+            }
+        });
     }
 }

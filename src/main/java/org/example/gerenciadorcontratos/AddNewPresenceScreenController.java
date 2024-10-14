@@ -13,6 +13,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -189,7 +190,6 @@ public class AddNewPresenceScreenController implements Initializable {
         }
     }
 
-    @FXML
     public void clearFiels(){
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         dpPresenceDateAddNewPresenceWindow.setPromptText(LocalDate.now().format(dateTimeFormatter));
@@ -200,7 +200,6 @@ public class AddNewPresenceScreenController implements Initializable {
         cbContractAddNewPresenceWindow.getItems().clear();
     }
 
-    @FXML
     public void initializeWindow(){
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         rbArrivalAddNewPresenceWindow.setSelected(true);
@@ -233,6 +232,7 @@ public class AddNewPresenceScreenController implements Initializable {
             for(Contract contract : listOfAllContracts){
                 contractsNames.add(contract.getName());
             }
+            Collections.sort(contractsNames);
         } catch (ConnectionFailureDbException ignored) {}
         cbPresenceHourAddNewPresenceWindow.getItems().addAll(hours);
         cbPresenceMinuteAddNewPresenceWindow.getItems().addAll(minutes);

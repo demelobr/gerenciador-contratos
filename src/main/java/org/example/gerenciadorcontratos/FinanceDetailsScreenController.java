@@ -35,6 +35,8 @@ public class FinanceDetailsScreenController implements Initializable {
     private Application app;
     private User user;
     private String filter;
+    private String contractName;
+    private String year;
     private List<String> contracts;
     private ObservableList<Finance> listOfFinances;
     private ObservableList<Finance> listOfWithdrawalsFinances;
@@ -64,6 +66,22 @@ public class FinanceDetailsScreenController implements Initializable {
 
     public void setFilter(String filter) {
         this.filter = filter;
+    }
+
+    public String getContractName() {
+        return contractName;
+    }
+
+    public void setContractName(String contractName) {
+        this.contractName = contractName;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
     }
 
     @FXML
@@ -175,6 +193,7 @@ public class FinanceDetailsScreenController implements Initializable {
             sm.getEditFinanceFinancesScreenController().setUser(user);
             sm.getEditFinanceFinancesScreenController().setFinance(selectFinance);
             sm.getEditFinanceFinancesScreenController().setFilter(filter);
+            sm.getEditFinanceFinancesScreenController().setYear(year);
             sm.getEditFinanceFinancesScreenController().initializeWindow();
             sm.getEditFinanceFinancesScreenController().addOrRemoveListeners(true);
             sm.changeScreen("edit-finance-finances-screen.fxml", "Gerenciador de Contratos - Editar Finança");
@@ -279,7 +298,7 @@ public class FinanceDetailsScreenController implements Initializable {
             imgDataBaseConnectionDetailsFinancesWindow.setVisible(true);
             try {
                 tvDetailsFinancesWindow.getItems().clear();
-                tvDetailsFinancesWindow.setItems(this.updateTable(filter));
+                tvDetailsFinancesWindow.setItems(this.updateTable(filter, year, contractName));
                 lbResultsFoundDetailsFinancesWindow.setText(String.format("%d resultado(s) encontrado(s)", tvDetailsFinancesWindow.getItems().size()));
                 setBalanceValue();
                 this.clearFields();
@@ -299,31 +318,16 @@ public class FinanceDetailsScreenController implements Initializable {
         }
     }
 
-    public ObservableList<Finance> updateTable(String filter){
+    public ObservableList<Finance> updateTable(String filter, String year, String contractName){
         try {
-            listOfWithdrawalsFinances.clear();
-            listOfFinances.clear();
-            listOfFinances = FXCollections.observableArrayList(app.getServer().listAllFinances());
-
-            if(filter.equals("entries")){
-                for(Finance finance : listOfFinances){
-                    if(!finance.getType().equals("RECEITA")) listOfWithdrawalsFinances.add(finance);
-                }
-            }else if(filter.equals("expenses")){
-                for(Finance finance : listOfFinances){
-                    if(!finance.getType().equals("DESPESA")) listOfWithdrawalsFinances.add(finance);
-                }
-            }
-
-            listOfFinances.removeAll(listOfWithdrawalsFinances);
-
+            if(year == null) listOfFinances = FXCollections.observableArrayList(app.getServer().listAllFinancesWithFilters(filter, "", null, null, contractName, "", ""));
+            else listOfFinances = FXCollections.observableArrayList(app.getServer().listAllFinancesWithFilters(filter, "", LocalDate.of(Integer.parseInt(year), 1, 1), LocalDate.of(Integer.parseInt(year), 12, 31), contractName, "", ""));
         } catch (ConnectionFailureDbException e) {
             lbPushMsgDetailsFinancesWindow.setText(e.getMessage());
             hbPushMsgDetailsFinancesWindow.getStyleClass().setAll("push-msg-error");
             hbPushMsgDetailsFinancesWindow.setVisible(true);
             this.delayHidePushMsg();
         }
-
         return listOfFinances;
     }
 

@@ -17,9 +17,7 @@ import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import static org.example.gerenciadorcontratos.UtilitiesLibrary.formatValue;
 
@@ -247,20 +245,24 @@ public class AddNewFinanceScreenController implements Initializable {
         entriesClasses.clear();
         entriesClasses.add("VERBAS CONTRATUAIS");
         entriesClasses.add("ADTIVOS CONTRATUAIS");
+        Collections.sort(entriesClasses);
 
         expensesClasses.add("MÃO DE OBRA");
         expensesClasses.add("MATERIAIS DE CONSTRUÇÃO");
-        expensesClasses.add("EQUIPAMENTOS");
+        expensesClasses.add("EQUIPAMENTOS/EPIs");
+        expensesClasses.add("IMPOSTOS ESTADUAIS");
+        expensesClasses.add("IMPOSTOS FEDERAIS");
         expensesClasses.add("LOGÍSTICA");
         expensesClasses.add("TERCEIRIZAÇÕES");
         expensesClasses.add("MANUNTENÇÃO");
-
+        Collections.sort(expensesClasses);
 
         paymentMethods.clear();
         paymentMethods.add("DINHEIRO");
         paymentMethods.add("PIX");
         paymentMethods.add("CARTÃO DÉBITO");
         paymentMethods.add("CARTÃO CRÉDITO");
+        Collections.sort(paymentMethods);
 
         try {
             List<Contract> listOfAllContracts = app.getServer().listAllContracts();
@@ -269,8 +271,8 @@ public class AddNewFinanceScreenController implements Initializable {
             for(Contract contract : listOfAllContracts){
                 contractsName.add(contract.getName());
             }
+            Collections.sort(contractsName);
         } catch (ConnectionFailureDbException ignored) {}
-
         try {
             List<Collaborator> listOfAllCollaborators = app.getServer().listAllCollaborators();
             collaboratorsName.clear();
@@ -281,6 +283,8 @@ public class AddNewFinanceScreenController implements Initializable {
                 collaboratorsName.add(collaborator.getName());
                 collaboratorsCpf.add(collaborator.getCpf());
             }
+            Collections.sort(collaboratorsName);
+            Collections.sort(collaboratorsCpf);
         } catch (ConnectionFailureDbException ignored) {}
 
         cbTypeAddNewFinanceWindow.getItems().addAll(types);

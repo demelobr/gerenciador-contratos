@@ -1032,7 +1032,7 @@
                                                 <ChoiceBox fx:id="cbStatusPresencesDetailsCollaboratorWindow" maxHeight="40.0" maxWidth="125.0" minHeight="40.0" minWidth="125.0" prefHeight="40.0" prefWidth="125.0" styleClass="input-box-secondary" stylesheets="@style.css" />
                                              </children>
                                           </VBox>
-                                          <VBox prefHeight="60.0" prefWidth="250.0">
+                                          <VBox prefHeight="60.0" prefWidth="200.0">
                                              <children>
                                                 <Label prefHeight="20.0" prefWidth="151.0" text="Contrato">
                                                    <font>
@@ -1042,7 +1042,7 @@
                                                       <Insets bottom="3.0" />
                                                    </VBox.margin>
                                                 </Label>
-                                                <ChoiceBox fx:id="cbContractPresencesDetailsCollaboratorWindow" maxHeight="40.0" maxWidth="250.0" minHeight="40.0" minWidth="250.0" prefHeight="40.0" prefWidth="250.0" styleClass="input-box-secondary" stylesheets="@style.css" />
+                                                <ChoiceBox fx:id="cbContractPresencesDetailsCollaboratorWindow" maxHeight="40.0" maxWidth="200.0" minHeight="40.0" minWidth="200.0" prefHeight="40.0" prefWidth="200.0" styleClass="input-box-secondary" stylesheets="@style.css" />
                                              </children>
                                           </VBox>
                                        </children>

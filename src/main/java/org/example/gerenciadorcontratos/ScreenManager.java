@@ -28,6 +28,9 @@ public class ScreenManager {
     private Scene financeDatailsScreenScene;
     private Scene editFinanceFinancessScreenScene;
     private Scene contractsScreenScene;
+    private Scene addNewContractScreenScene;
+    private Scene contractDatailsScreenScene;
+    private Scene deleteContractScreenScene;
 
     private LoginScreenController loginScreenController;
     private RegistrationScreenController registrationScreenController;
@@ -49,6 +52,9 @@ public class ScreenManager {
     private FinanceDetailsScreenController financeDetailsScreenController;
     private EditFinanceFinancesScreenController editFinanceFinancesScreenController;
     private ContractsScreenController contractsScreenController;
+    private AddNewContractScreenController addNewContractScreenController;
+    private ContractDetailsScreenController contractDetailsScreenController;
+    private DeleteContractScreenController deleteContractScreenController;
 
     public ScreenManager(){
         this.screenLoader();
@@ -151,6 +157,18 @@ public class ScreenManager {
         return contractsScreenScene;
     }
 
+    public Scene getAddNewContractScreenScene() {
+        return addNewContractScreenScene;
+    }
+
+    public Scene getContractDatailsScreenScene() {
+        return contractDatailsScreenScene;
+    }
+
+    public Scene getDeleteContractScreenScene() {
+        return deleteContractScreenScene;
+    }
+
     // GETTERS dos Controllers
     public LoginScreenController getLoginScreenController() {
         return loginScreenController;
@@ -230,6 +248,18 @@ public class ScreenManager {
 
     public ContractsScreenController getContractsScreenController() {
         return contractsScreenController;
+    }
+
+    public AddNewContractScreenController getAddNewContractScreenController() {
+        return addNewContractScreenController;
+    }
+
+    public ContractDetailsScreenController getContractDetailsScreenController() {
+        return contractDetailsScreenController;
+    }
+
+    public DeleteContractScreenController getDeleteContractScreenController() {
+        return deleteContractScreenController;
     }
 
     private void screenLoader(){
@@ -314,6 +344,18 @@ public class ScreenManager {
             this.contractsScreenScene = new Scene(contractScreenPane.load());
             this.contractsScreenController = contractScreenPane.getController();
 
+            FXMLLoader addNewContractScreenPane = new FXMLLoader(getClass().getResource("add-new-contract-screen.fxml"));
+            this.addNewContractScreenScene = new Scene(addNewContractScreenPane.load());
+            this.addNewContractScreenController = addNewContractScreenPane.getController();
+
+            FXMLLoader contractDetailsScreenPane = new FXMLLoader(getClass().getResource("contract-details-screen.fxml"));
+            this.contractDatailsScreenScene = new Scene(contractDetailsScreenPane.load());
+            this.contractDetailsScreenController = contractDetailsScreenPane.getController();
+
+            FXMLLoader deleteContractScreenPane = new FXMLLoader(getClass().getResource("delete-contract-screen.fxml"));
+            this.deleteContractScreenScene = new Scene(deleteContractScreenPane.load());
+            this.deleteContractScreenController = deleteContractScreenPane.getController();
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -338,6 +380,8 @@ public class ScreenManager {
             case "finance-details-screen.fxml" -> stg.setScene(financeDatailsScreenScene);
             case "edit-finance-finances-screen.fxml" -> stg.setScene(editFinanceFinancessScreenScene);
             case "contract-menu-screen.fxml" -> stg.setScene(contractsScreenScene);
+            case "add-new-contract-screen.fxml" -> stg.setScene(addNewContractScreenScene);
+            case "contract-details-screen.fxml" -> stg.setScene(contractDatailsScreenScene);
         }
         stg.setTitle(titleScreen);
         if(max) stg.setMaximized(true);

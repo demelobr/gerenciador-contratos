@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0" styleClass="background-white-secondary" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.gerenciadorcontratos.ContractDetailsScreenController">
+   <padding>
+      <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+   </padding>
+   <top>
+      <HBox alignment="CENTER_LEFT" maxHeight="60.0" minHeight="60.0" prefHeight="60.0" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets bottom="15.0" />
+         </padding>
+         <children>
+            <Button fx:id="btnBackDetailsContractWindow" maxHeight="28.0" maxWidth="28.0" minHeight="28.0" minWidth="28.0" mnemonicParsing="false" onAction="#goToBackContractScreen" prefHeight="28.0" prefWidth="28.0" styleClass="btn-grey" stylesheets="@style.css">
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@btn-back.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+            <HBox fx:id="hbPushMsgAddDetailsContractWindow" alignment="CENTER" maxHeight="45.0" maxWidth="400.0" minHeight="45.0" minWidth="400.0" prefHeight="45.0" prefWidth="400.0" stylesheets="@style.css">
+               <styleClass>
+                  <String fx:value="push-msg-error" />
+                  <String fx:value="shadow" />
+               </styleClass>
+               <padding>
+                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+               </padding>
+               <children>
+                  <Label fx:id="lbPushMsgDetailsContractWindow" prefHeight="18.0" prefWidth="546.0" text="Mensagem de erro ou sucesso..." textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Pane prefHeight="200.0" prefWidth="200.0" />
+                  <HBox fx:id="btnClosePushMsgDetailsContractWindow" alignment="CENTER" maxHeight="28.0" maxWidth="28.0" minHeight="28.0" minWidth="28.0" onMouseClicked="#closePushMsg" prefHeight="28.0" prefWidth="28.0" styleClass="btn-grey" stylesheets="@style.css">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <children>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@btn-close.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" stylesheets="@style.css" BorderPane.alignment="CENTER">
+         <content>
+            <HBox maxHeight="1100.0" minHeight="1100.0" prefHeight="1100.0" stylesheets="@style.css">
+               <styleClass>
+                  <String fx:value="background-white-primary" />
+                  <String fx:value="border-radius" />
+               </styleClass>
+               <padding>
+                  <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+               </padding>
+               <children>
+                  <VBox maxHeight="1340.0" minHeight="1340.0" prefHeight="1340.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <HBox maxHeight="45.0" minHeight="45.0" prefHeight="45.0">
+                           <VBox.margin>
+                              <Insets bottom="32.0" />
+                           </VBox.margin>
+                           <children>
+                              <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="790.0">
+                                 <children>
+                                    <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@icon-folder.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label fx:id="lbNameDetailsContractWindow" nodeOrientation="LEFT_TO_RIGHT" text="Escola José Mariano">
+                                       <font>
+                                          <Font name="System Bold" size="24.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets right="8.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <HBox alignment="CENTER" maxHeight="38.0" maxWidth="172.0" minHeight="38.0" minWidth="172.0" prefHeight="38.0" prefWidth="172.0">
+                                       <children>
+                                          <Button fx:id="btnEditContractDetailsContractWindow" maxHeight="28.0" maxWidth="28.0" minHeight="28.0" minWidth="28.0" mnemonicParsing="false" onAction="#goToEditContractScreen" prefHeight="28.0" prefWidth="28.0" styleClass="btn-grey" stylesheets="@style.css">
+                                             <graphic>
+                                                <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@btn-edit.png" />
+                                                   </image>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </ImageView>
+                                             </graphic>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                             <HBox.margin>
+                                                <Insets right="8.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                          <Button fx:id="btnDeleteContractDetailsContractWindow" layoutX="10.0" layoutY="15.0" maxHeight="28.0" maxWidth="28.0" minHeight="28.0" minWidth="28.0" mnemonicParsing="false" onAction="#confirmContractDeletion" prefHeight="28.0" prefWidth="28.0" styleClass="btn-grey" stylesheets="@style.css">
+                                             <graphic>
+                                                <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@btn-trash.png" />
+                                                   </image>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </ImageView>
+                                             </graphic>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                             <HBox.margin>
+                                                <Insets right="8.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                          <Button fx:id="btnContractFileDetailsContractWindow" maxHeight="35.0" maxWidth="100.0" minHeight="35.0" minWidth="100.0" mnemonicParsing="false" onAction="#goToViewContractFile" prefHeight="35.0" prefWidth="100.0" styleClass="btn-nav-bar" stylesheets="@style.css" text="Ver Contrato" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold" size="10.0" />
+                                             </font>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                             <graphic>
+                                                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@download.png" />
+                                                   </image>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <VBox maxWidth="350.0" minWidth="350.0" prefWidth="350.0">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" maxHeight="32.0" minHeight="32.0" prefHeight="32.0">
+                                       <children>
+                                          <Pane maxHeight="24.0" maxWidth="4.0" minHeight="24.0" minWidth="4.0" prefHeight="24.0" prefWidth="4.0" styleClass="selector-blue" stylesheets="@style.css">
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
+                                             <HBox.margin>
+                                                <Insets right="4.0" />
+                                             </HBox.margin>
+                                          </Pane>
+                                          <Label text="Informações Gerais">
+                                             <font>
+                                                <Font name="System Bold" size="20.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets bottom="16.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <Text fx:id="txtDescriptionDetailsContractWindow" strokeType="OUTSIDE" strokeWidth="0.0" text="is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s," wrappingWidth="334.0">
+                                       <VBox.margin>
+                                          <Insets bottom="16.0" left="16.0" />
+                                       </VBox.margin>
+                                    </Text>
+                                    <HBox layoutX="26.0" layoutY="10.0" maxHeight="18.0" minHeight="18.0" prefHeight="18.0">
+                                       <children>
+                                          <Label prefHeight="18.0" prefWidth="50.0" text="Endereço">
+                                             <font>
+                                                <Font name="System Bold" size="11.0" />
+                                             </font>
+                                          </Label>
+                                          <Pane prefHeight="18.0" prefWidth="21.0" HBox.hgrow="ALWAYS" />
+                                          <Label fx:id="lbAddressDetailsContractWindow" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="200.0" text="Rua José Mariano, 234" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" left="16.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox layoutX="26.0" layoutY="28.0" maxHeight="18.0" minHeight="18.0" prefHeight="18.0">
+                                       <children>
+                                          <Label prefHeight="18.0" prefWidth="85.0" text="Engenheiro(a)">
+                                             <font>
+                                                <Font name="System Bold" size="11.0" />
+                                             </font>
+                                          </Label>
+                                          <Pane prefHeight="18.0" prefWidth="21.0" HBox.hgrow="ALWAYS" />
+                                          <Label fx:id="lbEngineerDetailsContractWindow" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="198.0" text="9.100.999" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" left="16.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox layoutX="26.0" layoutY="46.0" maxHeight="18.0" minHeight="18.0" prefHeight="18.0">
+                                       <children>
+                                          <Label prefHeight="18.0" prefWidth="195.0" text="Data de Início Previsto">
+                                             <font>
+                                                <Font name="System Bold" size="11.0" />
+                                             </font>
+                                          </Label>
+                                          <Pane prefHeight="18.0" prefWidth="21.0" HBox.hgrow="ALWAYS" />
+                                          <Label fx:id="lbExpectedStartDateDetailsContractWindow" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="97.0" text="14/10/2024" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" left="16.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox layoutX="26.0" layoutY="64.0" maxHeight="18.0" minHeight="18.0" prefHeight="18.0">
+                                       <children>
+                                          <Label prefHeight="18.0" prefWidth="84.0" text="Data de Início">
+                                             <font>
+                                                <Font name="System Bold" size="11.0" />
+                                             </font>
+                                          </Label>
+                                          <Pane prefHeight="18.0" prefWidth="21.0" HBox.hgrow="ALWAYS" />
+                                          <Label fx:id="lbStartDateDetailsContractWindow" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="74.0" text="14/10/2024" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" left="16.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox layoutX="26.0" layoutY="82.0" maxHeight="18.0" minHeight="18.0" prefHeight="18.0">
+                                       <children>
+                                          <Label prefHeight="18.0" prefWidth="117.0" text="Data do Fim Previsto">
+                                             <font>
+                                                <Font name="System Bold" size="11.0" />
+                                             </font>
+                                          </Label>
+                                          <Pane prefHeight="18.0" prefWidth="21.0" HBox.hgrow="ALWAYS" />
+                                          <Label fx:id="lbExpectedEndDateDetailsContractWindow" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="86.0" text="14/10/2024" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" left="16.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox layoutX="26.0" layoutY="103.0" maxHeight="18.0" minHeight="18.0" prefHeight="18.0">
+                                       <children>
+                                          <Label prefHeight="18.0" prefWidth="88.0" text="Data do Fim">
+                                             <font>
+                                                <Font name="System Bold" size="11.0" />
+                                             </font>
+                                          </Label>
+                                          <Pane prefHeight="18.0" prefWidth="21.0" HBox.hgrow="ALWAYS" />
+                                          <Label fx:id="lbEndDateDetailsContractWindow" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="74.0" text="14/10/2024" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets left="16.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <VBox layoutX="10.0" layoutY="10.0" maxWidth="350.0" minWidth="350.0" prefWidth="350.0">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" maxHeight="32.0" minHeight="32.0" prefHeight="32.0">
+                                       <children>
+                                          <Pane maxHeight="24.0" maxWidth="4.0" minHeight="24.0" minWidth="4.0" prefHeight="24.0" prefWidth="4.0" styleClass="selector-blue" stylesheets="@style.css">
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
+                                             <HBox.margin>
+                                                <Insets right="4.0" />
+                                             </HBox.margin>
+                                          </Pane>
+                                          <Label text="Balanço Financeiro">
+                                             <font>
+                                                <Font name="System Bold" size="20.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets bottom="16.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Abaixo são apresentados os valores das entradas, despesas e o balanço entre eles com as informações registradas no sistema. Para mais detalhes, clique nos cards abaixo e verifique a lista detalhada das finanças deste contrato." wrappingWidth="334.0">
+                                       <VBox.margin>
+                                          <Insets bottom="16.0" left="16.0" />
+                                       </VBox.margin>
+                                    </Text>
+                                    <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                                       <children>
+                                          <VBox fx:id="btnEntriesDetailsContractWindow" alignment="CENTER_LEFT" maxHeight="50.0" maxWidth="185.0" minHeight="50.0" minWidth="185.0" onMouseClicked="#goToFinanceDatailsScreenWithFilterEntries" prefHeight="50.0" prefWidth="185.0" stylesheets="@style.css">
+                                             <children>
+                                                <Label text="Entradas (R$)" textFill="#757575">
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="lbEntriesValueDetailsContractWindow" layoutX="10.0" layoutY="10.0" prefHeight="35.0" prefWidth="160.0" text="75.000,00" textFill="#55ff7f">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="22.0" left="22.0" right="22.0" top="22.0" />
+                                             </padding>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                             <VBox.margin>
+                                                <Insets bottom="8.0" />
+                                             </VBox.margin>
+                                             <styleClass>
+                                                <String fx:value="border-radius" />
+                                                <String fx:value="card-secondary" />
+                                             </styleClass>
+                                          </VBox>
+                                          <VBox fx:id="btnExpensesDetailsContractWindow" alignment="CENTER_LEFT" maxHeight="50.0" maxWidth="185.0" minHeight="50.0" minWidth="185.0" onMouseClicked="#goToFinanceDatailsScreenWithFilterExpenses" prefHeight="50.0" prefWidth="185.0" stylesheets="@style.css">
+                                             <children>
+                                                <Label text="Saídas (R$)" textFill="#757575">
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="lbExpensesValueDetailsContractWindow" layoutX="10.0" layoutY="10.0" prefHeight="35.0" prefWidth="162.0" text="50.000,00" textFill="#ff5580">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="22.0" left="22.0" right="22.0" top="22.0" />
+                                             </padding>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                             <styleClass>
+                                                <String fx:value="border-radius" />
+                                                <String fx:value="card-secondary" />
+                                             </styleClass>
+                                             <VBox.margin>
+                                                <Insets bottom="8.0" />
+                                             </VBox.margin>
+                                          </VBox>
+                                          <HBox alignment="CENTER" maxHeight="5.0" maxWidth="185.0" minHeight="5.0" minWidth="185.0" prefHeight="5.0" prefWidth="185.0">
+                                             <children>
+                                                <Line endX="100.0" startX="-100.0" />
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets bottom="8.0" />
+                                             </VBox.margin>
+                                          </HBox>
+                                          <VBox fx:id="btnBalanceDetailsContractWindow" alignment="CENTER_LEFT" maxHeight="50.0" maxWidth="185.0" minHeight="50.0" minWidth="185.0" onMouseClicked="#goToFinanceDatailsScreenWithFilterComplete" prefHeight="50.0" prefWidth="185.0" stylesheets="@style.css">
+                                             <children>
+                                                <Label text="Balanço (R$)" textFill="#757575">
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="lbBalanceValueDetailsContractWindow" layoutX="10.0" layoutY="10.0" prefHeight="35.0" prefWidth="163.0" text="25.000,00" textFill="#55ff7f">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="22.0" left="22.0" right="22.0" top="22.0" />
+                                             </padding>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                             <styleClass>
+                                                <String fx:value="border-radius" />
+                                                <String fx:value="card-secondary" />
+                                             </styleClass>
+                                          </VBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="128.0" />
+                                 </HBox.margin>
+                              </VBox>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="16.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" maxHeight="32.0" minHeight="32.0" prefHeight="32.0">
+                           <children>
+                              <Pane maxHeight="24.0" maxWidth="4.0" minHeight="24.0" minWidth="4.0" prefHeight="24.0" prefWidth="4.0" styleClass="selector-blue" stylesheets="@style.css">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <HBox.margin>
+                                    <Insets right="4.0" />
+                                 </HBox.margin>
+                              </Pane>
+                              <Label text="Gráficos - Distribuição das Finanças">
+                                 <font>
+                                    <Font name="System Bold" size="20.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="16.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <HBox minHeight="300.0" minWidth="400.0" prefHeight="300.0" prefWidth="400.0" stylesheets="@style.css">
+                                 <styleClass>
+                                    <String fx:value="background-white-secondary" />
+                                    <String fx:value="border-radius" />
+                                 </styleClass>
+                                 <children>
+                                    <PieChart fx:id="pcEntriesGraphcContractWindow" HBox.hgrow="ALWAYS" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets bottom="16.0" />
+                                 </VBox.margin>
+                                 <padding>
+                                    <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox minHeight="300.0" minWidth="400.0" prefHeight="300.0" prefWidth="400.0" stylesheets="@style.css">
+                                 <styleClass>
+                                    <String fx:value="background-white-secondary" />
+                                    <String fx:value="border-radius" />
+                                 </styleClass>
+                                 <children>
+                                    <PieChart fx:id="pcExpensesGraphcContractWindow" HBox.hgrow="ALWAYS" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                 </padding>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </content>
+         <styleClass>
+            <String fx:value="background-white-primary" />
+            <String fx:value="border-radius" />
+         </styleClass>
+      </ScrollPane>
+   </center>
+   <bottom>
+      <HBox alignment="BOTTOM_RIGHT" maxHeight="32.0" minHeight="32.0" prefHeight="32.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="imgDataBaseConnectionContractsWindow" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icon-database.png" />
+               </image>
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </ImageView>
+            <HBox fx:id="btnHelpContractsWindow" alignment="BOTTOM_LEFT" maxHeight="18.0" maxWidth="52.0" minHeight="18.0" minWidth="52.0" onMouseClicked="#goToHelpScreen" prefHeight="18.0" prefWidth="52.0">
+               <children>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@btn-help.png" />
+                     </image>
+                  </ImageView>
+                  <Pane prefHeight="18.0" prefWidth="3.0" />
+                  <Label text="Ajuda">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </HBox>
+            <Label text="Powered by ">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Label>
+            <Label text="demelobr" textFill="#008dd8">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>

@@ -28,6 +28,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -348,7 +349,7 @@ public class CollaboratorDetailsScreenController implements Initializable {
         Stage dialogStage = new Stage();
         dialogStage.initModality(Modality.APPLICATION_MODAL);
         dialogStage.setResizable(false);
-        dialogStage.setTitle("Deletear Collaborator?");
+        dialogStage.setTitle("Deletar Collaborator?");
         dialogStage.getIcons().add(new Image("file:"));
         dialogStage.setScene(scene);
 
@@ -716,6 +717,7 @@ public class CollaboratorDetailsScreenController implements Initializable {
                     }
                 }
             }
+            Collections.sort(contracts);
         } catch (ConnectionFailureDbException ignored) {}
 
         cbRegisterPresencesDetailsCollaboratorWindow.getItems().clear();
