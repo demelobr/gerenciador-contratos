@@ -37,26 +37,30 @@ public class UserController implements IUserController{
     }
 
     @Override
-    public void updateUser(User user, String email, String name, String password, String verificationCode, LocalDateTime codeDateTime) throws ConnectionFailureDbException, UserUpdatedSuccessfullyException, UserDoesNotExistException, UserNullException {
+    public void updateUser(User user, String email, String name, String password, String verificationCode, LocalDateTime codeDateTime) throws ConnectionFailureDbException, UserUpdatedSuccessfullyException, UserNullException, UserAlreadyExistsEception, UserDoesNotExistException {
         if(user != null){
             if(this.userExists(user.getEmail())){
-                if(email.isEmpty() || user.getEmail().equals(email)){
-                    email = user.getEmail();
+                if(user.getEmail().equals(email) || !this.userExists(email)){
+                    if(email.isEmpty() || user.getEmail().equals(email)){
+                        email = user.getEmail();
+                    }
+                    if(name.isEmpty() || user.getName().equals(name)){
+                        name = user.getName();
+                    }
+                    if(password.isEmpty() || user.getPassword().equals(password)){
+                        password = user.getPassword();
+                    }
+                    if(verificationCode.isEmpty() || user.getVerificationCode().equals(verificationCode)){
+                        verificationCode = user.getVerificationCode();
+                    }
+                    if(user.getCodeDateTime().isEqual(codeDateTime)){
+                        codeDateTime = user.getCodeDateTime();
+                    }
+                    userRepository.update(user, email, name, password, verificationCode, codeDateTime);
+                    throw new UserUpdatedSuccessfullyException();
+                }else{
+                    throw new UserAlreadyExistsEception();
                 }
-                if(name.isEmpty() || user.getName().equals(name)){
-                    name = user.getName();
-                }
-                if(password.isEmpty() || user.getPassword().equals(password)){
-                    password = user.getPassword();
-                }
-                if(verificationCode.isEmpty() || user.getVerificationCode().equals(verificationCode)){
-                    verificationCode = user.getVerificationCode();
-                }
-                if(user.getCodeDateTime().isEqual(codeDateTime)){
-                    codeDateTime = user.getCodeDateTime();
-                }
-                userRepository.update(user, email, name, password, verificationCode, codeDateTime);
-                throw new UserUpdatedSuccessfullyException();
             }else{
                 throw new UserDoesNotExistException();
             }
@@ -149,7 +153,7 @@ public class UserController implements IUserController{
     }
 
     @Override
-    public void setVerificationCode(User user, String verificationCode) throws ConnectionFailureDbException, UserUpdatedSuccessfullyException, UserNullException, UserDoesNotExistException {
+    public void setVerificationCode(User user, String verificationCode) throws ConnectionFailureDbException, UserUpdatedSuccessfullyException, UserNullException, UserAlreadyExistsEception, UserDoesNotExistException {
         this.updateUser(user, user.getEmail(), user.getName(), user.getPassword(), verificationCode, LocalDateTime.now());
     }
 

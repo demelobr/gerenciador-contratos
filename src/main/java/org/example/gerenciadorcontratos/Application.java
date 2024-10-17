@@ -3,6 +3,7 @@ package org.example.gerenciadorcontratos;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -22,6 +23,7 @@ public class Application extends javafx.application.Application {
         Parent root = FXMLLoader.load(getClass().getResource("login-screen.fxml"));
         stage.setScene(new Scene(root));
         stage.setTitle("Gerenciador de Contratos - Login");
+        stage.getIcons().add(new Image("file:" + "src/main/resources/org/example/gerenciadorcontratos/icon.png"));
         stage.setMinWidth(1000);
         stage.setMinHeight(600);
         stage.setResizable(true);
@@ -37,6 +39,7 @@ public class Application extends javafx.application.Application {
 //        } catch (SettingsSavedSuccessfullyException | SettingsSavingFailedException e) {
 //            throw new RuntimeException(e);
 //        }
+
         try {
             System.out.println(app.getServer().loadSettings());
             app.getServer().setSettings(app.getServer().loadSettings());

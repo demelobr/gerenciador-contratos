@@ -31,6 +31,8 @@ public class ScreenManager {
     private Scene addNewContractScreenScene;
     private Scene contractDatailsScreenScene;
     private Scene deleteContractScreenScene;
+    private Scene editContractScreenScene;
+    private Scene settingsScreenScene;
 
     private LoginScreenController loginScreenController;
     private RegistrationScreenController registrationScreenController;
@@ -55,6 +57,8 @@ public class ScreenManager {
     private AddNewContractScreenController addNewContractScreenController;
     private ContractDetailsScreenController contractDetailsScreenController;
     private DeleteContractScreenController deleteContractScreenController;
+    private EditContractScreenController editContractScreenController;
+    private SettingsScreenController settingsScreenController;
 
     public ScreenManager(){
         this.screenLoader();
@@ -169,6 +173,14 @@ public class ScreenManager {
         return deleteContractScreenScene;
     }
 
+    public Scene getEditContractScreenScene() {
+        return editContractScreenScene;
+    }
+
+    public Scene getSettingsScreenScene() {
+        return settingsScreenScene;
+    }
+
     // GETTERS dos Controllers
     public LoginScreenController getLoginScreenController() {
         return loginScreenController;
@@ -260,6 +272,14 @@ public class ScreenManager {
 
     public DeleteContractScreenController getDeleteContractScreenController() {
         return deleteContractScreenController;
+    }
+
+    public EditContractScreenController getEditContractScreenController() {
+        return editContractScreenController;
+    }
+
+    public SettingsScreenController getSettingsScreenController() {
+        return settingsScreenController;
     }
 
     private void screenLoader(){
@@ -356,6 +376,14 @@ public class ScreenManager {
             this.deleteContractScreenScene = new Scene(deleteContractScreenPane.load());
             this.deleteContractScreenController = deleteContractScreenPane.getController();
 
+            FXMLLoader editContractScreenPane = new FXMLLoader(getClass().getResource("edit-contract-screen.fxml"));
+            this.editContractScreenScene = new Scene(editContractScreenPane.load());
+            this.editContractScreenController = editContractScreenPane.getController();
+
+            FXMLLoader settingsScreenPane = new FXMLLoader(getClass().getResource("settings-menu-screen.fxml"));
+            this.settingsScreenScene = new Scene(settingsScreenPane.load());
+            this.settingsScreenController = settingsScreenPane.getController();
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -382,6 +410,8 @@ public class ScreenManager {
             case "contract-menu-screen.fxml" -> stg.setScene(contractsScreenScene);
             case "add-new-contract-screen.fxml" -> stg.setScene(addNewContractScreenScene);
             case "contract-details-screen.fxml" -> stg.setScene(contractDatailsScreenScene);
+            case "edit-contract-screen.fxml" -> stg.setScene(editContractScreenScene);
+            case "settings-menu-screen.fxml" -> stg.setScene(settingsScreenScene);
         }
         stg.setTitle(titleScreen);
         if(max) stg.setMaximized(true);

@@ -280,7 +280,7 @@ public class CollaboratorDetailsScreenController implements Initializable {
             dialogStage.initModality(Modality.APPLICATION_MODAL);
             dialogStage.setResizable(false);
             dialogStage.setTitle("Editar Presença");
-            //            dialogStage.getIcons().add(new Image("file:" + "src/main/resources/org/example/bzreboques/icon-16x16.png"));
+            dialogStage.getIcons().add(new Image("file:" + "src/main/resources/org/example/gerenciadorcontratos/icon.png"));
             dialogStage.setScene(scene);
             dialogStage.setOnCloseRequest(event -> {
                 sm.getEditPresenceScreenController().clearFiels();
@@ -350,7 +350,7 @@ public class CollaboratorDetailsScreenController implements Initializable {
         dialogStage.initModality(Modality.APPLICATION_MODAL);
         dialogStage.setResizable(false);
         dialogStage.setTitle("Deletar Collaborator?");
-        dialogStage.getIcons().add(new Image("file:"));
+        dialogStage.getIcons().add(new Image("file:" + "src/main/resources/org/example/gerenciadorcontratos/icon.png"));
         dialogStage.setScene(scene);
 
         yesBtn.setOnAction(e -> {
@@ -396,7 +396,7 @@ public class CollaboratorDetailsScreenController implements Initializable {
             dialogStage.initModality(Modality.APPLICATION_MODAL);
             dialogStage.setResizable(false);
             dialogStage.setTitle("Deletar Finança?");
-            dialogStage.getIcons().add(new Image("file:"));
+            dialogStage.getIcons().add(new Image("file:" + "src/main/resources/org/example/gerenciadorcontratos/icon.png"));
             dialogStage.setScene(scene);
 
             yesBtn.setOnAction(e -> {
@@ -546,7 +546,7 @@ public class CollaboratorDetailsScreenController implements Initializable {
             dialogStage.initModality(Modality.APPLICATION_MODAL);
             dialogStage.setResizable(false);
             dialogStage.setTitle("Deletar Presença?");
-            dialogStage.getIcons().add(new Image("file:"));
+            dialogStage.getIcons().add(new Image("file:" + "src/main/resources/org/example/gerenciadorcontratos/icon.png"));
             dialogStage.setScene(scene);
 
             yesBtn.setOnAction(e -> {
@@ -723,6 +723,7 @@ public class CollaboratorDetailsScreenController implements Initializable {
         cbRegisterPresencesDetailsCollaboratorWindow.getItems().clear();
         cbStatusPresencesDetailsCollaboratorWindow.getItems().clear();
         cbContractPresencesDetailsCollaboratorWindow.getItems().clear();
+        cbContractFinanceDetailsCollaboratorWindow.getItems().clear();
 
         cbRegisterPresencesDetailsCollaboratorWindow.getItems().addAll(records);
         cbStatusPresencesDetailsCollaboratorWindow.getItems().addAll(status);

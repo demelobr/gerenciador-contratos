@@ -232,7 +232,7 @@ public class FinanceDetailsScreenController implements Initializable {
             dialogStage.initModality(Modality.APPLICATION_MODAL);
             dialogStage.setResizable(false);
             dialogStage.setTitle("Deletar Finança?");
-            dialogStage.getIcons().add(new Image("file:"));
+            dialogStage.getIcons().add(new Image("file:" + "src/main/resources/org/example/gerenciadorcontratos/icon.png"));
             dialogStage.setScene(scene);
 
             yesBtn.setOnAction(e -> {
@@ -390,6 +390,14 @@ public class FinanceDetailsScreenController implements Initializable {
         } catch (ConnectionFailureDbException ignored) {}
         cbContractDetailsFinancesWindow.getItems().clear();
         cbContractDetailsFinancesWindow.getItems().addAll(contracts);
+    }
+
+    public void setFiltersSearch(){
+        if(contractName != null) cbContractDetailsFinancesWindow.setValue(contractName);
+        if(year != null){
+            dpStartPeriodDetailsFinancesWindow.setValue(LocalDate.of(Integer.parseInt(year), 1, 1));
+            dpEndPeriodDetailsFinancesWindow.setValue(LocalDate.of(Integer.parseInt(year), 12, 31));
+        }
     }
 
     private void setBalanceValue(){

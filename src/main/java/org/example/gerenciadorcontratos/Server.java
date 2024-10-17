@@ -52,7 +52,7 @@ public class Server {
         userController.createUser(user);
     }
 
-    public void updateUser(User user, String email, String name, String password, String verificationCode, LocalDateTime codeDateTime) throws ConnectionFailureDbException, UserUpdatedSuccessfullyException, UserNullException, UserDoesNotExistException {
+    public void updateUser(User user, String email, String name, String password, String verificationCode, LocalDateTime codeDateTime) throws ConnectionFailureDbException, UserUpdatedSuccessfullyException, UserNullException, UserAlreadyExistsEception, UserDoesNotExistException {
         userController.updateUser(user, email, name, password, verificationCode, codeDateTime);
     }
 
@@ -80,7 +80,7 @@ public class Server {
         return userController.generateVerificationCode();
     }
 
-    public void setVerificationCode(User user, String verificationCode) throws ConnectionFailureDbException, UserUpdatedSuccessfullyException, UserNullException, UserDoesNotExistException {
+    public void setVerificationCode(User user, String verificationCode) throws ConnectionFailureDbException, UserUpdatedSuccessfullyException, UserNullException, UserAlreadyExistsEception, UserDoesNotExistException {
         userController.setVerificationCode(user, verificationCode);
     }
 

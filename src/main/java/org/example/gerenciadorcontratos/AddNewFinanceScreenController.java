@@ -247,6 +247,7 @@ public class AddNewFinanceScreenController implements Initializable {
         entriesClasses.add("ADTIVOS CONTRATUAIS");
         Collections.sort(entriesClasses);
 
+        expensesClasses.clear();
         expensesClasses.add("MÃO DE OBRA");
         expensesClasses.add("MATERIAIS DE CONSTRUÇÃO");
         expensesClasses.add("EQUIPAMENTOS/EPIs");

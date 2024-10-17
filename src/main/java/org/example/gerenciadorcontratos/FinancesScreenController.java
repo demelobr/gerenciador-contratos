@@ -141,9 +141,12 @@ public class FinancesScreenController implements Initializable {
 
     @FXML
     public void goToSettingsScreen(){
-        lbPushMsgFinancesWindow.setText("Em Desenvolvimento!");
-        hbPushMsgFinancesWindow.getStyleClass().setAll("push-msg-info");
-        hbPushMsgFinancesWindow.setVisible(true);
+        this.resetWindow();
+        ScreenManager sm = ScreenManager.getInstance();
+        sm.getSettingsScreenController().setUser(user);
+        sm.getSettingsScreenController().setSettings(app.getServer().getSettings());
+        sm.getSettingsScreenController().initializeWindow();
+        sm.changeScreen("settings-menu-screen.fxml", "Gerenciador de Contratos - Configurações");
         this.delayHidePushMsg();
     }
 
@@ -173,6 +176,7 @@ public class FinancesScreenController implements Initializable {
         sm.getFinanceDetailsScreenController().initializeComboBoxsWindow();
         sm.getFinanceDetailsScreenController().addOrRemoveListeners(true);
         sm.getFinanceDetailsScreenController().initializeTable();
+        sm.getFinanceDetailsScreenController().setFiltersSearch();
         sm.changeScreen("finance-details-screen.fxml", "Gerenciador de Contratos - Detalhes das Finanças");
     }
 
@@ -187,6 +191,7 @@ public class FinancesScreenController implements Initializable {
         sm.getFinanceDetailsScreenController().initializeComboBoxsWindow();
         sm.getFinanceDetailsScreenController().addOrRemoveListeners(true);
         sm.getFinanceDetailsScreenController().initializeTable();
+        sm.getFinanceDetailsScreenController().setFiltersSearch();
         sm.changeScreen("finance-details-screen.fxml", "Gerenciador de Contratos - Detalhes das Finanças");
     }
 
@@ -201,6 +206,7 @@ public class FinancesScreenController implements Initializable {
         sm.getFinanceDetailsScreenController().initializeComboBoxsWindow();
         sm.getFinanceDetailsScreenController().addOrRemoveListeners(true);
         sm.getFinanceDetailsScreenController().initializeTable();
+        sm.getFinanceDetailsScreenController().setFiltersSearch();
         sm.changeScreen("finance-details-screen.fxml", "Gerenciador de Contratos - Detalhes das Finanças");
     }
 

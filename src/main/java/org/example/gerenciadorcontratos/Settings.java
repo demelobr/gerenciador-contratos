@@ -81,6 +81,6 @@ public class Settings implements Serializable {
     public String toString(){
         return String.format("<Settings>\nUrl DB: %s\nUser DB: %s\nPassword: %s\n" +
                 "Host email: %s\nPort email: %s\nAddress email: %s\nPassword email: %s\n" +
-                "==============================", urlDB, userDB, passwordDB, hostEmail, portEmail, addressEmail, passwordDB);
+                "==============================", urlDB, userDB, passwordDB, hostEmail, portEmail, addressEmail, passwordEmail);
     }
 }

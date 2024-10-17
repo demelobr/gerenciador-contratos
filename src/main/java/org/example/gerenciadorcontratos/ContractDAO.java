@@ -66,6 +66,7 @@ public class ContractDAO implements IContractDAO{
             ps.executeUpdate();
 
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             throw new ConnectionFailureDbException();
         }
     }

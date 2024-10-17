@@ -152,6 +152,7 @@ public class EditFinanceFinancesScreenController implements Initializable {
         sm.getFinanceDetailsScreenController().initializeComboBoxsWindow();
         sm.getFinanceDetailsScreenController().addOrRemoveListeners(true);
         sm.getFinanceDetailsScreenController().initializeTable();
+        sm.getFinanceDetailsScreenController().setFiltersSearch();
         sm.changeScreen("finance-details-screen.fxml", "Gerenciador de Contratos - Detalhes das Finanças");
     }
 
@@ -253,6 +254,7 @@ public class EditFinanceFinancesScreenController implements Initializable {
                             sm.getFinanceDetailsScreenController().initializeComboBoxsWindow();
                             sm.getFinanceDetailsScreenController().addOrRemoveListeners(true);
                             sm.getFinanceDetailsScreenController().initializeTable();
+                            sm.getFinanceDetailsScreenController().setFiltersSearch();
                             sm.changeScreen("finance-details-screen.fxml", "Gerenciador de Contratos - Detalhes das Finanças");
                         });
                     }).start();
@@ -355,6 +357,7 @@ public class EditFinanceFinancesScreenController implements Initializable {
         entriesClasses.add("VERBAS CONTRATUAIS");
         entriesClasses.add("ADTIVOS CONTRATUAIS");
 
+        expensesClasses.clear();
         expensesClasses.add("MÃO DE OBRA");
         expensesClasses.add("MATERIAIS DE CONSTRUÇÃO");
         expensesClasses.add("EQUIPAMENTOS");

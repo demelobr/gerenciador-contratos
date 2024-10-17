@@ -90,7 +90,8 @@ public class RecoverAccountNewPasswordScreenController implements Initializable 
                 hbPushMsgRecoverAccountNewPasswordWindow.setVisible(true);
                 this.delayHidePushMsg();
             }
-        } catch (ConnectionFailureDbException | UserDoesNotExistException | UserNullException e) {
+        } catch (ConnectionFailureDbException | UserAlreadyExistsEception | UserNullException |
+                 UserDoesNotExistException e) {
             lbPushMsgRecoverAccountNewPasswordWindow.setText(e.getMessage());
             hbPushMsgRecoverAccountNewPasswordWindow.getStyleClass().setAll("push-msg-error");
             hbPushMsgRecoverAccountNewPasswordWindow.setVisible(true);

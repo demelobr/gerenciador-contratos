@@ -329,6 +329,7 @@ public class EditFinanceCollaboratorScreenController implements Initializable {
         entriesClasses.add("VERBAS CONTRATUAIS");
         entriesClasses.add("ADTIVOS CONTRATUAIS");
 
+        expensesClasses.clear();
         expensesClasses.add("MÃO DE OBRA");
         expensesClasses.add("MATERIAIS DE CONSTRUÇÃO");
         expensesClasses.add("EQUIPAMENTOS");

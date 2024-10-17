@@ -145,7 +145,12 @@ public class ContractDetailsScreenController implements Initializable {
 
     @FXML
     public void goToEditContractScreen(){
-        System.out.println("Editing Contract");
+        this.resetWindow();
+        ScreenManager sm = ScreenManager.getInstance();
+        sm.getEditContractScreenController().setContract(contract);
+        sm.getEditContractScreenController().setUser(user);
+        sm.getEditContractScreenController().initializeWindow();
+        sm.changeScreen("edit-contract-screen.fxml", "Gerenciador de Contratos - Editar Contrato");
     }
 
     @FXML
@@ -159,7 +164,7 @@ public class ContractDetailsScreenController implements Initializable {
         dialogStage.initModality(Modality.APPLICATION_MODAL);
         dialogStage.setResizable(false);
         dialogStage.setTitle("Deletar Contrato?");
-        dialogStage.getIcons().add(new Image("file:"));
+        dialogStage.getIcons().add(new Image("file:" + "src/main/resources/org/example/gerenciadorcontratos/icon.png"));
         dialogStage.setScene(scene);
 
         yesBtn.setOnAction(e -> {
@@ -232,6 +237,7 @@ public class ContractDetailsScreenController implements Initializable {
         sm.getFinanceDetailsScreenController().initializeComboBoxsWindow();
         sm.getFinanceDetailsScreenController().addOrRemoveListeners(true);
         sm.getFinanceDetailsScreenController().initializeTable();
+        sm.getFinanceDetailsScreenController().setFiltersSearch();
         sm.changeScreen("finance-details-screen.fxml", "Gerenciador de Contratos - Detalhes das Finanças");
     }
 
@@ -246,6 +252,7 @@ public class ContractDetailsScreenController implements Initializable {
         sm.getFinanceDetailsScreenController().initializeComboBoxsWindow();
         sm.getFinanceDetailsScreenController().addOrRemoveListeners(true);
         sm.getFinanceDetailsScreenController().initializeTable();
+        sm.getFinanceDetailsScreenController().setFiltersSearch();
         sm.changeScreen("finance-details-screen.fxml", "Gerenciador de Contratos - Detalhes das Finanças");
     }
 
@@ -260,6 +267,7 @@ public class ContractDetailsScreenController implements Initializable {
         sm.getFinanceDetailsScreenController().initializeComboBoxsWindow();
         sm.getFinanceDetailsScreenController().addOrRemoveListeners(true);
         sm.getFinanceDetailsScreenController().initializeTable();
+        sm.getFinanceDetailsScreenController().setFiltersSearch();
         sm.changeScreen("finance-details-screen.fxml", "Gerenciador de Contratos - Detalhes das Finanças");
     }
 
@@ -406,7 +414,7 @@ public class ContractDetailsScreenController implements Initializable {
         lbNameDetailsContractWindow.setText(capitalizeWords(contract.getName()));
         txtDescriptionDetailsContractWindow.setText(capitalizeWords(contract.getDescription()));
         lbAddressDetailsContractWindow.setText(capitalizeWords(contract.getAddress()));
-        if(contract.getEngineer().equals("----------")) lbEngineerDetailsContractWindow.setText("Não Informado");
+        if(contract.getEngineer().equals("NÃO INFORMADO")) lbEngineerDetailsContractWindow.setText("Não Informado");
         else lbEngineerDetailsContractWindow.setText(capitalizeWords(contract.getEngineer()));
         lbExpectedStartDateDetailsContractWindow.setText(dateTimeFormatter.format(contract.getExpectedStartDate()));
         lbStartDateDetailsContractWindow.setText(dateTimeFormatter.format(contract.getStartDate()));

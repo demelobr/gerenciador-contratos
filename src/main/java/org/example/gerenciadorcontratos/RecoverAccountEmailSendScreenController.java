@@ -66,7 +66,7 @@ public class RecoverAccountEmailSendScreenController implements Initializable {
 
                     try {
                         app.getServer().setVerificationCode(app.getServer().getUserByEmail(email), verificationCode);
-                    } catch (ConnectionFailureDbException | UserDoesNotExistException e) {
+                    } catch (ConnectionFailureDbException | UserDoesNotExistException | UserAlreadyExistsEception e) {
                         lbPushMsgRecoverAccountEmaiWindow.setText(e.getMessage());
                         hbPushMsgRecoverAccountEmailWindow.getStyleClass().setAll("push-msg-error");
                         hbPushMsgRecoverAccountEmailWindow.setVisible(true);

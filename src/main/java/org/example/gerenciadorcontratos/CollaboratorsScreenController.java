@@ -179,9 +179,12 @@ public class CollaboratorsScreenController implements Initializable {
 
     @FXML
     public void goToSettingsScreen(){
-        lbPushMsgCollaboratorsWindow.setText("Em Desenvolvimento!");
-        hbPushMsgCollaboratorsWindow.getStyleClass().setAll("push-msg-info");
-        hbPushMsgCollaboratorsWindow.setVisible(true);
+        this.resetWindow();
+        ScreenManager sm = ScreenManager.getInstance();
+        sm.getSettingsScreenController().setUser(user);
+        sm.getSettingsScreenController().setSettings(app.getServer().getSettings());
+        sm.getSettingsScreenController().initializeWindow();
+        sm.changeScreen("settings-menu-screen.fxml", "Gerenciador de Contratos - Configurações");
         this.delayHidePushMsg();
     }
 
@@ -242,7 +245,7 @@ public class CollaboratorsScreenController implements Initializable {
             dialogStage.initModality(Modality.APPLICATION_MODAL);
             dialogStage.setResizable(false);
             dialogStage.setTitle(String.format("Adicionar Presença para %s", capitalizeWords(selectCollaborator.getName())));
-//            dialogStage.getIcons().add(new Image("file:" + "src/main/resources/org/example/bzreboques/icon-16x16.png"));
+            dialogStage.getIcons().add(new Image("file:" + "src/main/resources/org/example/gerenciadorcontratos/icon.png"));
             dialogStage.setScene(scene);
             dialogStage.setOnCloseRequest(event -> {
                 sm.getAddNewPresenceScreenController().clearFiels();

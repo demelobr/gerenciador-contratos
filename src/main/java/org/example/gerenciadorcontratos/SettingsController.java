@@ -5,6 +5,7 @@ import java.io.*;
 public class SettingsController {
     public static void saveSettings(Settings settings) throws SettingsSavedSuccessfullyException, SettingsSavingFailedException {
         try {
+            System.out.println(settings);
             FileOutputStream binaryFile = new FileOutputStream("src/main/resources/org/example/gerenciadorcontratos/settings.bin");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(binaryFile);
             objectOutputStream.writeObject(settings);
@@ -25,6 +26,7 @@ public class SettingsController {
             objectInputStream.close();
             binaryFile.close();
         } catch (IOException e) {
+            System.out.println(e.getMessage());
             throw new ConfigurationLoadFailureException();
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
