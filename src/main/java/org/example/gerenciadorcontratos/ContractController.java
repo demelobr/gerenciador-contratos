@@ -19,7 +19,7 @@ public class ContractController implements IContractController{
     }
 
     @Override
-    public void createContract(Contract contract) throws ConnectionFailureDbException, ContractCreatedSuccessfullyException, InvalidContractException, ContractNullException, InvalidBudgetException, EmptyfieldsException, StartDateAfterEndDateException, ContractWithThisNameAlreadyExistsException {
+    public void createContract(Contract contract) throws ConnectionFailureDbException, ContractCreatedSuccessfullyException, InvalidContractException, ContractNullException, InvalidBudgetException, EmptyfieldsException, StartDateAfterEndDateException, ContractWithThisNameAlreadyExistsException, CopyFileFailedException {
         if(contract != null){
             if(this.checkContractData(contract)){
                 if(contract.getStartDate() == null) contract.setStartDate(contract.getExpectedStartDate());
@@ -36,7 +36,7 @@ public class ContractController implements IContractController{
     }
 
     @Override
-    public void updateContract(Contract contract, String name, String description, String address, String engineer, String contractFile, LocalDate expectedStartDate, LocalDate expectedEndDate, LocalDate startDate, LocalDate endDate) throws ConnectionFailureDbException, ContractUpdatedSuccessfullyException, ContractDoesNotExistException, ContractNullException {
+    public void updateContract(Contract contract, String name, String description, String address, String engineer, String contractFile, LocalDate expectedStartDate, LocalDate expectedEndDate, LocalDate startDate, LocalDate endDate) throws ConnectionFailureDbException, ContractUpdatedSuccessfullyException, ContractDoesNotExistException, ContractNullException, CopyFileFailedException {
         if(contract != null){
             if(this.contractExists(contract.getName())){
                 if(name.isEmpty() || contract.getName().equals(name)){

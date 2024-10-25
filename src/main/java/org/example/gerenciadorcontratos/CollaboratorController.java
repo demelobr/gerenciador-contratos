@@ -22,7 +22,7 @@ public class CollaboratorController implements ICollaboratorController{
     }
 
     @Override
-    public void createCollaborator(Collaborator collaborator) throws ConnectionFailureDbException, CollaboratorCreatedSuccessfullyException, InvalidCollaboratorException, CollaboratorNullException, InvalidCpfException, CollaboratorWithThisCpfAlreadyExistsException, InvalidEmailException, EmptyfieldsException {
+    public void createCollaborator(Collaborator collaborator) throws ConnectionFailureDbException, CollaboratorCreatedSuccessfullyException, InvalidCollaboratorException, CollaboratorNullException, InvalidCpfException, CollaboratorWithThisCpfAlreadyExistsException, InvalidEmailException, EmptyfieldsException, CopyFileFailedException {
         if(collaborator != null){
             if(this.checkCollaboratorData(collaborator)){
                 collaboratorRepository.create(collaborator);
@@ -36,7 +36,7 @@ public class CollaboratorController implements ICollaboratorController{
     }
 
     @Override
-    public void updateCollaborator(Collaborator collaborator, String name, String cpf, String rg, String address, String telephone, String email, String office, boolean status, LocalDateTime lastPoint, LocalDate admissionDate, LocalDate terminationDate, String photoUrl) throws ConnectionFailureDbException, CollaboratorUpdatedSuccessfullyException, CollaboratorDoesNotExistException, CollaboratorNullException {
+    public void updateCollaborator(Collaborator collaborator, String name, String cpf, String rg, String address, String telephone, String email, String office, boolean status, LocalDateTime lastPoint, LocalDate admissionDate, LocalDate terminationDate, String photoUrl) throws ConnectionFailureDbException, CollaboratorUpdatedSuccessfullyException, CollaboratorDoesNotExistException, CollaboratorNullException, CopyFileFailedException {
         if(collaborator != null){
             if(this.collaboratorExists(collaborator.getCpf())){
                 if(name.isEmpty() || collaborator.getName().equals(name)){

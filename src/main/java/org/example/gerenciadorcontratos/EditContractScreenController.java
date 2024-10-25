@@ -175,7 +175,7 @@ public class EditContractScreenController implements Initializable {
 
             try {
                 app.getServer().updateContract(contract, name, description, address, engineer, contractFileUrl, expectedStartDate, expectedEndDate, startDate, endDate);
-            } catch (ConnectionFailureDbException | ContractDoesNotExistException | ContractNullException e) {
+            } catch (ConnectionFailureDbException | ContractDoesNotExistException | ContractNullException | CopyFileFailedException e) {
                 System.out.println(e.getMessage());
                 lbPushMsgEditContractWindow.setText(e.getMessage());
                 hbPushMsgAddEditContractWindow.getStyleClass().setAll("push-msg-error");

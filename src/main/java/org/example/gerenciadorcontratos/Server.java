@@ -13,7 +13,7 @@ public class Server {
     private IPresenceController presenceController;
     private IFinanceController financeController;
     private Settings settings;
-//    private Cloud cloud;
+    private Cloud cloud;
 
     public Server(){
         this.userController = UserController.getInstance();
@@ -45,6 +45,23 @@ public class Server {
 
     public Settings loadSettings() throws ConfigurationLoadFailureException {
         return SettingsController.loadSettings();
+    }
+
+    // Cloud's methods
+    public Cloud getCloud() {
+        return cloud;
+    }
+
+    public void setCloud(Cloud cloud) {
+        this.cloud = cloud;
+    }
+
+    public void saveCloud(Cloud cloud) throws CloudSavedSuccessfullyException, CloudSavingFailedException {
+        CloudController.saveCloud(cloud);
+    }
+
+    public Cloud loadCloud() throws CloudLoadFailureException {
+        return CloudController.loadCloud();
     }
 
     // User's methods
@@ -93,11 +110,11 @@ public class Server {
     }
 
     // Collaborators's methods
-    public void createCollaborator(Collaborator collaborator) throws InvalidCpfException, ConnectionFailureDbException, InvalidCollaboratorException, CollaboratorWithThisCpfAlreadyExistsException, CollaboratorCreatedSuccessfullyException, CollaboratorNullException, InvalidEmailException, EmptyfieldsException {
+    public void createCollaborator(Collaborator collaborator) throws InvalidCpfException, ConnectionFailureDbException, InvalidCollaboratorException, CollaboratorWithThisCpfAlreadyExistsException, CollaboratorCreatedSuccessfullyException, CollaboratorNullException, InvalidEmailException, EmptyfieldsException, CopyFileFailedException {
         collaboratorController.createCollaborator(collaborator);
     }
 
-    public void updateCollaborator(Collaborator collaborator, String name, String cpf, String rg, String address, String telephone, String email, String office, boolean status, LocalDateTime lastPoint, LocalDate admissionDate, LocalDate terminationDate, String photoUrl) throws ConnectionFailureDbException, CollaboratorUpdatedSuccessfullyException, CollaboratorNullException, CollaboratorDoesNotExistException {
+    public void updateCollaborator(Collaborator collaborator, String name, String cpf, String rg, String address, String telephone, String email, String office, boolean status, LocalDateTime lastPoint, LocalDate admissionDate, LocalDate terminationDate, String photoUrl) throws ConnectionFailureDbException, CollaboratorUpdatedSuccessfullyException, CollaboratorNullException, CollaboratorDoesNotExistException, CopyFileFailedException {
         collaboratorController.updateCollaborator(collaborator, name, cpf, rg, address, telephone, email, office, status, lastPoint, admissionDate, terminationDate, photoUrl);
     }
 
@@ -122,11 +139,11 @@ public class Server {
     }
 
     // Contract's methods
-    public void createContract(Contract contract) throws ContractCreatedSuccessfullyException, InvalidBudgetException, ConnectionFailureDbException, InvalidContractException, ContractNullException, EmptyfieldsException, StartDateAfterEndDateException, ContractWithThisNameAlreadyExistsException {
+    public void createContract(Contract contract) throws ContractCreatedSuccessfullyException, InvalidBudgetException, ConnectionFailureDbException, InvalidContractException, ContractNullException, EmptyfieldsException, StartDateAfterEndDateException, ContractWithThisNameAlreadyExistsException, CopyFileFailedException {
         contractController.createContract(contract);
     }
 
-    public void updateContract(Contract contract, String name, String description, String address, String engineer, String contractFile, LocalDate expectedStartDate, LocalDate expectedEndDate, LocalDate startDate, LocalDate endDate) throws ConnectionFailureDbException, ContractUpdatedSuccessfullyException, ContractDoesNotExistException, ContractNullException {
+    public void updateContract(Contract contract, String name, String description, String address, String engineer, String contractFile, LocalDate expectedStartDate, LocalDate expectedEndDate, LocalDate startDate, LocalDate endDate) throws ConnectionFailureDbException, ContractUpdatedSuccessfullyException, ContractDoesNotExistException, ContractNullException, CopyFileFailedException {
         contractController.updateContract(contract, name, description, address, engineer, contractFile, expectedStartDate, expectedEndDate, startDate, endDate);
     }
 

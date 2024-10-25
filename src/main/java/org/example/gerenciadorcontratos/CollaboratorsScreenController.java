@@ -190,9 +190,11 @@ public class CollaboratorsScreenController implements Initializable {
 
     @FXML
     public void goToCloudScreen(){
-        lbPushMsgCollaboratorsWindow.setText("Em Desenvolvimento!");
-        hbPushMsgCollaboratorsWindow.getStyleClass().setAll("push-msg-info");
-        hbPushMsgCollaboratorsWindow.setVisible(true);
+        this.resetWindow();
+        ScreenManager sm = ScreenManager.getInstance();
+        sm.getCloudScreenController().setUser(user);
+        sm.getCloudScreenController().initializeWindow();
+        sm.changeScreen("cloud-menu-screen.fxml", "Gerenciador de Contratos - Nuvem");
         this.delayHidePushMsg();
     }
 

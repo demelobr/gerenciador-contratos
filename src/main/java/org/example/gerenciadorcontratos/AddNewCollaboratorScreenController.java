@@ -131,7 +131,7 @@ public class AddNewCollaboratorScreenController implements Initializable {
             }
         } catch (InvalidCpfException | ConnectionFailureDbException | CollaboratorWithThisCpfAlreadyExistsException |
                  InvalidEmailException | EmptyfieldsException | InvalidCollaboratorException |
-                 CollaboratorNullException e) {
+                 CollaboratorNullException | CopyFileFailedException e) {
             lbPushMsgAddNewCollaboratorWindow.setText(e.getMessage());
             hbPushMsgAddNewCollaboratorWindow.getStyleClass().setAll("push-msg-error");
             hbPushMsgAddNewCollaboratorWindow.setVisible(true);

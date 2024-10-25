@@ -1,5 +1,10 @@
 package org.example.gerenciadorcontratos;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.channels.FileChannel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,6 +14,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.example.gerenciadorcontratos.UtilitiesLibrary.copyFile;
+import static org.example.gerenciadorcontratos.UtilitiesLibrary.deleteFile;
 
 public class CollaboratorDAO implements ICollaboratorDAO{
     private static ICollaboratorDAO instance;
@@ -21,12 +29,17 @@ public class CollaboratorDAO implements ICollaboratorDAO{
     }
 
     @Override
-    public void create(Collaborator collaborator) throws ConnectionFailureDbException {
+    public void create(Collaborator collaborator) throws ConnectionFailureDbException, CopyFileFailedException {
         try (Connection conn = ConnectionFactory.getConnection()){
             String sql = "INSERT INTO collaborators (name, cpf, rg, address, telephone, email, office, status, lastPoint, admissionDate, terminationDate, photoUrl) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             DateTimeFormatter dateTimeFormatterWithTime = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm:ss");
+
+            Application app = new Application();
+            int index = collaborator.getPhotoUrl().indexOf(".");
+            String extension = collaborator.getPhotoUrl().substring(index+1);
+            String copyOfPhoto = String.format("%s/%s.%s", app.getServer().getCloud().getFolderPath(), collaborator.getCpf(), extension.toUpperCase());
 
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, collaborator.getName().toUpperCase());
@@ -46,7 +59,17 @@ public class CollaboratorDAO implements ICollaboratorDAO{
             if(collaborator.getTerminationDate() != null && !collaborator.isStatus()) ps.setString(11, collaborator.getTerminationDate().format(dateTimeFormatter));
             else ps.setString(11, "Não informado".toUpperCase());
 
-            ps.setString(12, collaborator.getPhotoUrl().toUpperCase());
+            File path = new File(app.getServer().getCloud().getFolderPath());
+            if(path.exists() && path.isDirectory()){
+                ps.setString(12, copyOfPhoto.toUpperCase());
+                try {
+                    copyFile(new File(collaborator.getPhotoUrl()), new File(copyOfPhoto));
+                } catch (IOException e) {
+                    throw new CopyFileFailedException();
+                }
+            }else{
+                ps.setString(12, collaborator.getPhotoUrl().toUpperCase());
+            }
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -55,12 +78,17 @@ public class CollaboratorDAO implements ICollaboratorDAO{
     }
 
     @Override
-    public void update(Collaborator collaborator, String name, String cpf, String rg, String address, String telephone, String email, String office, boolean status, LocalDateTime lastPoint, LocalDate admissionDate, LocalDate terminationDate, String photoUrl) throws ConnectionFailureDbException {
+    public void update(Collaborator collaborator, String name, String cpf, String rg, String address, String telephone, String email, String office, boolean status, LocalDateTime lastPoint, LocalDate admissionDate, LocalDate terminationDate, String photoUrl) throws ConnectionFailureDbException, CopyFileFailedException {
         try (Connection conn = ConnectionFactory.getConnection()){
             String sql = "UPDATE collaborators SET name = ?, cpf = ?, rg = ?, address = ?, telephone = ?, email = ?, office = ?, status = ?, lastPoint = ?, admissionDate = ?, terminationDate = ?, photoUrl = ? WHERE cpf = ?";
 
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             DateTimeFormatter dateTimeFormatterWithTime = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm:ss");
+
+            Application app = new Application();
+            int index = collaborator.getPhotoUrl().indexOf(".");
+            String extension = collaborator.getPhotoUrl().substring(index+1);
+            String copyOfPhoto = String.format("%s/%s.%s", app.getServer().getCloud().getFolderPath(), collaborator.getCpf(), extension.toUpperCase());
 
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, name.toUpperCase());
@@ -80,7 +108,18 @@ public class CollaboratorDAO implements ICollaboratorDAO{
             if(terminationDate != null && !status) ps.setString(11, terminationDate.format(dateTimeFormatter));
             else ps.setString(11, "Não informado".toUpperCase());
 
-            ps.setString(12, photoUrl.toUpperCase());
+            File path = new File(app.getServer().getCloud().getFolderPath());
+            if(path.exists() && path.isDirectory() && !collaborator.getPhotoUrl().equals(photoUrl)){
+                ps.setString(12, copyOfPhoto.toUpperCase());
+                try {
+                    copyFile(new File(photoUrl), new File(copyOfPhoto));
+                } catch (IOException e) {
+                    throw new CopyFileFailedException();
+                }
+            }else{
+                ps.setString(12, photoUrl.toUpperCase());
+            }
+
             ps.setString(13, collaborator.getCpf().toUpperCase());
             ps.executeUpdate();
 
@@ -97,6 +136,7 @@ public class CollaboratorDAO implements ICollaboratorDAO{
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, collaborator.getCpf().toUpperCase());
             ps.executeUpdate();
+            deleteFile(collaborator.getPhotoUrl());
 
         } catch (SQLException e) {
             throw new ConnectionFailureDbException();

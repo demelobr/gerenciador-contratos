@@ -1,5 +1,7 @@
 package org.example.gerenciadorcontratos;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,6 +10,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.example.gerenciadorcontratos.UtilitiesLibrary.*;
 
 public class ContractDAO implements IContractDAO{
     private static IContractDAO instance;
@@ -22,18 +26,36 @@ public class ContractDAO implements IContractDAO{
     }
 
     @Override
-    public void create(Contract contract) throws ConnectionFailureDbException {
+    public void create(Contract contract) throws ConnectionFailureDbException, CopyFileFailedException {
         try (Connection conn = ConnectionFactory.getConnection()){
             String sql = "INSERT INTO contracts (name, description, address, engineer, contractFile, expectedStartDate, expectedEndDate, startDate, endDate) VALUES(?,?,?,?,?,?,?,?,?)";
 
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+            Application app = new Application();
+            int index = contract.getContractFile().indexOf(".");
+            String extension = contract.getContractFile().substring(index+1);
+            String copyOfFile = String.format("%s/CONTRATO-%s.%s", app.getServer().getCloud().getFolderPath(), contract.getName().toUpperCase(), extension.toUpperCase());
 
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, contract.getName().toUpperCase());
             ps.setString(2, contract.getDescription().toUpperCase());
             ps.setString(3, contract.getAddress().toUpperCase());
             ps.setString(4, contract.getEngineer().toUpperCase());
-            ps.setString(5, contract.getContractFile().toUpperCase());
+
+            File path = new File(app.getServer().getCloud().getFolderPath());
+            if(path.exists() && path.isDirectory()){
+                ps.setString(5, copyOfFile.toUpperCase());
+                try {
+                    copyFile(new File(contract.getContractFile()), new File(copyOfFile));
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                    throw new CopyFileFailedException();
+                }
+            }else{
+                ps.setString(5, contract.getContractFile().toUpperCase());
+            }
+
             ps.setString(6, contract.getExpectedStartDate().format(dateTimeFormatter));
             ps.setString(7, contract.getExpectedEndDate().format(dateTimeFormatter));
             ps.setString(8, contract.getStartDate().format(dateTimeFormatter));
@@ -46,18 +68,36 @@ public class ContractDAO implements IContractDAO{
     }
 
     @Override
-    public void update(Contract contract, String name, String description, String address, String engineer, String contractFile, LocalDate expectedStartDate, LocalDate expectedEndDate, LocalDate startDate, LocalDate endDate) throws ConnectionFailureDbException {
+    public void update(Contract contract, String name, String description, String address, String engineer, String contractFile, LocalDate expectedStartDate, LocalDate expectedEndDate, LocalDate startDate, LocalDate endDate) throws ConnectionFailureDbException, CopyFileFailedException {
         try (Connection conn = ConnectionFactory.getConnection()){
             String sql = "UPDATE contracts SET name = ?, description = ?, address = ?, engineer = ?, contractFile = ?, expectedStartDate = ?, expectedEndDate = ?, startDate = ?, endDate = ? WHERE name = ?";
 
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+            Application app = new Application();
+            int index = contract.getContractFile().indexOf(".");
+            String extension = contract.getContractFile().substring(index+1);
+            String copyOfFile = String.format("%s/CONTRATO-%s.%s", app.getServer().getCloud().getFolderPath(), contract.getName().toUpperCase(), extension.toUpperCase());
 
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, name.toUpperCase());
             ps.setString(2, description.toUpperCase());
             ps.setString(3, address.toUpperCase());
             ps.setString(4, engineer.toUpperCase());
-            ps.setString(5, contractFile.toUpperCase());
+
+            File path = new File(app.getServer().getCloud().getFolderPath());
+            if(path.exists() && path.isDirectory() && !contract.getContractFile().equals(contractFile)){
+                ps.setString(5, copyOfFile.toUpperCase());
+                try {
+                    copyFile(new File(contractFile), new File(copyOfFile));
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                    throw new CopyFileFailedException();
+                }
+            }else{
+                ps.setString(5, contractFile.toUpperCase());
+            }
+
             ps.setString(6, expectedStartDate.format(dateTimeFormatter));
             ps.setString(7, expectedEndDate.format(dateTimeFormatter));
             ps.setString(8, startDate.format(dateTimeFormatter));
@@ -66,7 +106,6 @@ public class ContractDAO implements IContractDAO{
             ps.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
             throw new ConnectionFailureDbException();
         }
     }
@@ -79,6 +118,7 @@ public class ContractDAO implements IContractDAO{
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, contract.getName().toUpperCase());
             ps.executeUpdate();
+            deleteFile(contract.getContractFile());
 
         } catch (SQLException e) {
             throw new ConnectionFailureDbException();

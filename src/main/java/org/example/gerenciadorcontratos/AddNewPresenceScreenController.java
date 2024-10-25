@@ -153,7 +153,7 @@ public class AddNewPresenceScreenController implements Initializable {
                             collaborator.getOffice(), collaborator.isStatus(),
                             presence.getPresenceDateTime(), collaborator.getAdmissionDate(),
                             collaborator.getTerminationDate(), collaborator.getPhotoUrl());
-                } catch (ConnectionFailureDbException | CollaboratorDoesNotExistException | CollaboratorNullException ex) {
+                } catch (ConnectionFailureDbException | CollaboratorDoesNotExistException | CollaboratorNullException | CopyFileFailedException ex) {
                     lbPushMsgAddNewPresenceWindow.setText(e.getMessage());
                     hbPushMsgAddNewPresenceWindow.getStyleClass().setAll("push-msg-error");
                     hbPushMsgAddNewPresenceWindow.setVisible(true);

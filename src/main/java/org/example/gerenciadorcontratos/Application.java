@@ -40,11 +40,18 @@ public class Application extends javafx.application.Application {
 //            throw new RuntimeException(e);
 //        }
 
+//        try {
+//            app.getServer().saveCloud(new Cloud("backup", "Diário"));
+//        } catch (CloudSavedSuccessfullyException | CloudSavingFailedException e) {
+//            throw new RuntimeException(e);
+//        }
+
         try {
             System.out.println(app.getServer().loadSettings());
             app.getServer().setSettings(app.getServer().loadSettings());
-
-        } catch (ConfigurationLoadFailureException e) {
+            System.out.println(app.getServer().loadCloud());
+            app.getServer().setCloud(app.getServer().loadCloud());
+        } catch (ConfigurationLoadFailureException | CloudLoadFailureException e) {
             throw new RuntimeException(e);
         }
         launch();

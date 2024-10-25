@@ -6,11 +6,11 @@ public class SettingsController {
     public static void saveSettings(Settings settings) throws SettingsSavedSuccessfullyException, SettingsSavingFailedException {
         try {
             System.out.println(settings);
-            FileOutputStream binaryFile = new FileOutputStream("src/main/resources/org/example/gerenciadorcontratos/settings.bin");
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(binaryFile);
+            FileOutputStream fileBinary = new FileOutputStream("src/main/resources/org/example/gerenciadorcontratos/settings.bin");
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileBinary);
             objectOutputStream.writeObject(settings);
             objectOutputStream.close();
-            binaryFile.close();
+            fileBinary.close();
             throw new SettingsSavedSuccessfullyException();
         } catch (IOException e) {
             throw new SettingsSavingFailedException();
@@ -20,16 +20,13 @@ public class SettingsController {
     public static Settings loadSettings() throws ConfigurationLoadFailureException {
         Settings settings = null;
         try {
-            FileInputStream binaryFile = new FileInputStream("src/main/resources/org/example/gerenciadorcontratos/settings.bin");
-            ObjectInputStream objectInputStream = new ObjectInputStream(binaryFile);
+            FileInputStream fileBinary = new FileInputStream("src/main/resources/org/example/gerenciadorcontratos/settings.bin");
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileBinary);
             settings = (Settings) objectInputStream.readObject();
             objectInputStream.close();
-            binaryFile.close();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
+            fileBinary.close();
+        } catch (IOException | ClassNotFoundException e) {
             throw new ConfigurationLoadFailureException();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
         }
         return settings;
     }

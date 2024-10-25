@@ -1,6 +1,11 @@
 package org.example.gerenciadorcontratos;
 
 import javax.mail.internet.ParseException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.channels.FileChannel;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.time.LocalDate;
@@ -118,6 +123,46 @@ public class UtilitiesLibrary {
             return decimalFormat.parse(normalizedValue).doubleValue();
         } catch (java.text.ParseException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public static void copyFile(File source, File destination) throws IOException {
+        if (destination.exists()) destination.delete();
+
+        FileChannel sourceChannel = null;
+        FileChannel destinationChannel = null;
+
+        try {
+            sourceChannel = new FileInputStream(source).getChannel();
+            destinationChannel = new FileOutputStream(destination).getChannel();
+            sourceChannel.transferTo(0, sourceChannel.size(),
+                    destinationChannel);
+        } finally {
+            if (sourceChannel != null && sourceChannel.isOpen())
+                sourceChannel.close();
+            if (destinationChannel != null && destinationChannel.isOpen())
+                destinationChannel.close();
+        }
+    }
+
+    public static void deleteFile(String filePath) {
+        Application app = new Application();
+        File path = new File(app.getServer().getCloud().getFolderPath());
+        int index = filePath.indexOf("backup/");
+        filePath = filePath.substring(index + 7);
+        if(path.exists() && path.isDirectory()){
+            File[] files = path.listFiles();
+            if(files != null){
+                for(File file : files){
+                    System.out.println(file.getName());
+                    System.out.println(filePath);
+                    System.out.println(filePath.contains(file.getName()));
+                    if(filePath.contains(file.getName())){
+                        file.delete();
+                        break;
+                    }
+                }
+            }
         }
     }
 

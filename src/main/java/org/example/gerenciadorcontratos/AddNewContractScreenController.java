@@ -113,7 +113,7 @@ public class AddNewContractScreenController implements Initializable {
             }
         } catch (InvalidBudgetException | ContractNullException | InvalidContractException |
                  ContractWithThisNameAlreadyExistsException | ConnectionFailureDbException |
-                 StartDateAfterEndDateException | EmptyfieldsException e) {
+                 StartDateAfterEndDateException | EmptyfieldsException | CopyFileFailedException e) {
             lbPushMsgAddNewContractWindow.setText(e.getMessage());
             hbPushMsgAddNewContractWindow.getStyleClass().setAll("push-msg-error");
             hbPushMsgAddNewContractWindow.setVisible(true);

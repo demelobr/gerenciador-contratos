@@ -4,9 +4,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -14,8 +13,12 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0" styleClass="background-white-secondary" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.gerenciadorcontratos.SettingsScreenController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0" styleClass="background-white-secondary" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.gerenciadorcontratos.CloudScreenController">
+   <padding>
+      <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+   </padding>
    <top>
       <HBox maxHeight="60.0" minHeight="60.0" prefHeight="60.0" BorderPane.alignment="CENTER">
          <children>
@@ -30,7 +33,7 @@
                </font>
             </Label>
             <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-            <HBox fx:id="hbPushMsgSettingsWindow" alignment="CENTER" maxHeight="45.0" maxWidth="400.0" minHeight="45.0" minWidth="400.0" prefHeight="45.0" prefWidth="400.0" stylesheets="@style.css">
+            <HBox fx:id="hbPushMsgCloudWindow" alignment="CENTER" maxHeight="45.0" maxWidth="400.0" minHeight="45.0" minWidth="400.0" prefHeight="45.0" prefWidth="400.0" stylesheets="@style.css">
                <styleClass>
                   <String fx:value="push-msg-error" />
                   <String fx:value="shadow" />
@@ -39,13 +42,13 @@
                   <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                </padding>
                <children>
-                  <Label fx:id="lbPushMsgSettingsWindow" prefHeight="18.0" prefWidth="546.0" text="Mensagem de erro ou sucesso..." textFill="WHITE">
+                  <Label fx:id="lbPushMsgCloudWindow" prefHeight="18.0" prefWidth="546.0" text="Mensagem de erro ou sucesso..." textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
                   <Pane prefHeight="200.0" prefWidth="200.0" />
-                  <HBox fx:id="btnClosePushMsgSettingsWindow" alignment="CENTER" maxHeight="28.0" maxWidth="28.0" minHeight="28.0" minWidth="28.0" onMouseClicked="#closePushMsg" prefHeight="28.0" prefWidth="28.0" styleClass="btn-grey" stylesheets="@style.css">
+                  <HBox fx:id="btnClosePushMsgCloudWindow" alignment="CENTER" maxHeight="28.0" maxWidth="28.0" minHeight="28.0" minWidth="28.0" onMouseClicked="#closePushMsg" prefHeight="28.0" prefWidth="28.0" styleClass="btn-grey" stylesheets="@style.css">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -62,9 +65,6 @@
          </children>
       </HBox>
    </top>
-   <padding>
-      <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-   </padding>
    <left>
       <HBox maxHeight="478.0" maxWidth="150.0" minHeight="478.0" minWidth="150.0" prefHeight="478.0" prefWidth="150.0" BorderPane.alignment="CENTER">
          <padding>
@@ -127,7 +127,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="btnNavBarSettingsWindow" alignment="TOP_LEFT" layoutX="20.0" layoutY="250.0" maxHeight="32.0" maxWidth="115.0" minHeight="32.0" minWidth="115.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="115.0" styleClass="btn-nav-bar" stylesheets="@style.css" text="Configurações" textFill="WHITE">
+                        <Button fx:id="btnNavBarSettingsWindow" alignment="TOP_LEFT" layoutX="20.0" layoutY="250.0" maxHeight="32.0" maxWidth="115.0" minHeight="32.0" minWidth="115.0" mnemonicParsing="false" onAction="#goToSettingsScreen" prefHeight="32.0" prefWidth="115.0" styleClass="btn-nav-bar" stylesheets="@style.css" text="Configurações" textFill="WHITE">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -142,7 +142,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="btnNavBarCloudWindow" alignment="TOP_LEFT" layoutX="20.0" layoutY="250.0" maxHeight="32.0" maxWidth="115.0" minHeight="32.0" minWidth="115.0" mnemonicParsing="false" onAction="#goToCloudScreen" prefHeight="32.0" prefWidth="115.0" styleClass="btn-nav-bar" stylesheets="@style.css" text="Nuvem" textFill="WHITE">
+                        <Button fx:id="btnNavBarCloudWindow" alignment="TOP_LEFT" layoutX="20.0" layoutY="250.0" maxHeight="32.0" maxWidth="115.0" minHeight="32.0" minWidth="115.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="115.0" styleClass="btn-nav-bar" stylesheets="@style.css" text="Nuvem" textFill="WHITE">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -183,28 +183,28 @@
    </left>
    <center>
       <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets top="16.0" />
+         </padding>
          <children>
             <HBox alignment="CENTER_LEFT" maxHeight="32.0" minHeight="32.0" prefHeight="32.0">
                <children>
                   <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@icon-settings.png" />
+                        <Image url="@icon-cloud.png" />
                      </image>
                   </ImageView>
-                  <Label text="Configurações">
+                  <Label text="Nuvem">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
                   <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                </children>
-               <VBox.margin>
-                  <Insets bottom="16.0" />
-               </VBox.margin>
             </HBox>
-            <HBox alignment="TOP_CENTER" maxHeight="381.0" minHeight="316.0" prefHeight="372.0" prefWidth="820.0">
+            <HBox alignment="TOP_CENTER" maxHeight="421.0" minHeight="316.0" prefHeight="421.0" prefWidth="820.0">
                <children>
-                  <VBox maxHeight="285.0" maxWidth="250.0" minHeight="285.0" minWidth="250.0" prefHeight="285.0" prefWidth="250.0">
+                  <VBox maxHeight="390.0" maxWidth="290.0" minHeight="285.0" minWidth="290.0" prefHeight="390.0" prefWidth="290.0">
                      <children>
                         <HBox alignment="CENTER_LEFT" maxHeight="32.0" minHeight="32.0" prefHeight="32.0">
                            <children>
@@ -216,67 +216,114 @@
                                     <Insets right="4.0" />
                                  </HBox.margin>
                               </Pane>
-                              <Label text="Dados da Conta">
+                              <Label text="Backup Automático">
                                  <font>
                                     <Font name="System Bold" size="16.0" />
                                  </font>
                               </Label>
                            </children>
                            <VBox.margin>
-                              <Insets bottom="16.0" />
+                              <Insets bottom="8.0" />
                            </VBox.margin>
                         </HBox>
-                        <VBox prefHeight="60.0" prefWidth="350.0">
+                        <Label fx:id="lbLastAutomaticUpdateCloudWindow" prefHeight="15.0" prefWidth="294.0" text="Último backup automático às 18/10/2024 10:24">
+                           <font>
+                              <Font name="System Italic" size="10.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="8.0" />
+                           </VBox.margin>
+                        </Label>
+                        <VBox alignment="CENTER_LEFT" prefHeight="83.0" prefWidth="250.0">
                            <children>
-                              <Label prefHeight="20.0" prefWidth="44.0" text="Nome">
+                              <Label prefHeight="17.0" prefWidth="250.0" text="Pasta">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                                  <VBox.margin>
-                                    <Insets bottom="3.0" />
+                                    <Insets bottom="5.0" />
                                  </VBox.margin>
                               </Label>
-                              <TextField fx:id="tfAccountNameSettingsWindow" maxHeight="88.0" maxWidth="250.0" minHeight="40.0" minWidth="250.0" prefHeight="40.0" prefWidth="250.0" styleClass="input-box" stylesheets="@style.css" />
+                              <HBox alignment="CENTER_LEFT" maxHeight="40.0" maxWidth="290.0" minHeight="40.0" minWidth="290.0" prefHeight="40.0" prefWidth="290.0" styleClass="input-box" stylesheets="@style.css">
+                                 <children>
+                                    <Label fx:id="lbFolderUrlCloudWindow" maxWidth="245.0" minWidth="245.0" prefHeight="15.0" prefWidth="245.0" text="/home/demelobr/Documents/Backup">
+                                       <font>
+                                          <Font name="Inter Italic" size="13.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="10.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <Button fx:id="btnChooseFolderCloudWindow" maxHeight="28.0" maxWidth="28.0" minHeight="28.0" minWidth="28.0" mnemonicParsing="false" onAction="#selectFolderPath" prefHeight="28.0" prefWidth="28.0" styleClass="btn-grey" stylesheets="@style.css">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@btn-contracts.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Escolha uma pasta para fazer o backup em nuvem das suas informações. Certifique-se de que esta pasta está sendo monitorada pelo serviço de nuvem OneDrive da Microsoft." wrappingWidth="253.28271484375">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Text>
                            </children>
-                           <padding>
+                           <VBox.margin>
                               <Insets bottom="10.0" />
-                           </padding>
+                           </VBox.margin>
                         </VBox>
-                        <VBox layoutX="10.0" layoutY="58.0" prefHeight="60.0" prefWidth="350.0">
+                        <VBox alignment="CENTER_LEFT" prefHeight="83.0" prefWidth="250.0">
                            <children>
-                              <Label prefHeight="20.0" prefWidth="44.0" text="Email">
+                              <Label prefHeight="17.0" prefWidth="250.0" text="Periodicidade">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                                  <VBox.margin>
-                                    <Insets bottom="3.0" />
+                                    <Insets bottom="5.0" />
                                  </VBox.margin>
                               </Label>
-                              <TextField fx:id="tfAccountEmailSettingsWindow" maxHeight="88.0" maxWidth="250.0" minHeight="40.0" minWidth="250.0" prefHeight="40.0" prefWidth="250.0" styleClass="input-box" stylesheets="@style.css" />
-                           </children>
-                           <padding>
-                              <Insets bottom="10.0" />
-                           </padding>
-                        </VBox>
-                        <VBox layoutX="10.0" layoutY="131.0" prefHeight="60.0" prefWidth="350.0">
-                           <children>
-                              <Label prefHeight="20.0" prefWidth="44.0" text="Senha">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
+                              <ChoiceBox fx:id="cbPeriodicityCloudWindow" maxHeight="40.0" maxWidth="250.0" minHeight="40.0" minWidth="250.0" prefHeight="40.0" prefWidth="250.0" styleClass="input-box" stylesheets="@style.css">
                                  <VBox.margin>
-                                    <Insets bottom="3.0" />
+                                    <Insets bottom="10.0" />
                                  </VBox.margin>
-                              </Label>
-                              <PasswordField fx:id="pfAccountPasswordSettingsWindow" maxHeight="40.0" maxWidth="250.0" minHeight="40.0" minWidth="250.0" prefHeight="40.0" prefWidth="250.0" styleClass="input-box" stylesheets="@style.css" />
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </ChoiceBox>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Escolha com que frequência deseja salvar automaticamente os dados para que eles sejam enviados para nuvem." wrappingWidth="253.28271484375">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Text>
+                           </children>
+                        </VBox>
+                        <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="290.0">
+                           <children>
+                              <Button fx:id="btnSaveSettingsCloudWindow" maxHeight="35.0" maxWidth="100.0" minHeight="35.0" minWidth="100.0" mnemonicParsing="false" onAction="#saveCloudSettings" prefHeight="35.0" prefWidth="100.0" styleClass="btn-nav-bar" stylesheets="@style.css" text="Salvar" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="10.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
                            </children>
                            <padding>
-                              <Insets bottom="10.0" />
+                              <Insets top="16.0" />
                            </padding>
-                        </VBox>
+                        </HBox>
                      </children>
                      <HBox.margin>
-                        <Insets right="16.0" />
+                        <Insets right="96.0" />
                      </HBox.margin>
                   </VBox>
                   <VBox layoutX="279.0" layoutY="26.0" maxHeight="285.0" maxWidth="250.0" minHeight="285.0" minWidth="250.0" prefHeight="285.0" prefWidth="250.0">
@@ -291,190 +338,75 @@
                                     <Insets right="4.0" />
                                  </HBox.margin>
                               </Pane>
-                              <Label text="Email de Recuperação">
+                              <Label text="Backup Manual">
                                  <font>
                                     <Font name="System Bold" size="16.0" />
                                  </font>
                               </Label>
                            </children>
                            <VBox.margin>
-                              <Insets bottom="16.0" />
+                              <Insets bottom="8.0" />
                            </VBox.margin>
                         </HBox>
-                        <VBox prefHeight="60.0" prefWidth="350.0">
+                        <Label fx:id="lbLastManualBackupCloudWindow" prefHeight="15.0" prefWidth="254.0" text="Último backup automático às 18/10/2024 10:24">
+                           <font>
+                              <Font name="System Italic" size="10.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="8.0" />
+                           </VBox.margin>
+                        </Label>
+                        <VBox alignment="CENTER_LEFT" prefHeight="83.0" prefWidth="250.0">
                            <children>
-                              <Label prefHeight="20.0" prefWidth="152.0" text="Email">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Caso esteja precisando fazer backup neste momento e não pode esperar pelo próximo ciclo de backup automático, faça o backup manual clicando no botão abaixo." wrappingWidth="253.28271484375">
                                  <VBox.margin>
-                                    <Insets bottom="3.0" />
+                                    <Insets />
                                  </VBox.margin>
-                              </Label>
-                              <TextField fx:id="tfRecoveryEmailSettingsWindow" maxHeight="88.0" maxWidth="250.0" minHeight="40.0" minWidth="250.0" prefHeight="40.0" prefWidth="250.0" styleClass="input-box" stylesheets="@style.css" />
-                           </children>
-                           <padding>
-                              <Insets bottom="10.0" />
-                           </padding>
-                        </VBox>
-                        <VBox prefHeight="60.0" prefWidth="350.0">
-                           <children>
-                              <Label prefHeight="20.0" prefWidth="44.0" text="Senha">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
+                              </Text>
+                              <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="290.0">
+                                 <children>
+                                    <Button fx:id="btnManualUpdateCloudWindow" maxHeight="35.0" maxWidth="100.0" minHeight="35.0" minWidth="100.0" mnemonicParsing="false" onAction="#manualUploadData" prefHeight="35.0" prefWidth="100.0" styleClass="btn-nav-bar" stylesheets="@style.css" text="Upload" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="10.0" />
+                                       </font>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@btn-cloud-upload.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                                 <padding>
+                                    <Insets top="16.0" />
+                                 </padding>
                                  <VBox.margin>
-                                    <Insets bottom="3.0" />
+                                    <Insets bottom="16.0" />
                                  </VBox.margin>
-                              </Label>
-                              <PasswordField fx:id="pfRecoveryPasswordSettingsWindow" maxHeight="40.0" maxWidth="250.0" minHeight="40.0" minWidth="250.0" prefHeight="40.0" prefWidth="250.0" styleClass="input-box" stylesheets="@style.css" />
+                              </HBox>
                            </children>
-                           <padding>
-                              <Insets bottom="10.0" />
-                           </padding>
-                        </VBox>
-                        <VBox layoutX="10.0" layoutY="131.0" prefHeight="60.0" prefWidth="350.0">
-                           <children>
-                              <Label prefHeight="20.0" prefWidth="44.0" text="Host">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets bottom="3.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <TextField fx:id="tfRecoveryHostSettingsWindow" maxHeight="88.0" maxWidth="250.0" minHeight="40.0" minWidth="250.0" prefHeight="40.0" prefWidth="250.0" styleClass="input-box" stylesheets="@style.css" />
-                           </children>
-                           <padding>
-                              <Insets bottom="10.0" />
-                           </padding>
-                        </VBox>
-                        <VBox layoutX="10.0" layoutY="204.0" prefHeight="60.0" prefWidth="350.0">
-                           <children>
-                              <Label prefHeight="20.0" prefWidth="44.0" text="Port">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets bottom="3.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <TextField fx:id="tfRecoveryPortSettingsWindow" maxHeight="88.0" maxWidth="250.0" minHeight="40.0" minWidth="250.0" prefHeight="40.0" prefWidth="250.0" styleClass="input-box" stylesheets="@style.css" />
-                           </children>
-                           <padding>
-                              <Insets bottom="10.0" />
-                           </padding>
                         </VBox>
                      </children>
                      <HBox.margin>
                         <Insets right="16.0" />
                      </HBox.margin>
                   </VBox>
-                  <VBox layoutX="436.0" layoutY="26.0" maxHeight="285.0" maxWidth="250.0" minHeight="285.0" minWidth="250.0" prefHeight="285.0" prefWidth="250.0">
-                     <children>
-                        <HBox alignment="CENTER_LEFT" maxHeight="32.0" minHeight="32.0" prefHeight="32.0">
-                           <children>
-                              <Pane maxHeight="24.0" maxWidth="4.0" minHeight="24.0" minWidth="4.0" prefHeight="24.0" prefWidth="4.0" styleClass="selector-blue" stylesheets="@style.css">
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                                 <HBox.margin>
-                                    <Insets right="4.0" />
-                                 </HBox.margin>
-                              </Pane>
-                              <Label text="Banco de Dados">
-                                 <font>
-                                    <Font name="System Bold" size="16.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                           <VBox.margin>
-                              <Insets bottom="16.0" />
-                           </VBox.margin>
-                        </HBox>
-                        <VBox prefHeight="60.0" prefWidth="350.0">
-                           <children>
-                              <Label prefHeight="20.0" prefWidth="44.0" text="URL">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets bottom="3.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <TextField fx:id="tfDataBaseUrlSettingsWindow" maxHeight="88.0" maxWidth="250.0" minHeight="40.0" minWidth="250.0" prefHeight="40.0" prefWidth="250.0" styleClass="input-box" stylesheets="@style.css" />
-                           </children>
-                           <padding>
-                              <Insets bottom="10.0" />
-                           </padding>
-                        </VBox>
-                        <VBox layoutX="10.0" layoutY="58.0" prefHeight="60.0" prefWidth="350.0">
-                           <children>
-                              <Label prefHeight="20.0" prefWidth="57.0" text="Usuário">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets bottom="3.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <TextField fx:id="tfDataBaseUserSettingsWindow" maxHeight="88.0" maxWidth="250.0" minHeight="40.0" minWidth="250.0" prefHeight="40.0" prefWidth="250.0" styleClass="input-box" stylesheets="@style.css" />
-                           </children>
-                           <padding>
-                              <Insets bottom="10.0" />
-                           </padding>
-                        </VBox>
-                        <VBox layoutX="10.0" layoutY="131.0" prefHeight="60.0" prefWidth="350.0">
-                           <children>
-                              <Label prefHeight="20.0" prefWidth="44.0" text="Senha">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets bottom="3.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <PasswordField fx:id="pfDataBasePasswordSettingsWindow" maxHeight="40.0" maxWidth="250.0" minHeight="40.0" minWidth="250.0" prefHeight="40.0" prefWidth="250.0" styleClass="input-box" stylesheets="@style.css" />
-                           </children>
-                           <padding>
-                              <Insets bottom="10.0" />
-                           </padding>
-                        </VBox>
-                     </children>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </VBox>
-               </children>
-               <padding>
-                  <Insets top="16.0" />
-               </padding>
-            </HBox>
-            <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="820.0">
-               <children>
-                  <Button fx:id="btnSaveSettingsWindow" maxHeight="35.0" maxWidth="100.0" minHeight="35.0" minWidth="100.0" mnemonicParsing="false" onAction="#editSettings" prefHeight="35.0" prefWidth="100.0" styleClass="btn-nav-bar" stylesheets="@style.css" text="Salvar" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="10.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
                </children>
                <padding>
                   <Insets top="16.0" />
                </padding>
             </HBox>
          </children>
-         <padding>
-            <Insets top="16.0" />
-         </padding>
       </VBox>
    </center>
    <bottom>
       <HBox alignment="BOTTOM_RIGHT" maxHeight="32.0" minHeight="32.0" prefHeight="32.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fx:id="imgDataBaseConnectionSettingsWindow" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgDataBaseConnectionCloudWindow" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@icon-database.png" />
                </image>
@@ -482,7 +414,7 @@
                   <Insets right="20.0" />
                </HBox.margin>
             </ImageView>
-            <HBox fx:id="btnHelpDetailsSettingsWindow" alignment="BOTTOM_LEFT" maxHeight="18.0" maxWidth="52.0" minHeight="18.0" minWidth="52.0" onMouseClicked="#goToHelpScreen" prefHeight="18.0" prefWidth="52.0">
+            <HBox fx:id="btnHelpDetailsCloudWindow" alignment="BOTTOM_LEFT" maxHeight="18.0" maxWidth="52.0" minHeight="18.0" minWidth="52.0" onMouseClicked="#goToHelpScreen" prefHeight="18.0" prefWidth="52.0">
                <children>
                   <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                      <image>

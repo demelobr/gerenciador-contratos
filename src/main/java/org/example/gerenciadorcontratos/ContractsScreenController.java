@@ -203,9 +203,11 @@ public class ContractsScreenController implements Initializable {
 
     @FXML
     public void goToCloudScreen(){
-        lbPushMsgContractsWindow.setText("Em Desenvolvimento!");
-        hbPushMsgContractsWindow.getStyleClass().setAll("push-msg-info");
-        hbPushMsgContractsWindow.setVisible(true);
+        this.resetWindow();
+        ScreenManager sm = ScreenManager.getInstance();
+        sm.getCloudScreenController().setUser(user);
+        sm.getCloudScreenController().initializeWindow();
+        sm.changeScreen("cloud-menu-screen.fxml", "Gerenciador de Contratos - Nuvem");
         this.delayHidePushMsg();
     }
 

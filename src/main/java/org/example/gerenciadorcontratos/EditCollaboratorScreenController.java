@@ -191,7 +191,7 @@ public class EditCollaboratorScreenController implements Initializable {
                     hbPushMsgEditCollaboratorWindow.setVisible(true);
                     this.delayHidePushMsg();
                 }
-            } catch (ConnectionFailureDbException | CollaboratorDoesNotExistException | CollaboratorNullException e) {
+            } catch (ConnectionFailureDbException | CollaboratorDoesNotExistException | CollaboratorNullException | CopyFileFailedException e) {
                 lbPushMsgEditCollaboratorWindow.setText(e.getMessage());
                 hbPushMsgEditCollaboratorWindow.getStyleClass().setAll("push-msg-error");
                 hbPushMsgEditCollaboratorWindow.setVisible(true);

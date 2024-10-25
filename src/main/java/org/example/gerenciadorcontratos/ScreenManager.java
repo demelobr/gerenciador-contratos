@@ -33,6 +33,7 @@ public class ScreenManager {
     private Scene deleteContractScreenScene;
     private Scene editContractScreenScene;
     private Scene settingsScreenScene;
+    private Scene cloudScreenScene;
 
     private LoginScreenController loginScreenController;
     private RegistrationScreenController registrationScreenController;
@@ -59,6 +60,7 @@ public class ScreenManager {
     private DeleteContractScreenController deleteContractScreenController;
     private EditContractScreenController editContractScreenController;
     private SettingsScreenController settingsScreenController;
+    private CloudScreenController cloudScreenController;
 
     public ScreenManager(){
         this.screenLoader();
@@ -181,6 +183,10 @@ public class ScreenManager {
         return settingsScreenScene;
     }
 
+    public Scene getCloudScreenScene() {
+        return cloudScreenScene;
+    }
+
     // GETTERS dos Controllers
     public LoginScreenController getLoginScreenController() {
         return loginScreenController;
@@ -280,6 +286,10 @@ public class ScreenManager {
 
     public SettingsScreenController getSettingsScreenController() {
         return settingsScreenController;
+    }
+
+    public CloudScreenController getCloudScreenController() {
+        return cloudScreenController;
     }
 
     private void screenLoader(){
@@ -384,6 +394,10 @@ public class ScreenManager {
             this.settingsScreenScene = new Scene(settingsScreenPane.load());
             this.settingsScreenController = settingsScreenPane.getController();
 
+            FXMLLoader cloudScreenPane = new FXMLLoader(getClass().getResource("cloud-menu-screen.fxml"));
+            this.cloudScreenScene = new Scene(cloudScreenPane.load());
+            this.cloudScreenController = cloudScreenPane.getController();
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -412,6 +426,7 @@ public class ScreenManager {
             case "contract-details-screen.fxml" -> stg.setScene(contractDatailsScreenScene);
             case "edit-contract-screen.fxml" -> stg.setScene(editContractScreenScene);
             case "settings-menu-screen.fxml" -> stg.setScene(settingsScreenScene);
+            case "cloud-menu-screen.fxml" -> stg.setScene(cloudScreenScene);
         }
         stg.setTitle(titleScreen);
         if(max) stg.setMaximized(true);

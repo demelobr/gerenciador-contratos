@@ -152,9 +152,11 @@ public class FinancesScreenController implements Initializable {
 
     @FXML
     public void goToCloudScreen(){
-        lbPushMsgFinancesWindow.setText("Em Desenvolvimento!");
-        hbPushMsgFinancesWindow.getStyleClass().setAll("push-msg-info");
-        hbPushMsgFinancesWindow.setVisible(true);
+        this.resetWindow();
+        ScreenManager sm = ScreenManager.getInstance();
+        sm.getCloudScreenController().setUser(user);
+        sm.getCloudScreenController().initializeWindow();
+        sm.changeScreen("cloud-menu-screen.fxml", "Gerenciador de Contratos - Nuvem");
         this.delayHidePushMsg();
     }
 
